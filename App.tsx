@@ -1,16 +1,23 @@
-import { ThemeProvider } from 'styled-components';
+import 'react-native-gesture-handler';
 
-// import { StatusBar } from 'expo-status-bar';
-import SignIn from '@/app/(auth)/sign-in';
-import Home from '@/app/(main)/home';
+import { ThemeProvider } from 'styled-components';
+import { PaperProvider } from 'react-native-paper';
 
 import { theme } from '@/styles/global';
+import { Routes } from '@/routes';
+import NavigationContainer from 'expo-router/src/fork/NavigationContainer';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  // return <Home />;
   return (
-    <ThemeProvider theme={theme}>
-      <SignIn />
-    </ThemeProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <ThemeProvider theme={theme}>
+          <PaperProvider>
+            <Routes />
+          </PaperProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 }
