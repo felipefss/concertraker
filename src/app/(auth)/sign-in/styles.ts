@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { Text, TextInput as RNPTextInput, IconButton as RNIconButton, Button } from 'react-native-paper';
+import { Text, IconButton as RNIconButton, Button } from 'react-native-paper';
 import { EdgeInsets } from 'react-native-safe-area-context';
 import { styled } from 'styled-components/native';
 
@@ -61,11 +61,12 @@ export const IconButton = styled(RNIconButton)`
   background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const Footer = styled(Text)`
+export const Footer = styled.View`
+  flex-direction: row;
   margin-bottom: 30px;
 `;
 
-export const SignUpLink = styled(Link)`
+export const SignUpLink = styled(Text)`
   font-weight: bold;
   color: ${({ theme }) => theme.colors.secondary};
 `;
