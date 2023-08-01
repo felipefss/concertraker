@@ -23,7 +23,9 @@ export default function SignIn() {
         <TextInput label="Password" mode="outlined" secureTextEntry={true} activeOutlineColor={theme.colors.primary} />
         <Styled.ForgotPasswordLink href="#">Forgot password?</Styled.ForgotPasswordLink>
 
-        <Styled.SignInButton mode="contained">Sign In</Styled.SignInButton>
+        <TouchableOpacity>
+          <Styled.SignInButton mode="contained">Sign In</Styled.SignInButton>
+        </TouchableOpacity>
       </Styled.SignInForm>
 
       <Styled.AlternativeSignIn>
@@ -31,9 +33,15 @@ export default function SignIn() {
         <Text>Sign in with</Text>
 
         <Styled.IconButtonsGroup>
-          <Styled.IconButton iconColor="white" icon="facebook" />
-          <Styled.IconButton iconColor="white" icon="twitter" />
-          <Styled.IconButton iconColor="white" icon="google" />
+          <TouchableOpacity>
+            <Styled.IconButton iconColor="white" icon="facebook" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Styled.IconButton iconColor="white" icon="twitter" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Styled.IconButton iconColor="white" icon="google" />
+          </TouchableOpacity>
         </Styled.IconButtonsGroup>
       </Styled.AlternativeSignIn>
 
