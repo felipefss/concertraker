@@ -8,6 +8,7 @@ export default StyleSheet.create({
     backgroundColor: theme.colors.cardBackground,
     marginVertical: 10,
     width: width - 20,
+    borderRadius: 4,
   },
   content: {
     marginHorizontal: 15,
