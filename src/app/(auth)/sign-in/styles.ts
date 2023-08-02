@@ -1,72 +1,67 @@
-import { Link } from 'expo-router';
-import { Text, IconButton as RNIconButton, Button } from 'react-native-paper';
+import { theme } from '@/styles/global';
+import { StyleSheet } from 'react-native';
 import { EdgeInsets } from 'react-native-safe-area-context';
-import { styled } from 'styled-components/native';
 
 interface ContainerProps {
-  $insets: EdgeInsets;
+  insets: EdgeInsets;
 }
 
-export const Container = styled.View<ContainerProps>`
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: ${({ $insets }) => $insets.top}px;
-  padding-bottom: ${({ $insets }) => $insets.bottom}px;
+export const containerStyles = ({ insets }: ContainerProps) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
 
-  background-color: ${({ theme }) => theme.colors.background};
-`;
+      backgroundColor: theme.colors.background,
+    },
+  });
 
-export const Header = styled(Text)`
-  font-size: 26px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const SignInForm = styled.View`
-  width: 100%;
-  padding: 0 15px;
-  gap: 8px;
-`;
-
-export const SignInText = styled(Text)`
-  align-self: center;
-  margin-bottom: 20px;
-
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-export const ForgotPasswordLink = styled(Link)`
-  align-self: flex-end;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const SignInButton = styled(Button)`
-  margin-top: 30px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: 4px;
-`;
-
-export const AlternativeSignIn = styled.View`
-  align-items: center;
-`;
-
-export const IconButtonsGroup = styled.View`
-  flex-direction: row;
-  margin-top: 10px;
-`;
-
-export const IconButton = styled(RNIconButton)`
-  background-color: ${({ theme }) => theme.colors.secondary};
-`;
-
-export const Footer = styled.View`
-  flex-direction: row;
-  margin-bottom: 30px;
-`;
-
-export const SignUpLink = styled(Text)`
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.secondary};
-`;
+export default StyleSheet.create({
+  header: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: theme.colors.primary,
+  },
+  signInForm: {
+    width: '100%',
+    paddingHorizontal: 15,
+    paddingVertical: 0,
+    gap: 8,
+  },
+  signInText: {
+    alignSelf: 'center',
+    marginBottom: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  forgotPasswordLink: {
+    alignSelf: 'flex-end',
+    color: theme.colors.primary,
+  },
+  signInButton: {
+    marginTop: 30,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 4,
+  },
+  alternativeSignIn: {
+    alignItems: 'center',
+  },
+  iconButtonsGroup: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  iconButton: {
+    backgroundColor: theme.colors.secondary,
+  },
+  footer: {
+    flexDirection: 'row',
+    marginBottom: 30,
+  },
+  signUpLink: {
+    fontWeight: 'bold',
+    color: theme.colors.secondary,
+  },
+});

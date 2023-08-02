@@ -1,9 +1,10 @@
-import { Text, TextInput } from 'react-native-paper';
-import * as Styled from './styles';
+import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { theme } from '@/styles/global';
 import { router } from 'expo-router';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+
+import { theme } from '@/styles/global';
+import styles, { containerStyles } from './styles';
 
 export default function SignUp() {
   const insets = useSafeAreaInsets();
@@ -13,11 +14,11 @@ export default function SignUp() {
   }
 
   return (
-    <Styled.Container $insets={insets}>
-      <Styled.Header>ConcerTraker</Styled.Header>
+    <View style={containerStyles({ insets }).container}>
+      <Text style={styles.header}>ConcerTraker</Text>
 
-      <Styled.SignInForm>
-        <Styled.SignInText>Sign Up</Styled.SignInText>
+      <View style={styles.signInForm}>
+        <Text style={styles.signInText}>Sign Up</Text>
 
         <TextInput label="Name" mode="outlined" activeOutlineColor={theme.colors.primary} />
         <TextInput label="Email" mode="outlined" activeOutlineColor={theme.colors.primary} />
@@ -30,33 +31,35 @@ export default function SignUp() {
         />
 
         <TouchableOpacity>
-          <Styled.SignUpButton mode="contained">Sign Up</Styled.SignUpButton>
+          <Button style={styles.signInButton} mode="contained">
+            Sign Up
+          </Button>
         </TouchableOpacity>
-      </Styled.SignInForm>
+      </View>
 
-      <Styled.AlternativeSignIn>
+      <View style={styles.alternativeSignIn}>
         <Text>- OR -</Text>
         <Text>Sign up with</Text>
 
-        <Styled.IconButtonsGroup>
+        <View style={styles.iconButtonsGroup}>
           <TouchableOpacity>
-            <Styled.IconButton iconColor="white" icon="facebook" />
+            <IconButton style={styles.iconButton} iconColor="white" icon="facebook" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Styled.IconButton iconColor="white" icon="twitter" />
+            <IconButton style={styles.iconButton} iconColor="white" icon="twitter" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Styled.IconButton iconColor="white" icon="google" />
+            <IconButton style={styles.iconButton} iconColor="white" icon="google" />
           </TouchableOpacity>
-        </Styled.IconButtonsGroup>
-      </Styled.AlternativeSignIn>
+        </View>
+      </View>
 
-      <Styled.Footer>
+      <View style={styles.footer}>
         <Text>Already have an account? </Text>
         <TouchableOpacity onPress={handleGoToSignInPage}>
-          <Styled.SignUpLink>Sign In</Styled.SignUpLink>
+          <Text style={styles.signUpLink}>Sign In</Text>
         </TouchableOpacity>
-      </Styled.Footer>
-    </Styled.Container>
+      </View>
+    </View>
   );
 }

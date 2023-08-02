@@ -1,9 +1,10 @@
-import { FlatList, Text, View } from 'react-native';
-
-import * as Styled from './styles';
+import { FlatList, SafeAreaView } from 'react-native';
 import { Stack } from 'expo-router';
-import { theme } from '@/styles/global';
+
 import { Card } from './components/Card';
+
+import { theme } from '@/styles/global';
+import styles from './styles';
 
 const mockCardsData = [
   {
@@ -34,7 +35,7 @@ const mockCardsData = [
 
 export default function Home() {
   return (
-    <Styled.Container>
+    <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
           title: 'ConcerTraker',
@@ -44,6 +45,6 @@ export default function Home() {
       />
 
       <FlatList data={mockCardsData} renderItem={({ item }) => <Card key={item.id} data={item} />} />
-    </Styled.Container>
+    </SafeAreaView>
   );
 }

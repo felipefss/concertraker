@@ -1,8 +1,10 @@
-import { styled } from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  margin: 5px 0;
-`;
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+  },
+});
