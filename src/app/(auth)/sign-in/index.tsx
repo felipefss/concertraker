@@ -4,9 +4,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '@/styles/global';
 import { router } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
+import { useEffect } from 'react';
 
 export default function SignIn() {
   const insets = useSafeAreaInsets();
+
+  // TODO: This is only for developing the home screens
+  useEffect(() => {
+    setTimeout(() => {
+      router.replace('/home');
+    });
+  }, []);
 
   function handleGoToSignUpPage() {
     router.push('/sign-up');
