@@ -1,7 +1,7 @@
 import { FlatList, SafeAreaView } from 'react-native';
 import { Stack } from 'expo-router';
 
-import { Card } from './components/Card';
+import { ConcertCard } from './components/Card';
 
 import { theme } from '@/styles/global';
 import styles from './styles';
@@ -44,7 +44,7 @@ export default function Home() {
         }}
       />
 
-      <FlatList data={mockCardsData} renderItem={({ item }) => <Card key={item.id} data={item} />} />
+      <FlatList data={mockCardsData} renderItem={({ item }) => <ConcertCard key={item.id} data={item} />} />
     </SafeAreaView>
   );
 }
