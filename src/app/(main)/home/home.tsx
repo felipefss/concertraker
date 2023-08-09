@@ -31,6 +31,22 @@ const mockCardsData = [
     date: '2023-10-10',
     notes: 'General admission tickets, all ages.',
   },
+  {
+    id: 4,
+    artist: 'Melody Makers',
+    location: 'Chicago, IL',
+    venue: 'Windy City Music Hall',
+    date: '2023-10-10',
+    notes: 'General admission tickets, all ages.',
+  },
+  {
+    id: 5,
+    artist: 'Melody Makers',
+    location: 'Chicago, IL',
+    venue: 'Windy City Music Hall',
+    date: '2023-10-10',
+    notes: 'General admission tickets, all ages.',
+  },
 ];
 
 export default function Home() {

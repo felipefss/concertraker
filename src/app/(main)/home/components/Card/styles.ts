@@ -4,11 +4,6 @@ import { theme } from '@/styles/global';
 const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
-  optionsButton: {
-    position: 'absolute',
-    right: -10,
-    top: 0,
-  },
   container: {
     backgroundColor: theme.colors.cardBackground,
     marginVertical: 10,
@@ -16,20 +11,19 @@ export default StyleSheet.create({
     borderRadius: 4,
   },
   content: {
-    position: 'relative',
     marginHorizontal: 15,
     marginVertical: 10,
     rowGap: 10,
   },
-  rightColumn: {
-    flex: 3,
-  },
-  leftColumn: {
-    flex: 2,
-  },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  rightColumn: {
+    flex: 2,
+  },
+  leftColumn: {
+    flex: 3,
   },
   label: {
     fontSize: 13,
