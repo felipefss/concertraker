@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { GestureResponderEvent, Pressable, View } from 'react-native';
-import { Card, Modal, PaperProvider, Portal, Text } from 'react-native-paper';
+import { Card, PaperProvider, Text } from 'react-native-paper';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
 import styles from './styles';
 import { OptionsMenu } from '../OptionsMenu';
 import { theme } from '@/styles/global';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface CardData {
   artist: string;
@@ -21,7 +21,6 @@ interface Props {
 }
 
 export function ConcertCard({ data }: Props) {
-  // const [anchorOptionsMenu, setAnchorOptionsMenu] = useState({ x: 0, y: 0 });
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const { artist, date, location, notes, venue } = data;
@@ -39,8 +38,6 @@ export function ConcertCard({ data }: Props) {
   return (
     <PaperProvider>
       <Card style={styles.container} contentStyle={styles.content}>
-        {/* <SimpleLineIcons style={styles.optionsButton} name="options-vertical" size={14} color={theme.colors.text} /> */}
-
         <OptionsMenu
           anchor={
             <Pressable onPress={handleOpenMenu}>
