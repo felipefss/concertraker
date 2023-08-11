@@ -15,4 +15,7 @@ export default StyleSheet.create({
 
     marginTop: 100,
   },
+  submitButton: {
+    marginTop: 50,
+  },
 });
