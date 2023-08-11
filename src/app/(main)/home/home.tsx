@@ -5,6 +5,8 @@ import { ConcertCard } from './components/Card';
 
 import { theme } from '@/styles/global';
 import styles from './styles';
+import { IconButton } from 'react-native-paper';
+import { HeaderRight } from './components/HeaderRight';
 
 const mockCardsData = [
   {
@@ -57,6 +59,7 @@ export default function Home() {
           title: 'ConcerTraker',
           headerTitleStyle: { color: theme.colors.white },
           headerStyle: { backgroundColor: theme.colors.navBarBackground },
+          headerRight: (props) => <HeaderRight />,
         }}
       />
 
