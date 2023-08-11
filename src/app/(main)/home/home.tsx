@@ -5,7 +5,6 @@ import { ConcertCard } from './components/Card';
 
 import { theme } from '@/styles/global';
 import styles from './styles';
-import { IconButton } from 'react-native-paper';
 import { HeaderRight } from './components/HeaderRight';
 
 const mockCardsData = [
