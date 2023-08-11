@@ -13,7 +13,7 @@ export default function SignIn() {
   // TODO: This is only for developing the home screens
   useEffect(() => {
     setTimeout(() => {
-      router.replace('/home');
+      router.replace('/new-concert');
     });
   }, []);
 
