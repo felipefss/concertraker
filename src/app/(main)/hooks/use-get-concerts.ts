@@ -13,8 +13,6 @@ export interface Concert {
 export function useGetConcerts() {
   const [concerts, setConcerts] = useState<Concert[]>([]);
 
-  console.log(concerts);
-
   useEffect(() => {
     api
       .get('/concerts')
