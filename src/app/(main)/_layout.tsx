@@ -4,7 +4,7 @@ import { ConcertsProvider } from './contexts/concerts-context';
 export default function Layout() {
   return (
     <ConcertsProvider>
-      <Stack />
+      <Stack screenOptions={{ animation: 'slide_from_right' }} />
     </ConcertsProvider>
   );
 }
