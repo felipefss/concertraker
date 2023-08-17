@@ -12,7 +12,7 @@ interface CardData {
   artist: string;
   venue: string;
   location: string;
-  date: string;
+  year: number;
   notes: string;
 }
 
@@ -23,16 +23,14 @@ interface Props {
 export function ConcertCard({ data }: Props) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const { artist, date, location, notes, venue } = data;
+  const { artist, year, location, notes, venue } = data;
 
-  function handleOpenMenu({ nativeEvent }: GestureResponderEvent) {
+  function handleOpenMenu() {
     setIsMenuVisible(true);
-    console.log('OPEN');
   }
 
   function handleCloseMenu() {
     setIsMenuVisible(false);
-    console.log('CLOSE');
   }
 
   return (
@@ -67,8 +65,8 @@ export function ConcertCard({ data }: Props) {
           </View>
 
           <View style={styles.rightColumn}>
-            <Text style={styles.label}>Date</Text>
-            <Text style={styles.value}>{dayjs(date).format('MMM DD, YYYY')}</Text>
+            <Text style={styles.label}>Year</Text>
+            <Text style={styles.value}>{year}</Text>
           </View>
         </View>
 

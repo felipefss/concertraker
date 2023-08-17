@@ -1,3 +1,4 @@
+import { useConcertsContext } from '@/app/(main)/contexts/concerts-context';
 import { theme } from '@/styles/global';
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import { TextInput } from 'react-native-paper';
@@ -8,7 +9,12 @@ type Props<T> = {
 } & UseControllerProps<T & FieldValues>;
 
 export function HFTextInput<T>({ control, name, label, multiline }: Props<T>) {
-  const { field } = useController({ control, name });
+  const {
+    field,
+    fieldState: { invalid },
+    formState: { isSubmitting },
+  } = useController({ control, name });
+  // const { isSubmitting } = useConcertsContext();
 
   return (
     <TextInput
@@ -19,6 +25,8 @@ export function HFTextInput<T>({ control, name, label, multiline }: Props<T>) {
       numberOfLines={4}
       value={field.value}
       onChangeText={field.onChange}
+      error={invalid}
+      disabled={isSubmitting}
     />
   );
 }
