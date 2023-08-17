@@ -12,8 +12,8 @@ interface CardData {
   artist: string;
   venue: string;
   location: string;
-  year: number;
-  notes: string;
+  year: string;
+  notes: string | null;
 }
 
 interface Props {
@@ -66,7 +66,7 @@ export function ConcertCard({ data }: Props) {
 
           <View style={styles.rightColumn}>
             <Text style={styles.label}>Year</Text>
-            <Text style={styles.value}>{year}</Text>
+            <Text style={styles.value}>{dayjs(year).format('YYYY')}</Text>
           </View>
         </View>
 

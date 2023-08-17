@@ -14,7 +14,6 @@ export function HFTextInput<T>({ control, name, label, multiline }: Props<T>) {
     fieldState: { invalid },
     formState: { isSubmitting },
   } = useController({ control, name });
-  // const { isSubmitting } = useConcertsContext();
 
   return (
     <TextInput
