@@ -9,6 +9,7 @@ import { theme } from '@/styles/global';
 import { useState } from 'react';
 
 interface CardData {
+  id: string;
   artist: string;
   venue: string;
   location: string;
@@ -42,6 +43,7 @@ export function ConcertCard({ data }: Props) {
               <SimpleLineIcons name="options-vertical" size={14} color={theme.colors.text} />
             </Pressable>
           }
+          concertData={data}
           isVisible={isMenuVisible}
           onClose={handleCloseMenu}
         />

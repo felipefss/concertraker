@@ -57,8 +57,9 @@ export function ConcertsProvider({ children }: Props) {
   const deleteConcert = useCallback(async (id: string) => {
     const response = await api.delete(`/concerts/${id}`);
 
-    if (response.status === 204) {
-      setConcerts((prev) => prev.filter((concert) => concert.id === id));
+    if (response.status === 200) {
+      // TODO: Change to 204
+      setConcerts((prev) => prev.filter((concert) => concert.id !== id));
     }
   }, []);
 
