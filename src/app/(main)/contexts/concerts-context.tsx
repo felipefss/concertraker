@@ -7,6 +7,7 @@ type FormAction = 'add' | 'edit';
 interface ConcertsContext {
   concerts: Concert[];
   onSubmitForm: (data: FormModel, action: FormAction) => void;
+  deleteConcert: (id: string) => Promise<void>;
 }
 
 interface Concert {
@@ -53,7 +54,15 @@ export function ConcertsProvider({ children }: Props) {
     );
   }, []);
 
-  async function onSubmitForm(data: FormModel, action: FormAction) {
+  const deleteConcert = useCallback(async (id: string) => {
+    const response = await api.delete(`/concerts/${id}`);
+
+    if (response.status === 204) {
+      setConcerts((prev) => prev.filter((concert) => concert.id === id));
+    }
+  }, []);
+
+  const onSubmitForm = useCallback(async (data: FormModel, action: FormAction) => {
     const response = await api('/concerts', {
       method: action === 'add' ? 'POST' : 'PUT',
       data,
@@ -73,13 +82,14 @@ export function ConcertsProvider({ children }: Props) {
           break;
       }
     }
-  }
+  }, []);
 
   return (
     <ConcertsContext.Provider
       value={{
         concerts,
         onSubmitForm,
+        deleteConcert,
       }}
     >
       {children}
