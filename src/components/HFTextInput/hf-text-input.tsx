@@ -1,4 +1,4 @@
-import { useConcertsContext } from '@/app/(main)/contexts/concerts-context';
+import { useConcertsContext } from '@/contexts/concerts-context';
 import { theme } from '@/styles/global';
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form';
 import { TextInput } from 'react-native-paper';

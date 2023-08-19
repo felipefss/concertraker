@@ -1,14 +1,6 @@
 import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { FormModel } from '../concert-form/[slug]/schema';
+import { FormModel } from '../components/ConcertForm/schema';
 import { api } from '@/lib/api';
-
-type FormAction = 'add' | 'edit';
-
-interface ConcertsContext {
-  concerts: Concert[];
-  onSubmitForm: (data: FormModel, action: FormAction) => void;
-  deleteConcert: (id: string) => Promise<void>;
-}
 
 interface Concert {
   id: string;
@@ -17,6 +9,13 @@ interface Concert {
   venue: string;
   year: string;
   notes: string | null;
+}
+
+interface ConcertsContext {
+  concerts: Concert[];
+  deleteConcert: (id: string) => Promise<void>;
+  onAddConcert: (data: FormModel) => Promise<void>;
+  onEditConcert: (data: Concert) => Promise<void>;
 }
 
 const ConcertsContext = createContext({} as ConcertsContext);
@@ -63,25 +62,48 @@ export function ConcertsProvider({ children }: Props) {
     }
   }, []);
 
-  const onSubmitForm = useCallback(async (data: FormModel, action: FormAction) => {
-    const response = await api('/concerts', {
-      method: action === 'add' ? 'POST' : 'PUT',
-      data,
-    });
+  // const onSubmitForm = useCallback(async (data: FormModel, action: FormAction) => {
+  //   // TODO: Split this into two functions (and the slug in two pages)
+  //   const response = await api('/concerts', {
+  //     method: action === 'add' ? 'POST' : 'PUT',
+  //     data,
+  //   });
 
+  //   await new Promise((resolve) => setTimeout(resolve, 3000));
+
+  //   if ([200, 201, 204].includes(response.status)) {
+  //     switch (action) {
+  //       case 'add':
+  //         addConcert({ ...data, id: response.data.id });
+  //         break;
+  //       case 'edit':
+  //         if (data.id) {
+  //           updateConcert({ ...data, id: data.id });
+  //         }
+  //         break;
+  //     }
+  //   }
+  // }, []);
+
+  const onAddConcert = useCallback(async (data: FormModel) => {
+    const response = await api.post('/concerts', data);
+
+    // TODO: For local dev only. Remove this after
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    if ([200, 201, 204].includes(response.status)) {
-      switch (action) {
-        case 'add':
-          addConcert({ ...data, id: response.data.id });
-          break;
-        case 'edit':
-          if (data.id) {
-            updateConcert({ ...data, id: data.id });
-          }
-          break;
-      }
+    if (response.status === 201) {
+      addConcert({ ...data, id: response.data.id });
+    }
+  }, []);
+
+  const onEditConcert = useCallback(async (data: Concert) => {
+    const response = await api.put(`/concerts/${data.id}`, data);
+
+    // TODO: For local dev only. Remove this after
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    if (response.status === 201) {
+      updateConcert(data as Concert);
     }
   }, []);
 
@@ -89,8 +111,9 @@ export function ConcertsProvider({ children }: Props) {
     <ConcertsContext.Provider
       value={{
         concerts,
-        onSubmitForm,
         deleteConcert,
+        onAddConcert,
+        onEditConcert,
       }}
     >
       {children}

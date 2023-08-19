@@ -4,7 +4,7 @@ import { Menu } from 'react-native-paper';
 
 import styles from './styles';
 import { router } from 'expo-router';
-import { useConcertsContext } from '@/app/(main)/contexts/concerts-context';
+import { useConcertsContext } from '@/contexts/concerts-context';
 
 interface Concert {
   id: string;
@@ -27,7 +27,9 @@ export function OptionsMenu({ isVisible, anchor, onClose, concertData }: Props) 
 
   function handleClickEdit() {
     router.push('/concert-form/edit');
-    // TODO: pass data in params
+    router.setParams({
+      id: concertData.id,
+    });
   }
 
   async function handleClickDelete() {

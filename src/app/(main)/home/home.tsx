@@ -6,7 +6,7 @@ import { ConcertCard } from './components/Card';
 import { theme } from '@/styles/global';
 import styles from './styles';
 import { HeaderRight } from './components/HeaderRight';
-import { useConcertsContext } from '../contexts/concerts-context';
+import { useConcertsContext } from '../../../contexts/concerts-context';
 
 export default function Home() {
   const { concerts } = useConcertsContext();
