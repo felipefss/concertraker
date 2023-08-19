@@ -4,7 +4,7 @@ import { IconButton } from 'react-native-paper';
 
 export function HeaderRight() {
   function handlePressAddButton() {
-    router.push('/concert-form/add');
+    router.push('/add-concert');
   }
 
   return (
