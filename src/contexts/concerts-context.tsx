@@ -16,7 +16,7 @@ interface ConcertsContext {
   concerts: Concert[];
   deleteConcert: (id: string) => Promise<void>;
   onAddConcert: (data: FormModel) => Promise<void>;
-  onEditConcert: (data: Concert) => Promise<void>;
+  onEditConcert: (data: FormModel) => Promise<void>;
 }
 
 const ConcertsContext = createContext({} as ConcertsContext);
@@ -76,14 +76,19 @@ export function ConcertsProvider({ children }: Props) {
     }
   }, []);
 
-  const onEditConcert = useCallback(async (data: Concert) => {
-    const response = await api.put(`/concerts/${data.id}`, data);
+  const onEditConcert = useCallback(async (data: FormModel) => {
+    if (data.id) {
+      const response = await api.put(`/concerts/${data.id}`, data);
 
-    // TODO: For local dev only. Remove this after
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+      // TODO: For local dev only. Remove this after
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    if (response.status === 201) {
-      updateConcert(data as Concert);
+      // TODO: Change to 201
+      if (response.status === 200) {
+        updateConcert(data as Concert);
+      }
+    } else {
+      throw new Error('No concert ID provided.');
     }
   }, []);
 

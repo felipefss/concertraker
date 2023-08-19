@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const concertSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().optional(),
   artist: z.string(),
   location: z.string(),
   venue: z.string(),

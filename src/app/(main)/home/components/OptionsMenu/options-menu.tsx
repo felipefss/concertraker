@@ -26,10 +26,11 @@ export function OptionsMenu({ isVisible, anchor, onClose, concertData }: Props) 
   const { deleteConcert } = useConcertsContext();
 
   function handleClickEdit() {
-    router.push('/concert-form/edit');
+    router.push('/edit-concert');
     router.setParams({
       id: concertData.id,
     });
+    onClose();
   }
 
   async function handleClickDelete() {

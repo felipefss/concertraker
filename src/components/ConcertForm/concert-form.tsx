@@ -6,17 +6,38 @@ import { theme } from '@/styles/global';
 import styles from './styles';
 import { FormModel } from './schema';
 import { useFormContext } from 'react-hook-form';
+import { useConcertsContext } from '@/contexts/concerts-context';
+import { useEffect } from 'react';
+import dayjs from 'dayjs';
 
 interface Props {
   onSubmit: (data: FormModel) => Promise<void>;
+  id?: string;
 }
 
-export function ConcertForm({ onSubmit }: Props) {
+export function ConcertForm({ onSubmit, id }: Props) {
+  const { concerts } = useConcertsContext();
   const {
     control,
     formState: { isSubmitting },
     handleSubmit,
+    setValue,
   } = useFormContext<FormModel>();
+
+  useEffect(() => {
+    if (id) {
+      const currentConcert = concerts.find((concert) => concert.id === id);
+
+      if (currentConcert) {
+        setValue('id', currentConcert.id);
+        setValue('artist', currentConcert.artist);
+        setValue('location', currentConcert.location);
+        setValue('venue', currentConcert.venue);
+        setValue('year', dayjs(currentConcert.year).format('YYYY'));
+        setValue('notes', currentConcert.notes);
+      }
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
