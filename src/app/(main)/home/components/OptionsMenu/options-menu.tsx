@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Menu } from 'react-native-paper';
 
 import styles from './styles';
@@ -37,6 +37,18 @@ export function OptionsMenu({ isVisible, anchor, onClose, concertData }: Props) 
     await deleteConcert(concertData.id);
   }
 
+  function showConfirmDeleteDialog() {
+    return Alert.alert('Are you sure?', 'Are you sure you want to delete this concert?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          handleClickDelete();
+        },
+      },
+      { text: 'No' },
+    ]);
+  }
+
   return (
     <View style={styles.container}>
       <Menu visible={isVisible} anchor={anchor} onDismiss={onClose} style={{ top: 10 }}>
@@ -44,7 +56,7 @@ export function OptionsMenu({ isVisible, anchor, onClose, concertData }: Props) 
         <Menu.Item
           leadingIcon="trash-can-outline"
           title="Delete"
-          onPress={handleClickDelete}
+          onPress={showConfirmDeleteDialog}
           titleStyle={styles.item}
           dense
         />
