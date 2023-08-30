@@ -5,12 +5,19 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
+import { useAuthContext } from '@/contexts/auth-context';
 
 export default function SignUp() {
+  const { signUpWithEmail } = useAuthContext();
+
   const insets = useSafeAreaInsets();
 
   function handleGoToSignInPage() {
     router.back();
+  }
+
+  function handleSignUp() {
+    signUpWithEmail('felipe@teste.com', '123456', 'Felipe Santos');
   }
 
   return (
@@ -30,7 +37,7 @@ export default function SignUp() {
           activeOutlineColor={theme.colors.primary}
         />
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}>
           <Button style={styles.signInButton} mode="contained">
             Sign Up
           </Button>

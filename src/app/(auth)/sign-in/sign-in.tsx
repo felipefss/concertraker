@@ -6,19 +6,25 @@ import { useEffect } from 'react';
 
 import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
+import { useAuthContext } from '@/contexts/auth-context';
 
 export default function SignIn() {
-  const insets = useSafeAreaInsets();
+  const { session, signInWithEmail } = useAuthContext();
 
-  // TODO: This is only for developing the home screens
   useEffect(() => {
-    setTimeout(() => {
+    if (session) {
       router.replace('/home');
-    });
-  }, []);
+    }
+  }, [session]);
+
+  const insets = useSafeAreaInsets();
 
   function handleGoToSignUpPage() {
     router.push('/sign-up');
+  }
+
+  function handleSignIn() {
+    signInWithEmail('felipe@teste.com', '123456');
   }
 
   return (
@@ -34,7 +40,7 @@ export default function SignIn() {
           Forgot password?
         </Link>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSignIn}>
           <Button style={styles.signInButton} mode="contained">
             Sign In
           </Button>
