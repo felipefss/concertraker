@@ -7,9 +7,25 @@ import { useEffect } from 'react';
 import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
 import { useAuthContext } from '@/contexts/auth-context';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { HFTextInput } from '@/components/HFTextInput';
+
+const signInSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+  // .min(8, 'Password should have at least 8 characters')
+  // .regex(/[A-z]|[0-9]|\W/, 'Password is weak'),
+});
+
+type FormModel = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
   const { session, signInWithEmail } = useAuthContext();
+  const { control, handleSubmit } = useForm<FormModel>({
+    resolver: zodResolver(signInSchema),
+  });
 
   useEffect(() => {
     if (session) {
@@ -23,8 +39,8 @@ export default function SignIn() {
     router.push('/sign-up');
   }
 
-  function handleSignIn() {
-    signInWithEmail('felipe@teste.com', '123456');
+  function handleSignIn({ email, password }: FormModel) {
+    signInWithEmail(email, password);
   }
 
   return (
@@ -34,13 +50,13 @@ export default function SignIn() {
       <View style={styles.signInForm}>
         <Text style={styles.signInText}>Sign In</Text>
 
-        <TextInput label="Email" mode="outlined" activeOutlineColor={theme.colors.primary} />
-        <TextInput label="Password" mode="outlined" secureTextEntry={true} activeOutlineColor={theme.colors.primary} />
+        <HFTextInput<FormModel> label="Email" name="email" control={control} />
+        <HFTextInput<FormModel> label="Password" name="password" control={control} isPassword={true} />
         <Link style={styles.forgotPasswordLink} href="#">
           Forgot password?
         </Link>
 
-        <TouchableOpacity onPress={handleSignIn}>
+        <TouchableOpacity onPress={handleSubmit(handleSignIn)}>
           <Button style={styles.signInButton} mode="contained">
             Sign In
           </Button>

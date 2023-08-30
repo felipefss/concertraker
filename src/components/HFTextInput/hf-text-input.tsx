@@ -6,9 +6,10 @@ import { TextInput } from 'react-native-paper';
 type Props<T> = {
   label: string;
   multiline?: boolean;
+  isPassword?: boolean;
 } & UseControllerProps<T & FieldValues>;
 
-export function HFTextInput<T>({ control, name, label, multiline }: Props<T>) {
+export function HFTextInput<T>({ control, name, label, multiline, isPassword }: Props<T>) {
   const {
     field,
     fieldState: { invalid },
@@ -26,6 +27,7 @@ export function HFTextInput<T>({ control, name, label, multiline }: Props<T>) {
       onChangeText={field.onChange}
       error={invalid}
       disabled={isSubmitting}
+      secureTextEntry={isPassword}
     />
   );
 }

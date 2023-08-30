@@ -55,6 +55,14 @@ export function AuthProvider({ children }: ProviderProps) {
     }
   }
 
+  async function signOut() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      Alert.alert(error.message);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
