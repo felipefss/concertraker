@@ -1,3 +1,4 @@
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { supabase } from '@/lib/supabase';
 import { Session } from '@supabase/supabase-js';
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
@@ -5,8 +6,9 @@ import { Alert } from 'react-native';
 
 interface AuthContextProps {
   session: Session | null;
-  signUpWithEmail: (email: string, password: string, name: string) => void;
-  signInWithEmail: (email: string, password: string) => void;
+  signUpWithEmail: (email: string, password: string, name: string) => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -17,6 +19,8 @@ interface ProviderProps {
 
 export function AuthProvider({ children }: ProviderProps) {
   const [session, setSession] = useState<Session | null>(null);
+
+  useProtectedRoute(session);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -69,6 +73,7 @@ export function AuthProvider({ children }: ProviderProps) {
         session,
         signUpWithEmail,
         signInWithEmail,
+        signOut,
       }}
     >
       {children}

@@ -22,7 +22,7 @@ interface Props {
   concertData: Concert;
 }
 
-export function OptionsMenu({ isVisible, anchor, onClose, concertData }: Props) {
+export function CardOptionsMenu({ isVisible, anchor, onClose, concertData }: Props) {
   const { deleteConcert } = useConcertsContext();
 
   function handleClickEdit() {

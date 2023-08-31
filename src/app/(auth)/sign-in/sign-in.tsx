@@ -2,9 +2,7 @@ import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
-import { useEffect } from 'react';
 
-import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
 import { useAuthContext } from '@/contexts/auth-context';
 import { useForm } from 'react-hook-form';
@@ -26,12 +24,6 @@ export default function SignIn() {
   const { control, handleSubmit } = useForm<FormModel>({
     resolver: zodResolver(signInSchema),
   });
-
-  useEffect(() => {
-    if (session) {
-      router.replace('/home');
-    }
-  }, [session]);
 
   const insets = useSafeAreaInsets();
 
