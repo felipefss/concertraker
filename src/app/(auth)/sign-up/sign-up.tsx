@@ -6,9 +6,38 @@ import { TouchableOpacity, View } from 'react-native';
 import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
 import { useAuthContext } from '@/contexts/auth-context';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { HFTextInput } from '@/components/HFTextInput';
+
+const signUpSchema = z
+  .object({
+    name: z.string(),
+    email: z.string().email(),
+    password: z
+      .string()
+      .min(8, 'Password should have at least 8 characters')
+      .regex(/[A-z]|[0-9]|\W/, 'Password is weak'),
+    confirmPassword: z.string(),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['confirmPassword'],
+        message: 'Passwords do not match',
+      });
+    }
+  });
+
+type FormModel = z.infer<typeof signUpSchema>;
 
 export default function SignUp() {
   const { signUpWithEmail } = useAuthContext();
+  const { control, handleSubmit } = useForm<FormModel>({
+    resolver: zodResolver(signUpSchema),
+  });
 
   const insets = useSafeAreaInsets();
 
@@ -16,8 +45,8 @@ export default function SignUp() {
     router.back();
   }
 
-  function handleSignUp() {
-    signUpWithEmail('felipe@teste.com', '123456', 'Felipe Santos');
+  function handleSignUp({ email, name, password }: FormModel) {
+    signUpWithEmail(email, password, name);
   }
 
   return (
@@ -27,17 +56,12 @@ export default function SignUp() {
       <View style={styles.signInForm}>
         <Text style={styles.signInText}>Sign Up</Text>
 
-        <TextInput label="Name" mode="outlined" activeOutlineColor={theme.colors.primary} />
-        <TextInput label="Email" mode="outlined" activeOutlineColor={theme.colors.primary} />
-        <TextInput label="Password" mode="outlined" secureTextEntry={true} activeOutlineColor={theme.colors.primary} />
-        <TextInput
-          label="Confirm Password"
-          mode="outlined"
-          secureTextEntry={true}
-          activeOutlineColor={theme.colors.primary}
-        />
+        <HFTextInput<FormModel> label="Name" name="name" control={control} />
+        <HFTextInput<FormModel> label="Email" name="email" control={control} />
+        <HFTextInput<FormModel> label="Password" name="password" control={control} isPassword={true} />
+        <HFTextInput<FormModel> label="Confirm Password" name="confirmPassword" control={control} isPassword={true} />
 
-        <TouchableOpacity onPress={handleSignUp}>
+        <TouchableOpacity onPress={handleSubmit(handleSignUp)}>
           <Button style={styles.signInButton} mode="contained">
             Sign Up
           </Button>

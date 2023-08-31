@@ -13,14 +13,12 @@ import { HFTextInput } from '@/components/HFTextInput';
 const signInSchema = z.object({
   email: z.string().email(),
   password: z.string(),
-  // .min(8, 'Password should have at least 8 characters')
-  // .regex(/[A-z]|[0-9]|\W/, 'Password is weak'),
 });
 
 type FormModel = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
-  const { session, signInWithEmail } = useAuthContext();
+  const { signInWithEmail } = useAuthContext();
   const { control, handleSubmit } = useForm<FormModel>({
     resolver: zodResolver(signInSchema),
   });
