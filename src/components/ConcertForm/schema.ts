@@ -1,12 +1,14 @@
 import { z } from 'zod';
 
+const requiredErrorMessage = { required_error: 'This field is required' };
+
 export const concertSchema = z.object({
   id: z.string().optional(),
-  artist: z.string(),
-  location: z.string(),
-  venue: z.string(),
+  artist: z.string(requiredErrorMessage),
+  location: z.string(requiredErrorMessage),
+  venue: z.string(requiredErrorMessage),
   year: z
-    .string()
+    .string(requiredErrorMessage)
     .length(4, 'Please provide a 4-digit year')
     .transform((yearStr) => new Date(`${yearStr}-01-01`).toISOString()),
   notes: z

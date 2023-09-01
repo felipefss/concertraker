@@ -11,15 +11,17 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { HFTextInput } from '@/components/HFTextInput';
 
+const requiredErrorMessage = { required_error: 'This field is required' };
+
 const signUpSchema = z
   .object({
-    name: z.string(),
-    email: z.string().email(),
+    name: z.string(requiredErrorMessage),
+    email: z.string(requiredErrorMessage).email(),
     password: z
-      .string()
+      .string(requiredErrorMessage)
       .min(8, 'Password should have at least 8 characters')
       .regex(/[A-z]|[0-9]|\W/, 'Password is weak'),
-    confirmPassword: z.string(),
+    confirmPassword: z.string(requiredErrorMessage),
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {

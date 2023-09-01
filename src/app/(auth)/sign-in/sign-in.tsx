@@ -10,9 +10,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { HFTextInput } from '@/components/HFTextInput';
 
+const requiredErrorMessage = { required_error: 'This field is required' };
+
 const signInSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string(requiredErrorMessage).email(),
+  password: z.string(requiredErrorMessage),
 });
 
 type FormModel = z.infer<typeof signInSchema>;
