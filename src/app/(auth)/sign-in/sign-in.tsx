@@ -2,23 +2,37 @@ import { Button, IconButton, Text, TextInput } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
 import { TouchableOpacity, View } from 'react-native';
-import { useEffect } from 'react';
 
-import { theme } from '@/styles/global';
 import styles, { containerStyles } from './styles';
+import { useAuthContext } from '@/contexts/auth-context';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { HFTextInput } from '@/components/HFTextInput';
+
+const requiredErrorMessage = { required_error: 'This field is required' };
+
+const signInSchema = z.object({
+  email: z.string(requiredErrorMessage).email(),
+  password: z.string(requiredErrorMessage),
+});
+
+type FormModel = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
-  const insets = useSafeAreaInsets();
+  const { signInWithEmail } = useAuthContext();
+  const { control, handleSubmit } = useForm<FormModel>({
+    resolver: zodResolver(signInSchema),
+  });
 
-  // TODO: This is only for developing the home screens
-  useEffect(() => {
-    setTimeout(() => {
-      router.replace('/home');
-    });
-  }, []);
+  const insets = useSafeAreaInsets();
 
   function handleGoToSignUpPage() {
     router.push('/sign-up');
+  }
+
+  function handleSignIn({ email, password }: FormModel) {
+    signInWithEmail(email, password);
   }
 
   return (
@@ -28,13 +42,13 @@ export default function SignIn() {
       <View style={styles.signInForm}>
         <Text style={styles.signInText}>Sign In</Text>
 
-        <TextInput label="Email" mode="outlined" activeOutlineColor={theme.colors.primary} />
-        <TextInput label="Password" mode="outlined" secureTextEntry={true} activeOutlineColor={theme.colors.primary} />
+        <HFTextInput<FormModel> label="Email" name="email" control={control} />
+        <HFTextInput<FormModel> label="Password" name="password" control={control} isPassword={true} />
         <Link style={styles.forgotPasswordLink} href="#">
           Forgot password?
         </Link>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleSubmit(handleSignIn)}>
           <Button style={styles.signInButton} mode="contained">
             Sign In
           </Button>
