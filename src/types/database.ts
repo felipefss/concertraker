@@ -39,30 +39,30 @@ export interface Database {
           artist: string
           created_at: string | null
           date: string
-          id: number
+          id: string
           location: string
           notes: string | null
-          user_id: string
+          user_id: string | null
           venue: string
         }
         Insert: {
           artist: string
           created_at?: string | null
           date: string
-          id?: number
+          id?: string
           location: string
           notes?: string | null
-          user_id: string
+          user_id?: string | null
           venue: string
         }
         Update: {
           artist?: string
           created_at?: string | null
           date?: string
-          id?: number
+          id?: string
           location?: string
           notes?: string | null
-          user_id?: string
+          user_id?: string | null
           venue?: string
         }
         Relationships: [

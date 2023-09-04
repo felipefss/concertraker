@@ -11,7 +11,7 @@ interface Concert {
   artist: string;
   location: string;
   venue: string;
-  year: string;
+  date: string;
   notes: string | null;
 }
 
@@ -19,22 +19,22 @@ interface Props {
   isVisible: boolean;
   anchor: ReactNode;
   onClose: () => void;
-  concertData: Concert;
+  concertId: string;
 }
 
-export function CardOptionsMenu({ isVisible, anchor, onClose, concertData }: Props) {
+export function CardOptionsMenu({ isVisible, anchor, onClose, concertId }: Props) {
   const { deleteConcert } = useConcertsContext();
 
   function handleClickEdit() {
     router.push('/edit-concert');
     router.setParams({
-      id: concertData.id,
+      id: concertId,
     });
     onClose();
   }
 
   async function handleClickDelete() {
-    await deleteConcert(concertData.id);
+    await deleteConcert(concertId);
   }
 
   function showConfirmDeleteDialog() {
@@ -51,7 +51,7 @@ export function CardOptionsMenu({ isVisible, anchor, onClose, concertData }: Pro
 
   return (
     <View style={styles.container}>
-      <Menu visible={isVisible} anchor={anchor} onDismiss={onClose} style={{ top: 10 }}>
+      <Menu visible={isVisible} anchor={anchor} onDismiss={onClose}>
         <Menu.Item leadingIcon="pencil-outline" title="Edit" onPress={handleClickEdit} titleStyle={styles.item} dense />
         <Menu.Item
           leadingIcon="trash-can-outline"

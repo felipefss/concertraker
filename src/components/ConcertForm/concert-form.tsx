@@ -33,7 +33,7 @@ export function ConcertForm({ onSubmit, id }: Props) {
         setValue('artist', currentConcert.artist);
         setValue('location', currentConcert.location);
         setValue('venue', currentConcert.venue);
-        setValue('year', dayjs(currentConcert.year).format('YYYY'));
+        setValue('date', dayjs(currentConcert.date).format('YYYY'));
         setValue('notes', currentConcert.notes);
       }
     }
@@ -44,7 +44,7 @@ export function ConcertForm({ onSubmit, id }: Props) {
       <HFTextInput<FormModel> name="artist" label="Artist" control={control} />
       <HFTextInput<FormModel> name="location" label="Location" control={control} />
       <HFTextInput<FormModel> name="venue" label="Venue" control={control} />
-      <HFTextInput<FormModel> name="year" label="Year" control={control} />
+      <HFTextInput<FormModel> name="date" label="Year" control={control} />
       <HFTextInput<FormModel> name="notes" label="Notes" multiline={true} control={control} />
 
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>

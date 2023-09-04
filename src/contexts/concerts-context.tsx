@@ -1,14 +1,17 @@
 import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { FormModel } from '../components/ConcertForm/schema';
-import { api } from '@/lib/api';
 import { router } from 'expo-router';
+import uuid from 'react-native-uuid';
+
+import { FormModel } from '../components/ConcertForm/schema';
+
+import { supabase } from '@/lib/supabase';
 
 interface Concert {
   id: string;
   artist: string;
   location: string;
   venue: string;
-  year: string;
+  date: string;
   notes: string | null;
 }
 
@@ -30,9 +33,9 @@ export function ConcertsProvider({ children }: Props) {
 
   useEffect(() => {
     async function getConcerts() {
-      const response = await api.get('/concerts');
+      const response = await supabase.from('concerts').select('id, artist, location, venue, date, notes');
 
-      setConcerts(response.data);
+      setConcerts(response.data ?? []);
     }
 
     getConcerts();
@@ -57,34 +60,27 @@ export function ConcertsProvider({ children }: Props) {
   }, []);
 
   const deleteConcert = useCallback(async (id: string) => {
-    const response = await api.delete(`/concerts/${id}`);
+    const response = await supabase.from('concerts').delete().eq('id', id);
 
-    if (response.status === 200) {
-      // TODO: Change to 204
+    if (response.status === 204) {
       setConcerts((prev) => prev.filter((concert) => concert.id !== id));
     }
   }, []);
 
   const onAddConcert = useCallback(async (data: FormModel) => {
-    const response = await api.post('/concerts', data);
-
-    // TODO: For local dev only. Remove this after
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const newConcertID = uuid.v4() as string;
+    const response = await supabase.from('concerts').insert({ ...data, id: newConcertID });
 
     if (response.status === 201) {
-      addConcert({ ...data, id: response.data.id });
+      addConcert({ ...data, id: newConcertID });
     }
   }, []);
 
   const onEditConcert = useCallback(async (data: FormModel) => {
     if (data.id) {
-      const response = await api.put(`/concerts/${data.id}`, data);
+      const response = await supabase.from('concerts').update(data).eq('id', data.id);
 
-      // TODO: For local dev only. Remove this after
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      // TODO: Change to 201
-      if (response.status === 200) {
+      if (response.status === 204) {
         updateConcert(data as Concert);
       }
     } else {

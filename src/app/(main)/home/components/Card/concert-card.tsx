@@ -13,7 +13,7 @@ interface CardData {
   artist: string;
   venue: string;
   location: string;
-  year: string;
+  date: string;
   notes: string | null;
 }
 
@@ -24,7 +24,7 @@ interface Props {
 export function ConcertCard({ data }: Props) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const { artist, year, location, notes, venue } = data;
+  const { artist, date, location, notes, venue, id } = data;
 
   function handleOpenMenu() {
     setIsMenuVisible(true);
@@ -42,7 +42,7 @@ export function ConcertCard({ data }: Props) {
             <SimpleLineIcons name="options-vertical" size={14} color={theme.colors.text} />
           </Pressable>
         }
-        concertData={data}
+        concertId={id}
         isVisible={isMenuVisible}
         onClose={handleCloseMenu}
       />
@@ -67,7 +67,7 @@ export function ConcertCard({ data }: Props) {
 
         <View style={styles.rightColumn}>
           <Text style={styles.label}>Year</Text>
-          <Text style={styles.value}>{dayjs(year).format('YYYY')}</Text>
+          <Text style={styles.value}>{dayjs(date).format('YYYY')}</Text>
         </View>
       </View>
 

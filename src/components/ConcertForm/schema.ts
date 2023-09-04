@@ -7,13 +7,13 @@ export const concertSchema = z.object({
   artist: z.string(requiredErrorMessage),
   location: z.string(requiredErrorMessage),
   venue: z.string(requiredErrorMessage),
-  year: z
+  date: z
     .string(requiredErrorMessage)
     .length(4, 'Please provide a 4-digit year')
     .transform((yearStr) => new Date(`${yearStr}-01-01`).toISOString()),
   notes: z
     .string()
-    .optional()
+    .nullish()
     .transform((notesStr) => notesStr ?? null),
 });
 
