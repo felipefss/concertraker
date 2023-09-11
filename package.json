@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "supabase:gen-types": "supabase gen types typescript --local > ./src/types/database.ts",
+    "supabase:gen-types": "supabase gen types typescript --linked > ./src/types/database.ts",
     "start": "yarn supabase:gen-types && expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",

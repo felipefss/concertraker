@@ -2,6 +2,10 @@
 
 This app helps you keep track of the concerts you've been to.
 
+![login page](./assets/screenshot-login.png)
+![main page](./assets/screenshot-main.png)
+![form page](./assets/screenshot-form.png)
+
 # Pre-requisites
 
 This project uses supabase's services of authentication and database. This project was built using the following:
@@ -64,6 +68,7 @@ After the Expo QR Code and Menu appears, press "a" to **open Android**.
 This project is meant as a learning experience and showcase React/mobile skills. But if I was to continue developing
 the project (which may still happen eventually, because it has been fun), I was thinking of adding the following:
 
+- Add OAuth sign-in features for Google, Facebook and twitter providers
 - Add a friend list
   - Ability to look up friends by name/email and see their concert list
   - Add a friend's concert to my own concert list
