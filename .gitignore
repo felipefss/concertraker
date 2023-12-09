@@ -20,3 +20,7 @@ db.json
 
 .env*
 eas.json
+
+# Builds
+*.aab
+*.apk
