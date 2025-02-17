@@ -18,6 +18,7 @@ web-build/
 
 db.json
 
+.env*.local
 .env*
 eas.json
 
