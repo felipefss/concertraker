@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Concertraker',
-  description: "Keep track of the concerts you've been to",
+  title: 'Concertraker - Track your concert memories',
+  description: "Keep track of all the concerts you've attended and connect with friends who shared the experience.",
 };
 
 export default function RootLayout({
