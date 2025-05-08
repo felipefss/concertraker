@@ -1,6 +1,6 @@
 import { Section } from '@/app/(index)/_components/Section';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Headphones } from 'lucide-react';
+import { ArrowRight, Calendar, Headphones, MapPin, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Feature } from './_components/Feature';
@@ -65,6 +65,15 @@ export default function Home() {
           <div className=''>
             <Feature icon={<Calendar size='2rem' />} title='Track Concerts'>
               Log every concert you attend with dates, venues, and artists.
+            </Feature>
+
+            <Feature icon={<Users size='2rem' />} title='Connect With Friends'>
+              Find friends who attended the same concerts and share memories.
+            </Feature>
+
+            <Feature icon={<MapPin size='2rem' />} title='Discover Events'>
+              Find upcoming concerts based on your music preferences and
+              location.
             </Feature>
           </div>
         </Section>
