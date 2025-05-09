@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { Feature } from './_components/Feature';
 
 export default function Home() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
       <header className='border-b px-4 lg:px-6 h-16 flex justify-between items-center'>
@@ -77,7 +79,29 @@ export default function Home() {
             </Feature>
           </div>
         </Section>
+
+        <Section className='dark:bg-gray-950 text-center'>
+          <div className='space-y-4'>
+            <h2 className='text-3xl font-bold tracking-tighter md:text-5xl lg:text-6xl/none dark:text-white'>
+              Ready to Start?
+            </h2>
+            <p className='text-gray-500 md:text-xl dark:text-gray-400'>
+              Join thousands of music lovers who are documenting their concert
+              experiences.
+            </p>
+            <Button className='btn-teal text-lg p-6' size='lg' asChild>
+              <Link href='#'>
+                Create Account
+                <ArrowRight className='h-4 w-4 ml-2' />
+              </Link>
+            </Button>
+          </div>
+        </Section>
       </main>
+
+      <footer className='text-center border-t py-6 bg-teal-50 dark:border-gray-900'>
+        <span>© {currentYear} Concertraker. All rights reserved.</span>
+      </footer>
     </>
   );
 }

@@ -7,7 +7,7 @@ interface Props extends ComponentProps<'section'> {
 
 export const Section = ({ children, className, ...props }: Props) => (
   <section
-    className={clsx('w-full py-12 md:py-24 lg:py-32 px-4 md:px-6', className)}
+    className={clsx('w-full py-12 md:py-24 px-4 md:px-6', className)}
     {...props}
   >
     {children}
