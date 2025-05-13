@@ -1,5 +1,49 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Concert } from './_components/Concert';
+
+const concerts = [
+  {
+    artist: 'Joe Bonamassa',
+    venue: 'Royal Albert Hall',
+    location: 'London, UK',
+    date: new Date('2022-05-15'),
+    notes:
+      'Unforgettable blues performance with special guests. Amazing guitar solos throughout the night.',
+  },
+  {
+    artist: 'Coldplay',
+    venue: 'Wembley Stadium',
+    location: 'London, UK',
+    date: new Date('2022-08-20'),
+    notes:
+      'Spectacular light show and crowd interaction. The band played all their greatest hits.',
+  },
+  {
+    artist: 'Adele',
+    venue: 'Madison Square Garden',
+    location: 'New York, USA',
+    date: new Date('2022-10-07'),
+    notes:
+      'Emotional performance with stunning vocals. The acoustic segment was particularly moving.',
+  },
+  {
+    artist: 'Metallica',
+    venue: 'Estadio Nacional',
+    location: 'Santiago, Chile',
+    date: new Date('2022-04-27'),
+    notes:
+      'High-energy metal show with an incredible crowd response. The band played for over 2 hours.',
+  },
+  {
+    artist: 'Iron Maiden',
+    venue: 'Rock in Rio',
+    location: 'Rio de Janeiro, Brazil',
+    date: new Date('2022-09-02'),
+    notes:
+      "Legendary metal performance with elaborate stage setup and Eddie appearances. The crowd went wild during 'The Trooper'.",
+  },
+];
 
 export default function Main() {
   return (
@@ -15,48 +59,9 @@ export default function Main() {
         </CardHeader>
 
         <CardContent className='space-y-4'>
-          <Card className='bg-gray-50 dark:bg-gray-800'>
-            <CardContent className='grid grid-cols-3 gap-2 *:even:col-start-3 *:last:col-span-3'>
-              <div>
-                <label className='text-lg font-medium dark:text-white'>
-                  Artist
-                </label>
-                <p className='text-gray-500 dark:text-gray-400'>
-                  Joe Bonamassa
-                </p>
-              </div>
-
-              <div>
-                <p>Venue</p>
-                <p className=' text-gray-500 dark:text-gray-400'>
-                  Royal Albert Hall
-                </p>
-              </div>
-
-              <div>
-                <p>Location</p>
-                <p className=' text-gray-500 dark:text-gray-400'>London, UK</p>
-              </div>
-
-              <div>
-                <p>Date</p>
-                <span className='text-gray-500 dark:text-gray-400'>
-                  May 15, 2022
-                </span>
-              </div>
-
-              <div>
-                <p>Notes</p>
-                <p className=' text-gray-500 dark:text-gray-400'>
-                  Unforgettable Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Saepe nesciunt laborum molestiae ullam
-                  assumenda odio eligendi quibusdam neque hic, magni harum,
-                  cupiditate, asperiores voluptatum magnam aut optio? Quibusdam,
-                  qui veritatis.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {concerts.map((concert) => (
+            <Concert concert={concert} />
+          ))}
         </CardContent>
       </Card>
     </main>
