@@ -119,8 +119,15 @@
   body {
     @apply bg-background text-foreground;
   }
+  button {
+    @apply hover:cursor-pointer;
+  }
 }
 
 .btn-teal {
-  @apply bg-teal-600 hover:bg-teal-700 text-white hover:cursor-pointer;
+  @apply bg-teal-600 hover:bg-teal-700 text-white;
+}
+
+.btn-teal-outline {
+  @apply text-teal-600 hover:bg-teal-50 hover:text-teal-700;
 }

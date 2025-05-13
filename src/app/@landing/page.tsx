@@ -1,27 +1,23 @@
 import { Section } from './_components/Section';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Headphones, MapPin, Users } from 'lucide-react';
+import { ArrowRight, Calendar, MapPin, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Feature } from './_components/Feature';
+import { Header } from '@/components/Header';
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
 
   return (
     <>
-      <header className='border-b px-4 lg:px-6 h-16 flex justify-between items-center'>
-        <span className='flex gap-2 font-bold text-xl'>
-          <Headphones className='h-6 w-6 text-teal-600 dark:text-teal-400' />
-          <span className='dark:text-white'>Concertraker</span>
-        </span>
-
+      <Header>
         <nav>
           <Button className='btn-teal' asChild>
             <Link href='#'>Login</Link>
           </Button>
         </nav>
-      </header>
+      </Header>
 
       <main>
         <Section className='grid bg-gradient-to-b from-teal-50 to-white dark:from-teal-950/20 dark:to-gray-950 dark:bg-none gap-6 lg:grid-cols-2 lg:gap-12'>

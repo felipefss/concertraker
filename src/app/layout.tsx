@@ -14,17 +14,28 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Concertraker - Track your concert memories',
-  description: "Keep track of all the concerts you've attended and connect with friends who shared the experience.",
+  description:
+    "Keep track of all the concerts you've attended and connect with friends who shared the experience.",
 };
 
 export default function RootLayout({
   children,
+  landing,
+  main,
 }: Readonly<{
   children: React.ReactNode;
+  landing: React.ReactNode;
+  main: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang='en'>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        {/* {children} */}
+        {main}
+        {/* {landing} */}
+      </body>
     </html>
   );
 }
