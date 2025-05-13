@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { HeaderNav } from './_components/HeaderNav';
 
 export default function Layout({
   children,
@@ -7,7 +8,9 @@ export default function Layout({
 }>) {
   return (
     <div className='bg-teal-50 min-h-dvh'>
-      <Header />
+      <Header>
+        <HeaderNav />
+      </Header>
       {children}
     </div>
   );
