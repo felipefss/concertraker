@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Concert } from './_components/Concert';
+import { NewConcertDialog } from './_components/NewConcertDialog';
 
 const concerts = [
   {
+    id: '8f4e2a1c',
     artist: 'Joe Bonamassa',
     venue: 'Royal Albert Hall',
     location: 'London, UK',
@@ -12,6 +14,7 @@ const concerts = [
       'Unforgettable blues performance with special guests. Amazing guitar solos throughout the night.',
   },
   {
+    id: 'b9d7c3e5',
     artist: 'Coldplay',
     venue: 'Wembley Stadium',
     location: 'London, UK',
@@ -20,6 +23,7 @@ const concerts = [
       'Spectacular light show and crowd interaction. The band played all their greatest hits.',
   },
   {
+    id: 'a2f8e4d1',
     artist: 'Adele',
     venue: 'Madison Square Garden',
     location: 'New York, USA',
@@ -28,6 +32,7 @@ const concerts = [
       'Emotional performance with stunning vocals. The acoustic segment was particularly moving.',
   },
   {
+    id: 'c6b5a9d3',
     artist: 'Metallica',
     venue: 'Estadio Nacional',
     location: 'Santiago, Chile',
@@ -36,6 +41,7 @@ const concerts = [
       'High-energy metal show with an incredible crowd response. The band played for over 2 hours.',
   },
   {
+    id: 'e7d2f1b8',
     artist: 'Iron Maiden',
     venue: 'Rock in Rio',
     location: 'Rio de Janeiro, Brazil',
@@ -52,15 +58,13 @@ export default function Main() {
         <CardHeader>
           <CardTitle className='flex items-center justify-between'>
             <h1>My Concerts History</h1>
-            <Button className='btn-teal-outline' variant='outline'>
-              Add new
-            </Button>
+            <NewConcertDialog />
           </CardTitle>
         </CardHeader>
 
         <CardContent className='space-y-4'>
           {concerts.map((concert) => (
-            <Concert concert={concert} />
+            <Concert key={concert.id} concert={concert} />
           ))}
         </CardContent>
       </Card>

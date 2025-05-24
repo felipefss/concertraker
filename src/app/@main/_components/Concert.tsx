@@ -25,7 +25,7 @@ export const Concert = ({
 
         <ConcertField label='Location' value={location} />
 
-        <ConcertField label='Date' value={date.toLocaleDateString()} />
+        <ConcertField label='Year' value={date.getUTCFullYear()} />
 
         <ConcertField label='Notes' value={notes} />
       </CardContent>

@@ -1,6 +1,6 @@
 interface Props {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 export const ConcertField = ({ label, value }: Props) => {
