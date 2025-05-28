@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 export const HeaderNav = () => {
   return (
     <nav>
-      <Button variant='outline'>Log Out</Button>
+      <Button className='text-red-500 hover:text-red-700' variant='outline'>
+        Log Out
+      </Button>
     </nav>
   );
 };

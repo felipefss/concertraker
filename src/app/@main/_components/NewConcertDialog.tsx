@@ -17,11 +17,7 @@ interface Props {
 export const NewConcertDialog = ({ dialogTrigger }: Props) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button className='btn-teal-outline' variant='outline'>
-          Add new
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
 
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
@@ -36,7 +32,12 @@ export const NewConcertDialog = ({ dialogTrigger }: Props) => {
           <Input label='Notes' isMultiline={true} />
         </div>
         <DialogFooter>
-          <Button type='submit'>Insert</Button>
+          <Button className='btn-teal-outline' type='button' variant='outline'>
+            Cancel
+          </Button>
+          <Button className='btn-teal' type='submit'>
+            Add
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

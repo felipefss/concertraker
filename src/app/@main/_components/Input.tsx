@@ -15,7 +15,7 @@ export const Input = ({ label, isMultiline }: Props) => {
       </Label>
 
       {isMultiline ? (
-        <Textarea placeholder={label} className='w-full' />
+        <Textarea placeholder={label} className='col-span-3' />
       ) : (
         <InputCn id='artist' placeholder={label} className='col-span-3' />
       )}

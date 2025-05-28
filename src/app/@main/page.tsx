@@ -58,7 +58,13 @@ export default function Main() {
         <CardHeader>
           <CardTitle className='flex items-center justify-between'>
             <h1>My Concerts History</h1>
-            <NewConcertDialog />
+            <NewConcertDialog
+              dialogTrigger={
+                <Button className='btn-teal-outline' variant='outline'>
+                  Add new
+                </Button>
+              }
+            />
           </CardTitle>
         </CardHeader>
 
