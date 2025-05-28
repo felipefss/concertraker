@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -32,9 +33,15 @@ export const NewConcertDialog = ({ dialogTrigger }: Props) => {
           <Input label='Notes' isMultiline={true} />
         </div>
         <DialogFooter>
-          <Button className='btn-teal-outline' type='button' variant='outline'>
-            Cancel
-          </Button>
+          <DialogClose asChild>
+            <Button
+              className='btn-teal-outline'
+              type='button'
+              variant='outline'
+            >
+              Cancel
+            </Button>
+          </DialogClose>
           <Button className='btn-teal' type='submit'>
             Add
           </Button>
