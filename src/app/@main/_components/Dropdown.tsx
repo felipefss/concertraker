@@ -11,9 +11,9 @@ export const ConcertOptions = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='absolute right-0 top-0'>
-        <Button variant='ghost' size='sm'>
-          <Ellipsis className='h-4 w-4' />
-        </Button>
+        <div className='border border-transparent rounded-md p-1 text-accent-foreground hover:border-border hover:bg-accent'>
+          <Ellipsis className='h-5 w-5' />
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Edit</DropdownMenuItem>
