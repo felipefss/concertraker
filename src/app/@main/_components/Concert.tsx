@@ -1,6 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { ConcertField } from './ConcertField';
 
+import { ConcertOptions } from './Dropdown';
+
 type Concert = {
   artist: string;
   venue: string;
@@ -17,8 +19,9 @@ export const Concert = ({
   concert: { artist, date, location, notes, venue },
 }: Props) => {
   return (
-    <Card className='bg-gray-50 dark:bg-gray-800'>
-      <CardContent className='grid grid-cols-3 gap-2 *:even:col-start-3 *:last:col-span-3'>
+    <Card className='bg-gray-50 dark:bg-gray-800 relative'>
+      <ConcertOptions />
+      <CardContent className='grid grid-cols-[1.5fr_.3fr_1.2fr] gap-2 *:even:col-start-3 *:last:col-span-3'>
         <ConcertField label='Artist' value={artist} />
 
         <ConcertField label='Venue' value={venue} />
