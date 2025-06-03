@@ -15,9 +15,9 @@ interface Props {
   concert: Concert;
 }
 
-export const Concert = ({
+export function Concert({
   concert: { artist, date, location, notes, venue },
-}: Props) => {
+}: Props) {
   return (
     <Card className='bg-gray-50 dark:bg-gray-800 relative'>
       <ConcertOptions />
@@ -34,4 +34,4 @@ export const Concert = ({
       </CardContent>
     </Card>
   );
-};
+}

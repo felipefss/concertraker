@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 
-export const HeaderNav = () => {
+export function HeaderNav() {
   return (
     <nav>
       <Button className='text-red-500 hover:text-red-700' variant='outline'>
@@ -8,4 +8,4 @@ export const HeaderNav = () => {
       </Button>
     </nav>
   );
-};
+}

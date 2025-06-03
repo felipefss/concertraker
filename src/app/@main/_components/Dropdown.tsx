@@ -5,9 +5,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Ellipsis } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
-export const ConcertOptions = () => {
+export function ConcertOptions() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='absolute right-0 top-0'>
@@ -21,4 +20,4 @@ export const ConcertOptions = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+}
