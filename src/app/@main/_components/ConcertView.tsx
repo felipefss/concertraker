@@ -1,21 +1,14 @@
 import { Card, CardContent } from '@/components/ui/card';
+
+import type { Concert } from '../constants';
 import { ConcertField } from './ConcertField';
-
-import { ConcertOptions } from './Dropdown';
-
-type Concert = {
-  artist: string;
-  venue: string;
-  location: string;
-  date: Date;
-  notes: string;
-};
+import { ConcertOptions } from './ConcertOptions';
 
 interface Props {
   concert: Concert;
 }
 
-export function Concert({
+export function ConcertView({
   concert: { artist, date, location, notes, venue },
 }: Props) {
   return (

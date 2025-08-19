@@ -1,5 +1,5 @@
 import { Headphones } from 'lucide-react';
-import { ComponentProps, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export const Header = ({ children }: { children?: ReactNode }) => (
   <header className='border-b border-gray-200 dark:border-gray-800 px-4 lg:px-6 h-16 flex justify-between items-center bg-white dark:bg-gray-950'>
