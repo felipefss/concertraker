@@ -1,4 +1,7 @@
+'use client';
+
 import { DialogDescription } from '@radix-ui/react-dialog';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,10 +16,18 @@ import {
 
 import { addNewConcertAction } from '../actions';
 import { Input } from './Input';
+import { SubmitButton } from './SubmitButton';
 
 export function NewConcertDialog() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleSubmit(formData: FormData) {
+    addNewConcertAction(formData);
+    setIsOpen(false);
+  }
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className='btn-teal-outline' variant='outline'>
           Add new
@@ -31,7 +42,7 @@ export function NewConcertDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <form action={addNewConcertAction}>
+        <form action={handleSubmit}>
           <div className='grid gap-4 py-4'>
             <Input name='artist' label='Artist' required />
             <Input name='location' label='Location' required />
@@ -55,11 +66,7 @@ export function NewConcertDialog() {
                 Cancel
               </Button>
             </DialogClose>
-            <DialogClose asChild>
-              <Button className='btn-teal' type='submit'>
-                Add
-              </Button>
-            </DialogClose>
+            <SubmitButton />
           </DialogFooter>
         </form>
       </DialogContent>
