@@ -26,6 +26,8 @@ export function NewConcertDialog() {
     setIsOpen(false);
   }
 
+  // TODO: use the shadcn's <Form> with Zod for localized error messages
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>

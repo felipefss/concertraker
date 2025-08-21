@@ -16,8 +16,6 @@ export async function addNewConcertAction(formData: FormData) {
 
   // TODO: add validation
   await addConcert(newConcertObj);
-
-  revalidatePath('/');
 }
 
 const concerts = [
@@ -78,4 +76,15 @@ export async function addConcert(concert: Omit<Concert, 'id'>) {
     ...concert,
   };
   concerts.push(newConcert);
+
+  revalidatePath('/');
+}
+
+export async function deleteConcert(id: string) {
+  const index = concerts.findIndex((concert) => concert.id === id);
+  if (index !== -1) {
+    concerts.splice(index, 1);
+  }
+
+  revalidatePath('/');
 }

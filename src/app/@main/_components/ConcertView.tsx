@@ -9,11 +9,11 @@ interface Props {
 }
 
 export function ConcertView({
-  concert: { artist, date, location, notes, venue },
+  concert: { id, artist, date, location, notes, venue },
 }: Props) {
   return (
     <Card className='bg-gray-50 dark:bg-gray-800 relative'>
-      <ConcertOptions />
+      <ConcertOptions id={id} />
       <CardContent className='grid grid-cols-[1.5fr_.3fr_1.2fr] gap-2 *:even:col-start-3 *:last:col-span-3'>
         <ConcertField label='Artist' value={artist} />
 

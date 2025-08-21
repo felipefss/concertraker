@@ -1,12 +1,32 @@
+'use client';
+
+import { Ellipsis } from 'lucide-react';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Ellipsis } from 'lucide-react';
 
-export function ConcertOptions() {
+import { deleteConcert } from '../actions';
+import { confirm } from './ConfirmDialog';
+
+interface Props {
+  id: string;
+}
+
+export function ConcertOptions({ id }: Props) {
+  async function handleClickDelete() {
+    const result = await confirm({
+      message: 'Are you sure you want to delete this concert?',
+    });
+
+    if (result) {
+      await deleteConcert(id);
+    }
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='absolute right-0 top-0'>
@@ -16,7 +36,7 @@ export function ConcertOptions() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleClickDelete}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
