@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ConcertDialog } from './_components/ConcertDialog';
 import { ConcertsList } from './_components/ConcertsList';
 
-export const Route = createFileRoute('/concerts/')({
+export const Route = createFileRoute('/_main/concerts/')({
   component: RouteComponent,
 });
 

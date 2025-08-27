@@ -9,48 +9,61 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MainRouteImport } from './routes/_main'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConcertsIndexRouteImport } from './routes/concerts/index'
+import { Route as MainConcertsIndexRouteImport } from './routes/_main/concerts/index'
 
+const MainRoute = MainRouteImport.update({
+  id: '/_main',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
+const MainConcertsIndexRoute = MainConcertsIndexRouteImport.update({
   id: '/concerts/',
   path: '/concerts/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => MainRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/concerts': typeof ConcertsIndexRoute
+  '/concerts': typeof MainConcertsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/concerts': typeof ConcertsIndexRoute
+  '/concerts': typeof MainConcertsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/concerts/': typeof ConcertsIndexRoute
+  '/_main': typeof MainRouteWithChildren
+  '/_main/concerts/': typeof MainConcertsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/concerts'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/concerts'
-  id: '__root__' | '/' | '/concerts/'
+  id: '__root__' | '/' | '/_main' | '/_main/concerts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ConcertsIndexRoute: typeof ConcertsIndexRoute
+  MainRoute: typeof MainRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_main': {
+      id: '/_main'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof MainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -58,19 +71,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concerts/': {
-      id: '/concerts/'
+    '/_main/concerts/': {
+      id: '/_main/concerts/'
       path: '/concerts'
       fullPath: '/concerts'
-      preLoaderRoute: typeof ConcertsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof MainConcertsIndexRouteImport
+      parentRoute: typeof MainRoute
     }
   }
 }
 
+interface MainRouteChildren {
+  MainConcertsIndexRoute: typeof MainConcertsIndexRoute
+}
+
+const MainRouteChildren: MainRouteChildren = {
+  MainConcertsIndexRoute: MainConcertsIndexRoute,
+}
+
+const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ConcertsIndexRoute: ConcertsIndexRoute,
+  MainRoute: MainRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
