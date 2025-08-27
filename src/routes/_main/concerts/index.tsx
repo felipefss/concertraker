@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { ConcertDialog } from './_components/ConcertDialog';
-import { ConcertsList } from './_components/ConcertsList';
+import { ConcertDialog } from './-components/ConcertDialog';
+import { ConcertsList } from './-components/ConcertsList';
 
 export const Route = createFileRoute('/_main/concerts/')({
   component: RouteComponent,

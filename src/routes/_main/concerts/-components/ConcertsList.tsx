@@ -1,6 +1,4 @@
-'use client';
-
-import type { Concert } from '../constants';
+import type { Concert } from '../../../../constants';
 import { ConcertView } from './ConcertView';
 
 interface Props {

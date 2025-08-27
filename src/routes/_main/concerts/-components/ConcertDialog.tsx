@@ -1,7 +1,5 @@
-'use client';
-
 import { DialogDescription } from '@radix-ui/react-dialog';
-import { useState } from 'react';
+import { type ReactElement, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,27 +12,35 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { addNewConcertAction } from '../actions';
 import { Input } from './Input';
 import { SubmitButton } from './SubmitButton';
 
-export function NewConcertDialog() {
+interface Props {
+  submitText?: string;
+  triggerElement?: ReactElement;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export function ConcertDialog({
+  submitText,
+  triggerElement,
+  open,
+  onOpenChange,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleSubmit(formData: FormData) {
-    addNewConcertAction(formData);
-    setIsOpen(false);
+    console.log(formData);
+    // setIsOpen(false);
+    // onOpenChange(false);
   }
 
   // TODO: use the shadcn's <Form> with Zod for localized error messages
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button className='btn-teal-outline' variant='outline'>
-          Add new
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open ?? isOpen} onOpenChange={onOpenChange ?? setIsOpen}>
+      <DialogTrigger asChild>{triggerElement}</DialogTrigger>
 
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
@@ -68,7 +74,7 @@ export function NewConcertDialog() {
                 Cancel
               </Button>
             </DialogClose>
-            <SubmitButton />
+            <SubmitButton text={submitText} />
           </DialogFooter>
         </form>
       </DialogContent>

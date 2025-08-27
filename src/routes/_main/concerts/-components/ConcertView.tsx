@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 
-import type { Concert } from '../constants';
+import type { Concert } from '../../../../constants';
 import { ConcertField } from './ConcertField';
 import { ConcertOptions } from './ConcertOptions';
 
