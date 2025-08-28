@@ -1,5 +1,4 @@
-import { DialogDescription } from '@radix-ui/react-dialog';
-import { type ReactElement, useState } from 'react';
+import { type ReactElement } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,38 +15,34 @@ import { Input } from './Input';
 import { SubmitButton } from './SubmitButton';
 
 interface Props {
-  submitText?: string;
-  triggerElement?: ReactElement;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  children?: ReactElement;
+  title: string;
+  submitText: string;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function ConcertDialog({
+  children,
+  title,
   submitText,
-  triggerElement,
-  open,
+  isOpen,
   onOpenChange,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-
   function handleSubmit(formData: FormData) {
     console.log(formData);
-    // setIsOpen(false);
-    // onOpenChange(false);
+    onOpenChange(false);
   }
 
   // TODO: use the shadcn's <Form> with Zod for localized error messages
 
   return (
-    <Dialog open={open ?? isOpen} onOpenChange={onOpenChange ?? setIsOpen}>
-      <DialogTrigger asChild>{triggerElement}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
 
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Add new concert</DialogTitle>
-          <DialogDescription>
-            Fill the form to add a new concert to the list
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
         <form action={handleSubmit}>

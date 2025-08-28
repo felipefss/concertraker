@@ -49,8 +49,9 @@ export function ConcertOptions({ id }: Props) {
         </DropdownMenuContent>
       </DropdownMenu>
       <ConcertDialog
+        title='Edit concert'
         submitText='Save'
-        open={isDialogOpen}
+        isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
       />
     </>

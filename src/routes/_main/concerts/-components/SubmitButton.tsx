@@ -4,7 +4,7 @@ import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 
 interface Props {
-  text?: string;
+  text: string;
 }
 
 export function SubmitButton({ text }: Props) {
@@ -13,7 +13,7 @@ export function SubmitButton({ text }: Props) {
   return (
     <Button className='btn-teal' type='submit' disabled={pending}>
       {pending && <Loader2Icon className='animate-spin' />}
-      {text || 'Add'}
+      {text}
     </Button>
   );
 }

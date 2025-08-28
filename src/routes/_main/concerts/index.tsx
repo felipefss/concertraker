@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -60,6 +60,8 @@ const concerts = [
 ];
 
 function RouteComponent() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <main className='p-4 grid grid-cols-3'>
       <Card className='col-start-2 h-fit'>
@@ -67,12 +69,15 @@ function RouteComponent() {
           <CardTitle className='flex items-center justify-between'>
             <h1>My Concerts History</h1>
             <ConcertDialog
-              triggerElement={
-                <Button className='btn-teal-outline' variant='outline'>
-                  Add new
-                </Button>
-              }
-            />
+              isOpen={isDialogOpen}
+              onOpenChange={setIsDialogOpen}
+              title='Add new concert'
+              submitText='Add'
+            >
+              <Button className='btn-teal-outline' variant='outline'>
+                Add new
+              </Button>
+            </ConcertDialog>
           </CardTitle>
         </CardHeader>
 
