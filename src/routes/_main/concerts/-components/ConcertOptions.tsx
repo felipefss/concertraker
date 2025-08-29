@@ -1,3 +1,4 @@
+import type { Concert } from '@/types/Concert';
 import { Ellipsis } from 'lucide-react';
 import { useState } from 'react';
 
@@ -12,10 +13,10 @@ import { ConcertDialog } from './ConcertDialog';
 import { confirm } from './ConfirmDialog';
 
 interface Props {
-  id: string;
+  concert: Concert;
 }
 
-export function ConcertOptions({ id }: Props) {
+export function ConcertOptions({ concert }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   async function handleClickDelete() {
@@ -25,7 +26,7 @@ export function ConcertOptions({ id }: Props) {
 
     if (result) {
       // await deleteConcert(id);
-      console.log('DELETE CONCERT id', id);
+      console.log('DELETE CONCERT id', concert.id);
     }
   }
 
@@ -49,8 +50,7 @@ export function ConcertOptions({ id }: Props) {
         </DropdownMenuContent>
       </DropdownMenu>
       <ConcertDialog
-        title='Edit concert'
-        submitText='Save'
+        concert={concert}
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
       />

@@ -4,16 +4,16 @@ import { useFormStatus } from 'react-dom';
 import { Button } from '@/components/ui/button';
 
 interface Props {
-  text: string;
+  isEdit: boolean;
 }
 
-export function SubmitButton({ text }: Props) {
+export function SubmitButton({ isEdit = false }: Props) {
   const { pending } = useFormStatus();
 
   return (
     <Button className='btn-teal' type='submit' disabled={pending}>
       {pending && <Loader2Icon className='animate-spin' />}
-      {text}
+      {isEdit ? 'Save' : 'Add'}
     </Button>
   );
 }

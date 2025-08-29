@@ -1,4 +1,6 @@
+import type { Concert } from '@/types/Concert';
 import { type ReactElement } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -16,21 +18,33 @@ import { SubmitButton } from './SubmitButton';
 
 interface Props {
   children?: ReactElement;
-  title: string;
-  submitText: string;
+  concert?: Concert;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+type FormValues = Omit<Concert, 'id'>;
+
 export function ConcertDialog({
   children,
-  title,
-  submitText,
+  concert,
   isOpen,
   onOpenChange,
 }: Props) {
-  function handleSubmit(formData: FormData) {
-    console.log(formData);
+  const { register, handleSubmit } = useForm<FormValues>({
+    defaultValues: concert
+      ? {
+          artist: concert.artist,
+          date: concert.date,
+          location: concert.location,
+          notes: concert.notes,
+          venue: concert.venue,
+        }
+      : undefined,
+  });
+
+  function onSubmit(data: FormValues) {
+    console.log(data);
     onOpenChange(false);
   }
 
@@ -42,22 +56,16 @@ export function ConcertDialog({
 
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{concert ? 'Edit' : 'Add a new'} concert</DialogTitle>
         </DialogHeader>
 
-        <form action={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='grid gap-4 py-4'>
-            <Input name='artist' label='Artist' required />
-            <Input name='location' label='Location' required />
-            <Input name='venue' label='Venue' />
-            <Input
-              name='year'
-              label='Year'
-              required
-              minLength={4}
-              maxLength={4}
-            />
-            <Input name='notes' label='Notes' isMultiline={true} />
+            <Input {...register('artist')} label='Artist' />
+            <Input {...register('location')} label='Location' />
+            <Input {...register('venue')} label='Venue' />
+            <Input {...register('date')} label='Year' />
+            <Input {...register('notes')} label='Notes' isMultiline={true} />
           </div>
           <DialogFooter>
             <DialogClose asChild>
@@ -69,7 +77,7 @@ export function ConcertDialog({
                 Cancel
               </Button>
             </DialogClose>
-            <SubmitButton text={submitText} />
+            <SubmitButton isEdit={!!concert} />
           </DialogFooter>
         </form>
       </DialogContent>

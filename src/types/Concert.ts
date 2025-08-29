@@ -3,6 +3,6 @@ export type Concert = {
   artist: string;
   venue: string;
   location: string;
-  date: Date;
+  date: string;
   notes: string;
 };
