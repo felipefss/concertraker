@@ -1,4 +1,4 @@
-import type { Concert } from '../../../../types/Concert';
+import type { Concert } from '../-models/ConcertModel';
 import { ConcertView } from './ConcertView';
 
 interface Props {

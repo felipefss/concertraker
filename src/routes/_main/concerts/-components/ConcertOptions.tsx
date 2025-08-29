@@ -1,4 +1,3 @@
-import type { Concert } from '@/types/Concert';
 import { Ellipsis } from 'lucide-react';
 import { useState } from 'react';
 
@@ -9,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import type { Concert } from '../-models/ConcertModel';
 import { ConcertDialog } from './ConcertDialog';
 import { confirm } from './ConfirmDialog';
 

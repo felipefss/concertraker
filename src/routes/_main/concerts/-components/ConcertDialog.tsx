@@ -1,6 +1,8 @@
-import type { Concert } from '@/types/Concert';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2Icon } from 'lucide-react';
 import { type ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFormStatus } from 'react-dom';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,8 +15,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import {
+  type Concert,
+  type ConcertFormValues,
+  formSchema,
+} from '../-models/ConcertModel';
 import { Input } from './Input';
-import { SubmitButton } from './SubmitButton';
 
 interface Props {
   children?: ReactElement;
@@ -23,15 +29,16 @@ interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-type FormValues = Omit<Concert, 'id'>;
-
 export function ConcertDialog({
   children,
   concert,
   isOpen,
   onOpenChange,
 }: Props) {
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { pending } = useFormStatus();
+
+  const methods = useForm<ConcertFormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: concert
       ? {
           artist: concert.artist,
@@ -43,12 +50,17 @@ export function ConcertDialog({
       : undefined,
   });
 
-  function onSubmit(data: FormValues) {
+  const { register, handleSubmit } = methods;
+
+  function onSubmit(data: ConcertFormValues) {
+    if (concert) {
+      console.log('edit', data);
+      return;
+    }
+
     console.log(data);
     onOpenChange(false);
   }
-
-  // TODO: use the shadcn's <Form> with Zod for localized error messages
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -61,11 +73,13 @@ export function ConcertDialog({
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='grid gap-4 py-4'>
-            <Input {...register('artist')} label='Artist' />
-            <Input {...register('location')} label='Location' />
-            <Input {...register('venue')} label='Venue' />
-            <Input {...register('date')} label='Year' />
-            <Input {...register('notes')} label='Notes' isMultiline={true} />
+            <FormProvider {...methods}>
+              <Input {...register('artist')} label='Artist' />
+              <Input {...register('location')} label='Location' />
+              <Input {...register('venue')} label='Venue' />
+              <Input {...register('date')} label='Year' />
+              <Input {...register('notes')} label='Notes' isMultiline={true} />
+            </FormProvider>
           </div>
           <DialogFooter>
             <DialogClose asChild>
@@ -77,7 +91,10 @@ export function ConcertDialog({
                 Cancel
               </Button>
             </DialogClose>
-            <SubmitButton isEdit={!!concert} />
+            <Button className='btn-teal' type='submit' disabled={pending}>
+              {pending && <Loader2Icon className='animate-spin' />}
+              {concert ? 'Save' : 'Add'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

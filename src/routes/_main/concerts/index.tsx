@@ -1,4 +1,3 @@
-import type { Concert } from '@/types/Concert';
 import { createFileRoute } from '@tanstack/react-router';
 import { Suspense, useState } from 'react';
 
@@ -7,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
+import type { Concert } from './-models/ConcertModel';
 
 export const Route = createFileRoute('/_main/concerts/')({
   component: RouteComponent,
