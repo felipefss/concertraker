@@ -3,7 +3,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { Header } from '@/components/Header';
 import { Button } from '@/components/ui/button';
 
-export const Route = createFileRoute('/_main')({
+export const Route = createFileRoute('/_authenticated')({
   component: RouteComponent,
 });
 

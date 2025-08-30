@@ -8,11 +8,16 @@ import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
 import type { Concert } from './-models/ConcertModel';
 
-export const Route = createFileRoute('/_main/concerts/')({
+export const Route = createFileRoute('/_authenticated/concerts/')({
   component: RouteComponent,
   loader: async (): Promise<Concert[]> => {
-    const fetchResp = await fetch('http://localhost:3000/concerts');
-    return await fetchResp.json();
+    try {
+      const fetchResp = await fetch('http://localhost:3000/concerts');
+      return await fetchResp.json();
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   },
 });
 
