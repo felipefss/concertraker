@@ -16,6 +16,7 @@ CREATE TABLE "users" (
 	"clerkId" varchar NOT NULL,
 	"firstName" varchar NOT NULL,
 	"lastName" varchar NOT NULL,
+	"imageUrl" varchar,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"deletedAt" timestamp,

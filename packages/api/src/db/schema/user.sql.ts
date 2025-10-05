@@ -6,5 +6,6 @@ export const user = pgTable('users', {
   clerkId: varchar().notNull().unique(),
   firstName: varchar().notNull(),
   lastName: varchar().notNull(),
+  imageUrl: varchar(),
   ...timestamps,
 });
