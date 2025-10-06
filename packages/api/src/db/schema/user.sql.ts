@@ -9,3 +9,5 @@ export const user = pgTable('users', {
   imageUrl: varchar(),
   ...timestamps,
 });
+
+export type User = typeof user.$inferSelect;

@@ -15,3 +15,5 @@ export const concert = pgTable('concerts', {
     .notNull()
     .references(() => user.id),
 });
+
+export type Concert = typeof concert.$inferSelect;
