@@ -8,7 +8,8 @@ export const createUser = factory.createHandlers(async (c) => {
   const data = await c.req.json<UserData>();
 
   const usersRepository = new UsersDrizzleRepository();
-  const resp = await usersRepository.create(data);
+  const insertedId = await usersRepository.create(data);
 
-  return c.status(201);
+  c.status(insertedId === -1 ? 500 : 201);
+  return c.json({ id: insertedId });
 });

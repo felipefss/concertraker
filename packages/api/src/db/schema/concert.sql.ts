@@ -1,4 +1,4 @@
-import { date, pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
+import { date, integer, pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
 import { user } from './user.sql';
 import { timestamps } from '../columns.helper';
 
@@ -11,7 +11,7 @@ export const concert = pgTable('concerts', {
   notes: text(),
   ...timestamps,
 
-  userId: serial()
+  userId: integer()
     .notNull()
     .references(() => user.id),
 });

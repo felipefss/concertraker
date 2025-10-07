@@ -6,5 +6,5 @@ services:
     environment:
       NEON_API_KEY: ${NEON_API_KEY}
       NEON_PROJECT_ID: ${NEON_PROJECT_ID}
-      DELETE_BRANCH: false
-      # PARENT_BRANCH_ID: ${PARENT_BRANCH_ID}
+      PARENT_BRANCH_ID: ${PARENT_BRANCH_ID}
+      DRIVER: serverless

@@ -1,0 +1,1 @@
+ALTER TABLE "concerts" ALTER COLUMN "userId" SET DATA TYPE integer;
