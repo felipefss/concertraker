@@ -5,7 +5,7 @@ import { UsersDrizzleRepository } from './repository/users.repository.drizzle';
 const factory = createFactory();
 
 export const createUser = factory.createHandlers(async (c) => {
-  const data = await c.req.json<UserData>();
+  const { data } = await c.req.json<{ data: UserData }>();
 
   const usersRepository = new UsersDrizzleRepository();
   const insertedId = await usersRepository.create(data);
