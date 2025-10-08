@@ -4,9 +4,11 @@ import type { UserData, UsersRepository } from './users.repository';
 export class InMemoryUsersRepository implements UsersRepository {
   users: User[] = [];
 
-  async create(data: UserData): Promise<boolean> {
+  async create(data: UserData): Promise<number> {
+    const id = this.users.length + 1;
+
     const user = {
-      id: this.users.length + 1,
+      id,
       clerkId: data.id,
       firstName: data.first_name,
       lastName: data.last_name,
@@ -17,6 +19,6 @@ export class InMemoryUsersRepository implements UsersRepository {
     } satisfies User;
 
     this.users.push(user);
-    return true;
+    return id;
   }
 }
