@@ -2,12 +2,16 @@
   "name": "concertraker",
   "version": "0.0.1",
   "scripts": {
-    "ui:dev": "bun --filter 'ui' dev"
+    "ui:dev": "bun --filter 'ui' dev",
+    "api:dev": "bun --filter 'api' dev",
+    "prepare": "husky || true"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
     "zod": "^4.1.11"
   }
 }

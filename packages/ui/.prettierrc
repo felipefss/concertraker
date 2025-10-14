@@ -10,8 +10,6 @@
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderCaseInsensitive": true,
-  "importOrderMergeDuplicateImports": false,
-  "importOrderCombineTypeAndValueImports": true,
   "singleQuote": true,
   "jsxSingleQuote": true
 }
