@@ -1,10 +1,11 @@
 import type { User } from '@/db/schema/user.sql';
+
 import type { UserData, UsersRepository } from './users.repository';
 
 export class InMemoryUsersRepository implements UsersRepository {
   users: User[] = [];
 
-  async create(data: UserData): Promise<number> {
+  async createUser(data: UserData): Promise<number> {
     const id = this.users.length + 1;
 
     const user = {

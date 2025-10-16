@@ -1,4 +1,5 @@
 import { createFactory } from 'hono/factory';
+
 import type { UserData } from './repository/users.repository';
 import { UsersDrizzleRepository } from './repository/users.repository.drizzle';
 
@@ -19,7 +20,7 @@ export const createUser = factory.createHandlers(useRepository, async (c) => {
   const { data } = await c.req.json<{ data: UserData }>();
 
   const usersRepository = c.get('repository');
-  const insertedId = await usersRepository.create(data);
+  const insertedId = await usersRepository.createUser(data);
 
   c.status(insertedId === -1 ? 500 : 201);
   return c.json({ id: insertedId });

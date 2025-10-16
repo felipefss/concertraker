@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, test } from 'bun:test';
+
 import { InMemoryUsersRepository } from './repository/users.repository.in-memory';
 
 let usersRepository: InMemoryUsersRepository;
@@ -9,7 +10,7 @@ describe('Users feature', () => {
   });
 
   test('should create a user', async () => {
-    await usersRepository.create({
+    await usersRepository.createUser({
       id: '1234',
       first_name: 'John',
       last_name: 'Doe',
