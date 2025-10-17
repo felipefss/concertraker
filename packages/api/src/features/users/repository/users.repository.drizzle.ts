@@ -1,7 +1,8 @@
 import { db } from '@/db';
 import { user } from '@/db/schema';
 
-import type { UserData, UsersRepository } from './users.repository';
+import type { UserCreateSchema } from '../users.schema';
+import type { UsersRepository } from './users.repository';
 
 export class UsersDrizzleRepository implements UsersRepository {
   async createUser({
@@ -9,7 +10,7 @@ export class UsersDrizzleRepository implements UsersRepository {
     first_name,
     image_url,
     last_name,
-  }: UserData): Promise<number> {
+  }: UserCreateSchema['data']): Promise<number> {
     const resp = await db
       .insert(user)
       .values({
@@ -20,6 +21,10 @@ export class UsersDrizzleRepository implements UsersRepository {
       })
       .returning({ insertedId: user.id });
 
-    return resp[0]?.insertedId ?? -1;
+    if (!resp[0]) {
+      throw new Error('Failed to create user');
+    }
+
+    return resp[0].insertedId;
   }
 }

@@ -1,10 +1,5 @@
-export type UserData = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  image_url: string;
-};
+import type { UserCreateSchema } from '../users.schema';
 
 export interface UsersRepository {
-  createUser(data: UserData): Promise<number>;
+  createUser(data: UserCreateSchema['data']): Promise<number>;
 }
