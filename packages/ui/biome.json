@@ -1,3 +1,9 @@
 {
-    "extends": "//"
+    "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+    "extends": "//",
+    "files": {
+        "includes": [
+            "!**/*.gen.ts"
+        ]
+    }
 }

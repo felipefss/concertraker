@@ -1,6 +1,5 @@
 {
   "*.{ts,tsx}": [
-    "eslint --no-warn-ignored",
-    "prettier --write"
+    "biome check ."
   ]
 }
