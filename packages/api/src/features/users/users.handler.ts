@@ -1,38 +1,29 @@
 import { zValidator } from '@hono/zod-validator';
 import { createFactory } from 'hono/factory';
 import { HTTPException } from 'hono/http-exception';
+import type { UsersRepository } from './repository/users.repository';
+import { userCreateSchema } from './users.schema';
 
-import { UsersDrizzleRepository } from './repository/users.repository.drizzle';
-import { type UserCreateSchema, userCreateSchema } from './users.schema';
+export class UsersHandler {
+  private readonly factory = createFactory();
 
-type Env = {
-  Variables: {
-    repository: UsersDrizzleRepository;
-  };
-};
+  constructor(private readonly repository: UsersRepository) {}
 
-const factory = createFactory<Env>();
+  createUser() {
+    return this.factory.createHandlers(
+      zValidator('json', userCreateSchema),
+      async (c) => {
+        const { data } = c.req.valid('json');
 
-const useRepository = factory.createMiddleware(async (c, next) => {
-  c.set('repository', new UsersDrizzleRepository());
-  await next();
-});
+        try {
+          const insertedId = await this.repository.createUser(data);
 
-export const createUser = factory.createHandlers(
-  useRepository,
-  zValidator('json', userCreateSchema),
-  async (c) => {
-    const { data } = await c.req.json<UserCreateSchema>();
-
-    const usersRepository = c.get('repository');
-
-    try {
-      const insertedId = await usersRepository.createUser(data);
-
-      return c.json({ id: insertedId }, 201);
-    } catch (cause) {
-      console.error(cause);
-      throw new HTTPException(500, { cause });
-    }
-  },
-);
+          return c.json({ id: insertedId }, 201);
+        } catch (cause) {
+          console.error(cause);
+          throw new HTTPException(500, { cause });
+        }
+      },
+    );
+  }
+}
