@@ -7,7 +7,6 @@
     "defaultBranch": "main"
   },
   "files": {
-    "includes": ["packages/**/*.{ts,tsx}"],
     "ignoreUnknown": false
   },
   "formatter": {

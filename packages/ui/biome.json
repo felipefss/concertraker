@@ -3,6 +3,7 @@
     "extends": "//",
     "files": {
         "includes": [
+            "src/**/*.{ts,tsx}",
             "!**/*.gen.ts"
         ]
     }

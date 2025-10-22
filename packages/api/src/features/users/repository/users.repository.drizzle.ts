@@ -16,8 +16,8 @@ export class UsersDrizzleRepository implements UsersRepository {
       .values({
         clerkId: id,
         firstName: first_name,
-        lastName: last_name,
         imageUrl: image_url,
+        lastName: last_name,
       })
       .returning({ insertedId: user.id });
 

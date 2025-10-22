@@ -1,3 +1,8 @@
 {
-    "extends": "//"
+    "extends": "//",
+    "files": {
+        "includes": [
+            "src/**/*.ts"
+        ]
+    }
 }

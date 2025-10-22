@@ -1,2 +1,1 @@
-bunx lint-staged --cwd ./packages/ui
-bunx lint-staged --cwd ./packages/api
+bunx lint-staged

@@ -2,11 +2,11 @@ import { pgTable, serial, varchar } from 'drizzle-orm/pg-core';
 import { timestamps } from '../columns.helper';
 
 export const user = pgTable('users', {
-  id: serial().primaryKey(),
   clerkId: varchar().notNull().unique(),
   firstName: varchar().notNull(),
-  lastName: varchar().notNull(),
+  id: serial().primaryKey(),
   imageUrl: varchar(),
+  lastName: varchar().notNull(),
   ...timestamps,
 });
 
