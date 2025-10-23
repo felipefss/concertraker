@@ -3,6 +3,7 @@ import { timestamps } from '../columns.helper';
 
 export const user = pgTable('users', {
   clerkId: varchar().notNull().unique(),
+  email: varchar().notNull().unique(),
   firstName: varchar().notNull(),
   id: serial().primaryKey(),
   imageUrl: varchar(),
