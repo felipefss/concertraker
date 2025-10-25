@@ -16,6 +16,4 @@ if (!_env.success) {
   throw new Error('Invalid environment variables');
 }
 
-console.log('db ul', _env.data.DATABASE_URL);
-
 export const env = _env.data;

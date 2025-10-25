@@ -14,20 +14,30 @@ const isAuthenticated = createMiddleware(async (c, next) => {
   await next();
 });
 
-const fetchUser = createMiddleware(async (c, next) => {
+type Env = {
+  Variables: {
+    clerkUserId: string;
+    userId: number;
+  };
+};
+
+const fetchUser = createMiddleware<Env>(async (c, next) => {
   const clerkClient = c.get('clerk');
-  const userId = c.get('clerkUserId');
+  const clerkUserId = c.get('clerkUserId');
 
   try {
-    const clerkUser = await clerkClient.users.getUser(userId);
+    const clerkUser = await clerkClient.users.getUser(clerkUserId);
     // biome-ignore lint/style/noNonNullAssertion: <All users should have email addresses>
     const primaryEmail = clerkUser.emailAddresses[0]!.emailAddress;
 
     const usersRepository = new UsersDrizzleRepository();
-    // biome-ignore lint/style/noNonNullAssertion: <User should exist at this point>
-    const user = await usersRepository.getUserByEmail(primaryEmail)!;
+    const user = await usersRepository.getUserByEmail(primaryEmail);
 
-    c.set('userId', user?.id);
+    if (!user) {
+      throw new Error(`User ${clerkUserId} not found`);
+    }
+
+    c.set('userId', user.id);
   } catch (error) {
     console.error(error);
     return c.json({ error: 'Unauthorized' }, 401);
