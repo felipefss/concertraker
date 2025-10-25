@@ -8,9 +8,7 @@ const app = new Hono();
 const concertsRepository = new ConcertsDrizzleRepository();
 const concertsHandler = new ConcertsHandler(concertsRepository);
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!');
-});
+app.get('/', ...concertsHandler.getConcerts());
 
 app.post('/', ...concertsHandler.createConcert());
 

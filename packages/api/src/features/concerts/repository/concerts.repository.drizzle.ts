@@ -1,6 +1,6 @@
+import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { type Concert, concert } from '@/db/schema/concert.sql';
-
 import type {
   ConcertCreateInput,
   ConcertsRepository,
@@ -23,11 +23,11 @@ export class ConcertsDrizzleRepository implements ConcertsRepository {
     return resp[0].insertedId;
   }
 
-  async getConcerts(): Promise<Concert[]> {
-    throw new Error('Method not implemented.');
+  async getConcerts(userId: number): Promise<Concert[]> {
+    return await db.select().from(concert).where(eq(concert.userId, userId));
   }
 
-  async getConcert(id: string): Promise<Concert | null> {
+  async getConcert(_id: string): Promise<Concert | null> {
     throw new Error('Method not implemented.');
   }
 
