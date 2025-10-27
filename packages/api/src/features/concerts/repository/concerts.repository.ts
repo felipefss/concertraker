@@ -11,7 +11,7 @@ export type ConcertUpdateInput = Partial<Omit<ConcertCreateInput, 'userId'>> &
 export interface ConcertsRepository {
   createConcert: (concert: ConcertCreateInput) => Promise<number>;
   getConcerts: (userId: number) => Promise<Concert[]>;
-  getConcert: (id: string) => Promise<Concert | null>;
+  getConcert: (userId: number, id: number) => Promise<Concert | undefined>;
   updateConcert: (concert: ConcertUpdateInput) => Promise<boolean>;
-  deleteConcert: (id: string) => Promise<void>;
+  deleteConcert: (userId: number, id: number) => Promise<void>;
 }

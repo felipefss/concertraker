@@ -24,18 +24,23 @@ export class ConcertsDrizzleRepository implements ConcertsRepository {
   }
 
   async getConcerts(userId: number): Promise<Concert[]> {
-    return await db.select().from(concert).where(eq(concert.userId, userId));
+    return await db.query.concert.findMany({
+      where: (concert, { eq }) => eq(concert.userId, userId),
+    });
   }
 
-  async getConcert(_id: string): Promise<Concert | null> {
-    throw new Error('Method not implemented.');
+  async getConcert(userId: number, id: number): Promise<Concert | undefined> {
+    return await db.query.concert.findFirst({
+      where: (concert, { eq, and }) =>
+        and(eq(concert.userId, userId), eq(concert.id, id)),
+    });
   }
 
   async updateConcert(concert: ConcertUpdateInput): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
-  async deleteConcert(id: string): Promise<void> {
+  async deleteConcert(userId: number, id: number): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

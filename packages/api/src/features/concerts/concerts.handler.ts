@@ -11,7 +11,8 @@ type Env = {
   };
 };
 
-const userId = 1;
+// TODO: remove this hardcoded value after dev
+const userId = 2;
 
 export class ConcertsHandler {
   private readonly factory = createFactory<Env>();
@@ -41,7 +42,25 @@ export class ConcertsHandler {
 
   getConcerts() {
     return this.factory.createHandlers(async (c) => {
+      const id = c.req.param('id');
+
       try {
+        if (id) {
+          const parsedId = Number(id);
+
+          if (Number.isNaN(parsedId)) {
+            return c.json({ error: 'Invalid id' }, 400);
+          }
+
+          const concert = await this.repository.getConcert(userId, parsedId);
+
+          if (!concert) {
+            return c.json({ error: 'Concert not found' }, 404);
+          }
+
+          return c.json({ concert });
+        }
+
         const concerts = await this.repository.getConcerts(userId);
 
         return c.json({ concerts });
