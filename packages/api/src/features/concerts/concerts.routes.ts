@@ -12,12 +12,8 @@ app.get('/:id?', ...concertsHandler.getConcerts());
 
 app.post('/', ...concertsHandler.createConcert());
 
-app.put('/', (c) => {
-  return c.json({ message: 'Hello Hono!' });
-});
+app.put('/', ...concertsHandler.updateConcert());
 
-app.delete('/', (c) => {
-  return c.json({ message: 'Hello Hono!' });
-});
+app.delete('/:id', ...concertsHandler.deleteConcert());
 
 export default app;

@@ -5,13 +5,12 @@ export type ConcertCreateInput = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
 >;
 
-export type ConcertUpdateInput = Partial<Omit<ConcertCreateInput, 'userId'>> &
-  Pick<Concert, 'id'>;
+export type ConcertUpdateInput = ConcertCreateInput & Pick<Concert, 'id'>;
 
 export interface ConcertsRepository {
   createConcert: (concert: ConcertCreateInput) => Promise<number>;
   getConcerts: (userId: number) => Promise<Concert[]>;
   getConcert: (userId: number, id: number) => Promise<Concert | undefined>;
-  updateConcert: (concert: ConcertUpdateInput) => Promise<boolean>;
+  updateConcert: (concert: ConcertUpdateInput) => Promise<void>;
   deleteConcert: (userId: number, id: number) => Promise<void>;
 }

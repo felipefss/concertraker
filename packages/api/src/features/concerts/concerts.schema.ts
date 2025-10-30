@@ -16,4 +16,9 @@ export const concertCreateSchema = z.object({
   }),
 });
 
-export type ConcertCreateSchema = z.infer<typeof concertCreateSchema>;
+export const concertUpdateSchema = z.object({
+  data: z.object({
+    ...concertCreateSchema.shape.data.shape,
+    id: z.number(),
+  }),
+});

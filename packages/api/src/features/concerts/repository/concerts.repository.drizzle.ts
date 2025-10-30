@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { db } from '@/db';
 import { type Concert, concert } from '@/db/schema/concert.sql';
 import type {
@@ -25,22 +25,63 @@ export class ConcertsDrizzleRepository implements ConcertsRepository {
 
   async getConcerts(userId: number): Promise<Concert[]> {
     return await db.query.concert.findMany({
-      where: (concert, { eq }) => eq(concert.userId, userId),
+      orderBy: (concert, { asc }) => asc(concert.date),
+      where: (concert, { eq, and, isNull }) =>
+        and(eq(concert.userId, userId), isNull(concert.deletedAt)),
     });
   }
 
   async getConcert(userId: number, id: number): Promise<Concert | undefined> {
     return await db.query.concert.findFirst({
-      where: (concert, { eq, and }) =>
-        and(eq(concert.userId, userId), eq(concert.id, id)),
+      where: (concert, { eq, and, isNull }) =>
+        and(
+          eq(concert.userId, userId),
+          eq(concert.id, id),
+          isNull(concert.deletedAt),
+        ),
     });
   }
 
-  async updateConcert(concert: ConcertUpdateInput): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async updateConcert({
+    artist,
+    date,
+    id,
+    location,
+    notes,
+    venue,
+    userId,
+  }: ConcertUpdateInput): Promise<void> {
+    await db
+      .update(concert)
+      .set({
+        artist,
+        date,
+        location,
+        notes,
+        updatedAt: new Date(),
+        venue,
+      })
+      .where(
+        and(
+          eq(concert.id, id),
+          eq(concert.userId, userId),
+          isNull(concert.deletedAt),
+        ),
+      );
   }
 
   async deleteConcert(userId: number, id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+    await db
+      .update(concert)
+      .set({
+        deletedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(concert.id, id),
+          eq(concert.userId, userId),
+          isNull(concert.deletedAt),
+        ),
+      );
   }
 }
