@@ -12,6 +12,7 @@ export class InMemoryUsersRepository implements UsersRepository {
       clerkId: data.id,
       createdAt: new Date(),
       deletedAt: null,
+      email: data.email_addresses[0]?.email_address,
       firstName: data.first_name,
       id,
       imageUrl: data.image_url ?? null,
@@ -21,5 +22,11 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     this.users.push(user);
     return id;
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    const user = this.users.find((user) => user.email === email);
+
+    return user ?? null;
   }
 }
