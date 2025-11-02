@@ -15,7 +15,7 @@ describe('Users feature', () => {
     app.post('/users', ...usersHandler.createUser());
   });
 
-  test('should create a user', async () => {
+  test('POST /users', async () => {
     const res = await app.request('/users', {
       body: JSON.stringify({
         data: {
