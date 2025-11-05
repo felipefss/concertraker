@@ -20,8 +20,10 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .env.development
 .env.development.local
 .env.test.local
+.env.production
 .env.production.local
 .env.local
+.env.me
 
 # caches
 .eslintcache
@@ -35,3 +37,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 .neon_local
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

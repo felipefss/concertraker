@@ -8,7 +8,8 @@
     "lint": "biome check",
     "neon:local": "docker compose -f src/db/docker-compose.yml --env-file .env up -d",
     "migration:gen": "drizzle-kit generate",
-    "migration:apply": "drizzle-kit migrate"
+    "migration:apply": "drizzle-kit migrate",
+    "dotenv:push": "bunx dotenv-vault@latest push"
   },
   "devDependencies": {
     "@types/bun": "latest",
