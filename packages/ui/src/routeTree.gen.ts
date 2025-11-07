@@ -9,10 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NoAuthRouteImport } from './routes/_noAuth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NoAuthSignUpRouteImport } from './routes/_noAuth/sign-up'
+import { Route as NoAuthSignInRouteImport } from './routes/_noAuth/sign-in'
 import { Route as AuthenticatedConcertsIndexRouteImport } from './routes/_authenticated/concerts/index'
 
+const NoAuthRoute = NoAuthRouteImport.update({
+  id: '/_noAuth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -21,6 +28,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const NoAuthSignUpRoute = NoAuthSignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => NoAuthRoute,
+} as any)
+const NoAuthSignInRoute = NoAuthSignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => NoAuthRoute,
 } as any)
 const AuthenticatedConcertsIndexRoute =
   AuthenticatedConcertsIndexRouteImport.update({
@@ -31,33 +48,55 @@ const AuthenticatedConcertsIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sign-in': typeof NoAuthSignInRoute
+  '/sign-up': typeof NoAuthSignUpRoute
   '/concerts': typeof AuthenticatedConcertsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sign-in': typeof NoAuthSignInRoute
+  '/sign-up': typeof NoAuthSignUpRoute
   '/concerts': typeof AuthenticatedConcertsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_noAuth': typeof NoAuthRouteWithChildren
+  '/_noAuth/sign-in': typeof NoAuthSignInRoute
+  '/_noAuth/sign-up': typeof NoAuthSignUpRoute
   '/_authenticated/concerts/': typeof AuthenticatedConcertsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/concerts'
+  fullPaths: '/' | '/sign-in' | '/sign-up' | '/concerts'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/concerts'
-  id: '__root__' | '/' | '/_authenticated' | '/_authenticated/concerts/'
+  to: '/' | '/sign-in' | '/sign-up' | '/concerts'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/_noAuth'
+    | '/_noAuth/sign-in'
+    | '/_noAuth/sign-up'
+    | '/_authenticated/concerts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  NoAuthRoute: typeof NoAuthRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_noAuth': {
+      id: '/_noAuth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof NoAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -71,6 +110,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_noAuth/sign-up': {
+      id: '/_noAuth/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof NoAuthSignUpRouteImport
+      parentRoute: typeof NoAuthRoute
+    }
+    '/_noAuth/sign-in': {
+      id: '/_noAuth/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof NoAuthSignInRouteImport
+      parentRoute: typeof NoAuthRoute
     }
     '/_authenticated/concerts/': {
       id: '/_authenticated/concerts/'
@@ -94,9 +147,23 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface NoAuthRouteChildren {
+  NoAuthSignInRoute: typeof NoAuthSignInRoute
+  NoAuthSignUpRoute: typeof NoAuthSignUpRoute
+}
+
+const NoAuthRouteChildren: NoAuthRouteChildren = {
+  NoAuthSignInRoute: NoAuthSignInRoute,
+  NoAuthSignUpRoute: NoAuthSignUpRoute,
+}
+
+const NoAuthRouteWithChildren =
+  NoAuthRoute._addFileChildren(NoAuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  NoAuthRoute: NoAuthRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

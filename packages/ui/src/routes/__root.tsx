@@ -1,8 +1,13 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 
 import './index.css';
+import type { useAuth } from '@clerk/clerk-react';
 
-export const Route = createRootRoute({
+interface RouterContext {
+  auth: ReturnType<typeof useAuth> | undefined;
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: Root,
 });
 

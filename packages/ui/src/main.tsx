@@ -1,10 +1,17 @@
+import { ClerkProvider, useAuth } from '@clerk/clerk-react';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { routeTree } from './routeTree.gen.ts';
 
-const router = createRouter({ routeTree });
+const router = createRouter({ context: { auth: undefined }, routeTree });
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error('Add your Clerk Publishable Key to the .env file');
+}
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -13,19 +20,37 @@ declare module '@tanstack/react-router' {
   }
 }
 
+function InnerApp() {
+  const auth = useAuth();
+
+  if (!auth.isLoaded) {
+    return (
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          height: '100vh',
+          justifyContent: 'center',
+        }}
+      >
+        <p>Loading user session...</p>
+      </div>
+    );
+  }
+
+  return <RouterProvider context={{ auth }} router={router} />;
+}
+
 // Render the app
+// biome-ignore lint/style/noNonNullAssertion: <This will always exist>
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+        <InnerApp />
+      </ClerkProvider>
     </StrictMode>,
   );
 }
-
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// );
