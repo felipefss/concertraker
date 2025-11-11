@@ -16,7 +16,7 @@ export const formSchema = z.object({
     .min(4, { error: 'Year format is YYYY' })
     .refine(
       (val) =>
-        !isNaN(Number(val)) &&
+        !Number.isNaN(Number(val)) &&
         Number(val) >= 1900 &&
         Number(val) <= new Date().getFullYear(),
       {

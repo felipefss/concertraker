@@ -6,10 +6,12 @@ interface Props {
 }
 
 export function ConcertsList({ concerts }: Props) {
+  console.log(concerts);
+
   return (
     <>
       {concerts.map((concert) => (
-        <ConcertView key={concert.id} concert={concert} />
+        <ConcertView concert={concert} key={concert.id} />
       ))}
     </>
   );

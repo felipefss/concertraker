@@ -1,48 +1,39 @@
+import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Suspense, useState } from 'react';
-
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
 import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
-import type { Concert } from './-models/ConcertModel';
+import { getConcerts } from './-queryFns/get-concerts';
 
 export const Route = createFileRoute('/_authenticated/concerts/')({
   component: RouteComponent,
-  loader: async (): Promise<Concert[]> => {
-    try {
-      const fetchResp = await fetch('http://localhost:3000/concerts');
-      return await fetchResp.json();
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  },
 });
 
 function RouteComponent() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const concerts = Route.useLoaderData();
+  const { data: concerts } = useQuery({
+    queryFn: getConcerts,
+    queryKey: ['get-concerts'],
+  });
 
   return (
-    <main className='p-4 grid grid-cols-3'>
-      <Card className='col-start-2 h-fit'>
+    <main className="p-4 grid grid-cols-3">
+      <Card className="col-start-2 h-fit">
         <CardHeader>
-          <CardTitle className='flex items-center justify-between'>
+          <CardTitle className="flex items-center justify-between">
             <h1>My Concerts History</h1>
             <ConcertDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <Button className='btn-teal-outline' variant='outline'>
+              <Button className="btn-teal-outline" variant="outline">
                 Add new
               </Button>
             </ConcertDialog>
           </CardTitle>
         </CardHeader>
 
-        <CardContent className='space-y-4'>
-          <Suspense fallback='Loading...'>
-            <ConcertsList concerts={concerts} />
-          </Suspense>
+        <CardContent className="space-y-4">
+          {concerts ? <ConcertsList concerts={concerts} /> : <p>Loading...</p>}
         </CardContent>
       </Card>
     </main>

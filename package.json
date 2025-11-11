@@ -2,6 +2,7 @@
   "name": "concertraker",
   "version": "0.0.1",
   "scripts": {
+    "dev": "bun --filter '*' dev",
     "ui:dev": "bun --filter 'ui' dev",
     "api:dev": "bun --filter 'api' dev",
     "prepare": "husky || true"
