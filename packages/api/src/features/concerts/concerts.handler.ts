@@ -11,9 +11,6 @@ type Env = {
   };
 };
 
-// TODO: remove this hardcoded value after dev
-const userId = 1;
-
 export class ConcertsHandler {
   private readonly factory = createFactory<Env>();
 
@@ -21,9 +18,11 @@ export class ConcertsHandler {
 
   createConcert() {
     return this.factory.createHandlers(
+      authMiddleware,
       zValidator('json', concertCreateSchema),
       async (c) => {
         const { data } = c.req.valid('json');
+        const userId = c.get('userId');
 
         try {
           const insertedId = await this.repository.createConcert({
@@ -41,8 +40,9 @@ export class ConcertsHandler {
   }
 
   getConcerts() {
-    return this.factory.createHandlers(async (c) => {
+    return this.factory.createHandlers(authMiddleware, async (c) => {
       const id = c.req.param('id');
+      const userId = c.get('userId');
 
       try {
         if (id) {
@@ -73,9 +73,11 @@ export class ConcertsHandler {
 
   updateConcert() {
     return this.factory.createHandlers(
+      authMiddleware,
       zValidator('json', concertUpdateSchema),
       async (c) => {
         const { data } = c.req.valid('json');
+        const userId = c.get('userId');
 
         try {
           await this.repository.updateConcert({ ...data, userId });
@@ -90,8 +92,9 @@ export class ConcertsHandler {
   }
 
   deleteConcert() {
-    return this.factory.createHandlers(async (c) => {
+    return this.factory.createHandlers(authMiddleware, async (c) => {
       const id = c.req.param('id');
+      const userId = c.get('userId');
 
       try {
         const parsedId = Number(id);

@@ -5,7 +5,6 @@ import { UsersDrizzleRepository } from '@/features/users/repository/users.reposi
 
 const isAuthenticated = createMiddleware(async (c, next) => {
   const auth = getAuth(c);
-  console.log('token', auth?.getToken());
 
   if (!auth?.userId) {
     return c.json({ error: 'Unauthorized' }, 401);
