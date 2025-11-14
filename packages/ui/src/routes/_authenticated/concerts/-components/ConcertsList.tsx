@@ -6,8 +6,6 @@ interface Props {
 }
 
 export function ConcertsList({ concerts }: Props) {
-  console.log(concerts);
-
   return (
     <>
       {concerts.map((concert) => (

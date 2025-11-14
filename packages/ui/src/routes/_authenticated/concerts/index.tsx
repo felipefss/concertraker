@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useApi } from '@/hooks/useApi';
 import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
+import { LoadingSpinner } from './-components/LoadingSpinner';
 import { getConcerts } from './-queryFns/get-concerts';
 
 export const Route = createFileRoute('/_authenticated/concerts/')({
@@ -36,7 +37,7 @@ function RouteComponent() {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {concerts ? <ConcertsList concerts={concerts} /> : <p>Loading...</p>}
+          {concerts ? <ConcertsList concerts={concerts} /> : <LoadingSpinner />}
         </CardContent>
       </Card>
     </main>
