@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useApi } from '@/hooks/useApi';
 import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
 import { getConcerts } from './-queryFns/get-concerts';
@@ -13,8 +14,10 @@ export const Route = createFileRoute('/_authenticated/concerts/')({
 
 function RouteComponent() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const api = useApi();
+
   const { data: concerts } = useQuery({
-    queryFn: getConcerts,
+    queryFn: () => getConcerts(api),
     queryKey: ['get-concerts'],
   });
 

@@ -1,12 +1,11 @@
+import type { AxiosInstance } from 'axios';
 import type { Concert } from '../-models/ConcertModel';
 
-export const getConcerts = async (): Promise<Concert[]> => {
+export const getConcerts = async (api: AxiosInstance): Promise<Concert[]> => {
   try {
-    const data = await fetch('http://localhost:3000/concerts');
+    const response = await api.get<{ concerts: Concert[] }>('/concerts');
 
-    const parsedData: { concerts: Concert[] } = await data.json();
-
-    return parsedData.concerts;
+    return response.data.concerts;
   } catch (error) {
     throw new Error('Failed to fetch concerts', error as ErrorOptions);
   }
