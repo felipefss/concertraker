@@ -15,28 +15,28 @@ export const Input = ({ label, isMultiline, ...props }: Props) => {
     formState: { errors },
   } = useFormContext();
 
-  console.log(props.name, errors[props.name!]?.message);
+  // biome-ignore lint/style/noNonNullAssertion: <Props name should never be null>
   const errorMessage = errors[props.name!]?.message;
 
   return (
-    <div className='grid grid-cols-4 items-center gap-4'>
-      <Label htmlFor='artist' className='justify-end font-bold'>
+    <div className="grid grid-cols-4 items-center gap-4">
+      <Label className="justify-end font-bold" htmlFor="artist">
         {label}
       </Label>
 
       {isMultiline ? (
-        <Textarea placeholder={label} className='col-span-3' {...props} />
+        <Textarea className="col-span-3" placeholder={label} {...props} />
       ) : (
         <InputCn
-          id='artist'
+          className="col-span-3"
+          id={props.name}
           placeholder={label}
-          className='col-span-3'
           {...props}
         />
       )}
 
       {errorMessage && (
-        <span className='text-red-500 text-xs italic col-span-3 col-start-2 my-[-4rem]'>
+        <span className="text-red-500 text-xs italic col-span-3 col-start-2 my-[-4rem]">
           {errorMessage as string}
         </span>
       )}

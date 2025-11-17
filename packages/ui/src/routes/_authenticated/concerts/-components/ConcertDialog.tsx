@@ -1,9 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import type { ReactElement } from 'react';
-import { useFormStatus } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -14,7 +13,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
+import { queries } from '@/constants';
+import { formatDate } from '@/helpers/date';
+import { useApi } from '@/hooks/useApi';
 import {
   type Concert,
   type ConcertFormValues,
@@ -35,7 +36,22 @@ export function ConcertDialog({
   isOpen,
   onOpenChange,
 }: Props) {
-  const { pending } = useFormStatus();
+  const isEditing = !!concert;
+  const api = useApi();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    // TODO: Put this in a mutations file in queryFns folder
+    // TODO: Fix: remove the data from the request
+    mutationFn: (data: { data: ConcertFormValues }) => {
+      return api.post('/concerts', data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
+      onOpenChange(false);
+    },
+    // TODO: on error, show notification (sonner)
+  });
 
   const methods = useForm<ConcertFormValues>({
     defaultValues: concert
@@ -50,16 +66,20 @@ export function ConcertDialog({
     resolver: zodResolver(formSchema),
   });
 
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, reset } = methods;
 
   function onSubmit(data: ConcertFormValues) {
-    if (concert) {
+    if (isEditing) {
       console.log('edit', data);
+      reset();
       return;
     }
 
-    console.log(data);
+    // TODO: Add option to use AI to insert a concert (maybe a chat bot with n8n? Or have an AI button to fill out the
+    // fields that are empty)
+    mutation.mutate({ data: { ...data, date: formatDate(data.date) } });
     onOpenChange(false);
+    reset();
   }
 
   return (
@@ -91,9 +111,13 @@ export function ConcertDialog({
                 Cancel
               </Button>
             </DialogClose>
-            <Button className="btn-teal" disabled={pending} type="submit">
-              {pending && <Loader2Icon className="animate-spin" />}
-              {concert ? 'Save' : 'Add'}
+            <Button
+              className="btn-teal"
+              disabled={mutation.isPending}
+              type="submit"
+            >
+              {mutation.isPending && <Loader2Icon className="animate-spin" />}
+              {isEditing ? 'Save' : 'Add'}
             </Button>
           </DialogFooter>
         </form>

@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { queries } from '@/constants';
 import { useApi } from '@/hooks/useApi';
 import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
@@ -19,7 +20,7 @@ function RouteComponent() {
 
   const { data: concerts } = useQuery({
     queryFn: () => getConcerts(api),
-    queryKey: ['get-concerts'],
+    queryKey: [queries.GET_CONCERTS],
   });
 
   return (
