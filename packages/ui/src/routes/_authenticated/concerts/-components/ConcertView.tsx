@@ -10,7 +10,7 @@ interface Props {
 
 export function ConcertView({ concert }: Props) {
   const { artist, date, location, notes, venue } = concert;
-  const formattedDate = formatDate(date);
+  const formattedDate = formatDate(date, 'shortYear');
 
   return (
     <Card className="bg-gray-50 dark:bg-gray-800 relative">

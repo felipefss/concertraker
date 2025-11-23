@@ -45,7 +45,7 @@ export function ConcertDialog({
   // TODO: Put this whole mutation in a hook (all mutations should be in the hook or separate hooks)
   const mutation = useMutation({
     // TODO: Fix: remove the data from the request
-    mutationFn: (data: { data: ConcertFormValues }) => insertConcert(api, data),
+    mutationFn: (data: ConcertFormValues) => insertConcert(api, data),
     onError: (error) => {
       console.error(error);
       toast.error('Something went wrong', {
@@ -90,7 +90,7 @@ export function ConcertDialog({
 
     // TODO: Add option to use AI to insert a concert (maybe a chat bot with n8n? Or have an AI button to fill out the
     // fields that are empty)
-    mutation.mutate({ data: { ...data, date: formatDate(data.date) } });
+    mutation.mutate({ ...data, date: formatDate(data.date) });
     onOpenChange(false);
     reset();
   }

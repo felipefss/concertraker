@@ -21,7 +21,7 @@ export class ConcertsHandler {
       authMiddleware,
       zValidator('json', concertCreateSchema),
       async (c) => {
-        const { data } = c.req.valid('json');
+        const data = c.req.valid('json');
         const userId = c.get('userId');
 
         try {
@@ -76,7 +76,7 @@ export class ConcertsHandler {
       authMiddleware,
       zValidator('json', concertUpdateSchema),
       async (c) => {
-        const { data } = c.req.valid('json');
+        const data = c.req.valid('json');
         const userId = c.get('userId');
 
         try {
