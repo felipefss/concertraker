@@ -1,6 +1,6 @@
 import {
-  confirmable,
   type ConfirmDialogProps,
+  confirmable,
   createConfirmation,
 } from 'react-confirm';
 
@@ -27,10 +27,10 @@ function ConfirmDialog({
 
         <DialogFooter>
           <Button
-            className='btn-teal-outline'
-            type='button'
-            variant='outline'
+            className="btn-teal-outline"
             onClick={() => proceed(false)}
+            type="button"
+            variant="outline"
           >
             Cancel
           </Button>

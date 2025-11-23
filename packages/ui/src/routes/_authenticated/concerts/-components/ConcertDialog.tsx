@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,6 +22,7 @@ import {
   type ConcertFormValues,
   formSchema,
 } from '../-models/ConcertModel';
+import { insertConcert } from '../-queryFns/insert-concert';
 import { Input } from './Input';
 
 interface Props {
@@ -40,17 +42,28 @@ export function ConcertDialog({
   const api = useApi();
   const queryClient = useQueryClient();
 
+  // TODO: Put this whole mutation in a hook (all mutations should be in the hook or separate hooks)
   const mutation = useMutation({
-    // TODO: Put this in a mutations file in queryFns folder
     // TODO: Fix: remove the data from the request
-    mutationFn: (data: { data: ConcertFormValues }) => {
-      return api.post('/concerts', data);
+    mutationFn: (data: { data: ConcertFormValues }) => insertConcert(api, data),
+    onError: (error) => {
+      console.error(error);
+      toast.error('Something went wrong', {
+        closeButton: true,
+        description: 'Please try again and/or check logs',
+        position: 'top-right',
+        richColors: true,
+      });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
       onOpenChange(false);
+      toast.success('Concert added', {
+        closeButton: true,
+        position: 'top-right',
+        richColors: true,
+      });
     },
-    // TODO: on error, show notification (sonner)
   });
 
   const methods = useForm<ConcertFormValues>({
