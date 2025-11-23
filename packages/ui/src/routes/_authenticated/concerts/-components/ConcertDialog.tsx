@@ -1,9 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -14,15 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { queries } from '@/constants';
 import { formatDate } from '@/helpers/date';
-import { useApi } from '@/hooks/useApi';
 import {
   type Concert,
   type ConcertFormValues,
   formSchema,
 } from '../-models/ConcertModel';
-import { insertConcert } from '../-queryFns/insert-concert';
+import { useInsertConcert } from '../hooks/useInsertConcert';
 import { Input } from './Input';
 
 interface Props {
@@ -39,32 +35,8 @@ export function ConcertDialog({
   onOpenChange,
 }: Props) {
   const isEditing = !!concert;
-  const api = useApi();
-  const queryClient = useQueryClient();
 
-  // TODO: Put this whole mutation in a hook (all mutations should be in the hook or separate hooks)
-  const mutation = useMutation({
-    // TODO: Fix: remove the data from the request
-    mutationFn: (data: ConcertFormValues) => insertConcert(api, data),
-    onError: (error) => {
-      console.error(error);
-      toast.error('Something went wrong', {
-        closeButton: true,
-        description: 'Please try again and/or check logs',
-        position: 'top-right',
-        richColors: true,
-      });
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
-      onOpenChange(false);
-      toast.success('Concert added', {
-        closeButton: true,
-        position: 'top-right',
-        richColors: true,
-      });
-    },
-  });
+  const mutation = useInsertConcert(onOpenChange);
 
   const methods = useForm<ConcertFormValues>({
     defaultValues: concert
