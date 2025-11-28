@@ -1,27 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { queries } from '@/constants';
+import { type OnOpenChange, queries } from '@/constants';
+import buildErrorToast from '@/helpers/build-error-toast';
 import { useApi } from '@/hooks/useApi';
 import type { ConcertFormValues } from '../-models/ConcertModel';
 import { insertConcert } from '../-queryFns/mutations';
 
-type OnOpenChange = (open: boolean) => void;
-
 export function useInsertConcert(onOpenChange: OnOpenChange) {
   const api = useApi();
   const queryClient = useQueryClient();
+  const onError = buildErrorToast(
+    'Error inserting new concert',
+    'Please try again and/or check logs',
+  );
 
   const mutation = useMutation({
     mutationFn: (data: ConcertFormValues) => insertConcert(api, data),
-    onError: (error) => {
-      console.error(error);
-      toast.error('Something went wrong', {
-        closeButton: true,
-        description: 'Please try again and/or check logs',
-        position: 'top-right',
-        richColors: true,
-      });
-    },
+    onError,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
       onOpenChange(false);

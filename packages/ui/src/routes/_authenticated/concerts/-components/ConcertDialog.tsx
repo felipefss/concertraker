@@ -13,12 +13,13 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { formatDate } from '@/helpers/date';
+import { useEditConcert } from '../-hooks/use-edit-concert';
+import { useInsertConcert } from '../-hooks/use-insert-concert';
 import {
   type Concert,
   type ConcertFormValues,
   formSchema,
 } from '../-models/ConcertModel';
-import { useInsertConcert } from '../hooks/useInsertConcert';
 import { Input } from './Input';
 
 interface Props {
@@ -36,13 +37,14 @@ export function ConcertDialog({
 }: Props) {
   const isEditing = !!concert;
 
-  const mutation = useInsertConcert(onOpenChange);
+  const insertMutation = useInsertConcert(onOpenChange);
+  const editMutation = useEditConcert(onOpenChange);
 
   const methods = useForm<ConcertFormValues>({
     defaultValues: concert
       ? {
           artist: concert.artist,
-          date: concert.date,
+          date: formatDate(concert.date, 'shortYear'),
           location: concert.location,
           notes: concert.notes,
           venue: concert.venue,
@@ -55,14 +57,19 @@ export function ConcertDialog({
 
   function onSubmit(data: ConcertFormValues) {
     if (isEditing) {
-      console.log('edit', data);
+      console.log('edit', data, concert);
+      editMutation.mutate({
+        ...data,
+        date: formatDate(data.date),
+        id: concert.id,
+      });
       reset();
       return;
     }
 
     // TODO: Add option to use AI to insert a concert (maybe a chat bot with n8n? Or have an AI button to fill out the
     // fields that are empty)
-    mutation.mutate({ ...data, date: formatDate(data.date) });
+    insertMutation.mutate({ ...data, date: formatDate(data.date) });
     onOpenChange(false);
     reset();
   }
@@ -98,10 +105,12 @@ export function ConcertDialog({
             </DialogClose>
             <Button
               className="btn-teal"
-              disabled={mutation.isPending}
+              disabled={insertMutation.isPending}
               type="submit"
             >
-              {mutation.isPending && <Loader2Icon className="animate-spin" />}
+              {insertMutation.isPending && (
+                <Loader2Icon className="animate-spin" />
+              )}
               {isEditing ? 'Save' : 'Add'}
             </Button>
           </DialogFooter>
