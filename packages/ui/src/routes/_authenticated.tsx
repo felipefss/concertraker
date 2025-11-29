@@ -14,6 +14,8 @@ export const Route = createFileRoute('/_authenticated')({
 });
 
 function RouteComponent() {
+  const isScreenSmall = window.innerWidth < 640;
+
   return (
     <div className="bg-teal-50 min-h-dvh">
       <Header>
@@ -24,7 +26,7 @@ function RouteComponent() {
                 userButtonBox: 'border-2 rounded-sm p-2 border-black',
               },
             }}
-            showName={true}
+            showName={isScreenSmall && true}
           />
         </nav>
       </Header>

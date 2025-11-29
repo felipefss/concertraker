@@ -24,7 +24,7 @@ function RouteComponent() {
   });
 
   return (
-    <main className="p-4 grid grid-cols-3">
+    <main className="p-4 grid lg:grid-cols-3">
       <Card className="col-start-2 h-fit">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">

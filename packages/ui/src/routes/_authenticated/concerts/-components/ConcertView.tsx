@@ -31,7 +31,7 @@ export function ConcertView({ concert }: Props) {
         <ConcertOptions concert={concert} onDelete={handleIsDeleting} />
       )}
 
-      <CardContent className="grid grid-cols-[1.5fr_.3fr_1.2fr] gap-2 *:even:col-start-3 *:last:col-span-3">
+      <CardContent className="grid lg:grid-cols-[1.5fr_.3fr_1.2fr] gap-2 lg:*:even:col-start-3 lg:*:last:col-span-3">
         <ConcertField label="Artist" value={artist} />
 
         <ConcertField label="Venue" value={venue} />
@@ -41,7 +41,7 @@ export function ConcertView({ concert }: Props) {
         {/* TODO: Change this to Date: YYYY-MM */}
         <ConcertField label="Year" value={formattedDate} />
 
-        <ConcertField label="Notes" value={notes} />
+        {notes && <ConcertField label="Notes" value={notes} />}
       </CardContent>
     </Card>
   );
