@@ -8,3 +8,7 @@ export function insertConcert(api: AxiosInstance, data: ConcertFormValues) {
 export function editConcert(api: AxiosInstance, data: Concert) {
   return api.put(`/concerts`, data);
 }
+
+export function deleteConcert(api: AxiosInstance, id: string) {
+  return api.delete(`/concerts/${id}`);
+}

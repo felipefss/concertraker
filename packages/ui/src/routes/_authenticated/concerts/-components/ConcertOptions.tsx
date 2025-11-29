@@ -1,5 +1,5 @@
 import { Ellipsis } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   DropdownMenu,
@@ -7,17 +7,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
+import { useDeleteConcert } from '../-hooks/use-delete-concert';
 import type { Concert } from '../-models/ConcertModel';
 import { ConcertDialog } from './ConcertDialog';
 import { confirm } from './ConfirmDialog';
 
 interface Props {
   concert: Concert;
+  onDelete: (isDeleting: boolean) => void;
 }
 
-export function ConcertOptions({ concert }: Props) {
+export function ConcertOptions({ concert, onDelete }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { mutate: deleteMutation, isPending: isDeleting } = useDeleteConcert();
+
+  useEffect(() => {
+    onDelete(isDeleting);
+  }, [onDelete, isDeleting]);
 
   async function handleClickDelete() {
     const result = await confirm({
@@ -25,8 +31,8 @@ export function ConcertOptions({ concert }: Props) {
     });
 
     if (result) {
-      // await deleteConcert(id);
-      console.log('DELETE CONCERT id', concert.id);
+      deleteMutation(concert.id);
+      onDelete(isDeleting);
     }
   }
 
@@ -37,9 +43,9 @@ export function ConcertOptions({ concert }: Props) {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className='absolute right-0 top-0'>
-          <div className='border border-transparent rounded-md p-1 text-accent-foreground hover:border-border hover:bg-accent'>
-            <Ellipsis className='h-5 w-5' />
+        <DropdownMenuTrigger className="absolute right-0 top-0">
+          <div className="border border-transparent rounded-md p-1 text-accent-foreground hover:border-border hover:bg-accent">
+            <Ellipsis className="h-5 w-5" />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

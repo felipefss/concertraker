@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { type OnOpenChange, queries } from '@/constants';
+import { queries } from '@/constants';
 import buildErrorToast from '@/helpers/build-error-toast';
 import { useApi } from '@/hooks/useApi';
-import type { ConcertFormValues } from '../-models/ConcertModel';
-import { insertConcert } from '../-queryFns/mutations';
+import { deleteConcert } from '../-queryFns/mutations';
 
-export function useInsertConcert(onOpenChange: OnOpenChange) {
+export function useDeleteConcert() {
   const api = useApi();
   const queryClient = useQueryClient();
   const onError = buildErrorToast(
@@ -15,14 +14,12 @@ export function useInsertConcert(onOpenChange: OnOpenChange) {
   );
 
   const mutation = useMutation({
-    mutationFn: (data: ConcertFormValues) => insertConcert(api, data),
+    mutationFn: (id: string) => deleteConcert(api, id),
     onError,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [queries.GET_CONCERTS] });
 
-      onOpenChange(false);
-
-      toast.success('Concert added', {
+      toast.success('Concert deleted', {
         closeButton: true,
         position: 'top-right',
         richColors: true,
