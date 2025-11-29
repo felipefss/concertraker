@@ -1,8 +1,6 @@
-import { useAuth } from '@clerk/clerk-react';
+import { UserButton } from '@clerk/clerk-react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { toast } from 'sonner';
 import { Header } from '@/components/Header';
-import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context }) => {
@@ -16,33 +14,18 @@ export const Route = createFileRoute('/_authenticated')({
 });
 
 function RouteComponent() {
-  const { signOut } = useAuth();
-
-  const handleSignOut = () => {
-    try {
-      signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-      toast.error('Error signing out', {
-        closeButton: true,
-        description: 'Please try again later',
-        position: 'top-right',
-        richColors: true,
-      });
-    }
-  };
-
   return (
     <div className="bg-teal-50 min-h-dvh">
       <Header>
         <nav>
-          <Button
-            className="text-red-500 hover:text-red-700"
-            onMouseDown={handleSignOut}
-            variant="outline"
-          >
-            Sign Out
-          </Button>
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonBox: 'border-2 rounded-sm p-2 border-black',
+              },
+            }}
+            showName={true}
+          />
         </nav>
       </Header>
       <Outlet />
