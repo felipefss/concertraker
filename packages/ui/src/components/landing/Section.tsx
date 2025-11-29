@@ -1,5 +1,5 @@
-import { ComponentProps, ReactNode } from 'react';
 import { clsx } from 'clsx/lite';
+import type { ComponentProps, ReactNode } from 'react';
 
 interface Props extends ComponentProps<'section'> {
   children: ReactNode;
