@@ -57,13 +57,11 @@ export function ConcertDialog({
 
   function onSubmit(data: ConcertFormValues) {
     if (isEditing) {
-      console.log('edit', data, concert);
       editMutation.mutate({
         ...data,
         date: formatDate(data.date),
         id: concert.id,
       });
-      reset();
       return;
     }
 
