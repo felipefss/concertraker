@@ -3,7 +3,7 @@ import {
   confirmable,
   createConfirmation,
 } from 'react-confirm';
-
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -18,9 +18,13 @@ function ConfirmDialog({
   proceed,
   message,
 }: ConfirmDialogProps<{ message: string }, boolean>) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'restricted.concertsList.optionsMenu',
+  });
+
   return (
     <Dialog open={show}>
-      <DialogContent>
+      <DialogContent className="[&>#dialogXbutton]:hidden">
         <DialogHeader>
           <DialogTitle>{message}</DialogTitle>
         </DialogHeader>
@@ -32,9 +36,9 @@ function ConfirmDialog({
             type="button"
             variant="outline"
           >
-            Cancel
+            {t('cancelButton')}
           </Button>
-          <Button onClick={() => proceed(true)}>Continue</Button>
+          <Button onClick={() => proceed(true)}>{t('confirmButton')}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

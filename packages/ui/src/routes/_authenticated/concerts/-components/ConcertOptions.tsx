@@ -1,6 +1,6 @@
 import { Ellipsis } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +18,9 @@ interface Props {
 }
 
 export function ConcertOptions({ concert, onDelete }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'restricted.concertsList.optionsMenu',
+  });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { mutate: deleteMutation, isPending: isDeleting } = useDeleteConcert();
 
@@ -27,7 +30,7 @@ export function ConcertOptions({ concert, onDelete }: Props) {
 
   async function handleClickDelete() {
     const result = await confirm({
-      message: 'Are you sure you want to delete this concert?',
+      message: t('confirmDeleteMessage'),
     });
 
     if (result) {
@@ -49,9 +52,11 @@ export function ConcertOptions({ concert, onDelete }: Props) {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onSelect={handleClickEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleClickEdit}>
+            {t('editButton')}
+          </DropdownMenuItem>
           <DropdownMenuItem onSelect={handleClickDelete}>
-            Delete
+            {t('deleteButton')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

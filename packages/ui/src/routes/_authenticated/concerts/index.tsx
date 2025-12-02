@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { queries } from '@/constants';
@@ -16,6 +17,9 @@ export const Route = createFileRoute('/_authenticated/concerts/')({
 
 function RouteComponent() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'restricted.concertsList',
+  });
   const api = useApi();
 
   const { data: concerts } = useQuery({
@@ -28,10 +32,10 @@ function RouteComponent() {
       <Card className="col-start-2 h-fit">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
-            <h1>My Concerts History</h1>
+            <h1>{t('title')}</h1>
             <ConcertDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <Button className="btn-teal-outline" variant="outline">
-                Add new
+                {t('addNewButton')}
               </Button>
             </ConcertDialog>
           </CardTitle>

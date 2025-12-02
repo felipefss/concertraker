@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -35,6 +36,10 @@ export function ConcertDialog({
   isOpen,
   onOpenChange,
 }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'restricted.concertsList.dialog',
+  });
+
   const isEditing = !!concert;
 
   const insertMutation = useInsertConcert(onOpenChange);
@@ -78,17 +83,23 @@ export function ConcertDialog({
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{concert ? 'Edit' : 'Add a new'} concert</DialogTitle>
+          <DialogTitle>
+            {concert ? t('titleEdit') : t('titleInsert')}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <FormProvider {...methods}>
-              <Input {...register('artist')} label="Artist" />
-              <Input {...register('location')} label="Location" />
-              <Input {...register('venue')} label="Venue" />
-              <Input {...register('date')} label="Year" />
-              <Input {...register('notes')} isMultiline={true} label="Notes" />
+              <Input {...register('artist')} label={t('artist')} />
+              <Input {...register('location')} label={t('location')} />
+              <Input {...register('venue')} label={t('venue')} />
+              <Input {...register('date')} label={t('date')} />
+              <Input
+                {...register('notes')}
+                isMultiline={true}
+                label={t('notes')}
+              />
             </FormProvider>
           </div>
           <DialogFooter>
@@ -98,7 +109,7 @@ export function ConcertDialog({
                 type="button"
                 variant="outline"
               >
-                Cancel
+                {t('cancelButton')}
               </Button>
             </DialogClose>
             <Button
@@ -109,7 +120,7 @@ export function ConcertDialog({
               {insertMutation.isPending && (
                 <Loader2Icon className="animate-spin" />
               )}
-              {isEditing ? 'Save' : 'Add'}
+              {isEditing ? t('saveButton') : t('addButton')}
             </Button>
           </DialogFooter>
         </form>
