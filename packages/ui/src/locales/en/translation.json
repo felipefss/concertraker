@@ -1,0 +1,21 @@
+{
+  "no_auth": {
+    "landing": {
+      "signUpButton": "Sign up",
+      "signInButton": "Sign in",
+      "title": "Track your concert memories",
+      "subtitle": "Never forget a concert again. Keep track of all the shows you've attended and connect with friends who shared the experience.",
+      "getStartedButton": "Get started",
+      "heroImgAlt": "Aerial view of a band playing in a stage for a live audience",
+      "features": "Features",
+      "featuresSubtitle": "Everything you need to keep track of your concert experiences",
+      "trackConcerts": "Track concerts",
+      "trackConcertsSubtitle": "Log every concert you attend with dates, venues, and artists.",
+      "connectWithFriends": "Connect with friends (Next release)",
+      "connectWithFriendsSubtitle": "Find friends who attended the same concerts and share memories.",
+      "readyToStart": "Ready to start?",
+      "readyToStartSubtitle": "Join thousands of music lovers who are documenting their concert experiences.",
+      "createAccount": "Create Account"
+    }
+  }
+}

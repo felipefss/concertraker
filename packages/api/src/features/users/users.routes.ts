@@ -9,4 +9,6 @@ const usersHandler = new UsersHandler(usersRepository);
 
 app.post('/', ...usersHandler.createUser());
 
+// TODO: Add a DELETE route - event triggered when clerk user is deleted
+
 export default app;

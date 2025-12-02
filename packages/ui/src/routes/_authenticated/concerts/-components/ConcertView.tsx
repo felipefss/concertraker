@@ -39,7 +39,7 @@ export function ConcertView({ concert }: Props) {
         <ConcertField label="Location" value={location} />
 
         {/* TODO: Change this to Date: YYYY-MM */}
-        <ConcertField label="Year" value={formattedDate} />
+        <ConcertField label="Date" value={formattedDate} />
 
         <ConcertField label="Notes" value={notes} />
       </CardContent>

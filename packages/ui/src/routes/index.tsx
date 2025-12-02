@@ -1,5 +1,7 @@
 import { createFileRoute, Link, redirect } from '@tanstack/react-router';
-import { ArrowRight, Calendar, MapPin, Users } from 'lucide-react';
+import { ArrowRight, Calendar, Users } from 'lucide-react';
+import { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import concertHeroUrl from '@/assets/concert-hero.jpg';
 import { Header } from '@/components/Header';
 import { Feature } from '@/components/landing/Feature';
@@ -18,18 +20,21 @@ export const Route = createFileRoute('/')({
 });
 
 function Index() {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'no_auth.landing',
+  });
   const currentYear = new Date().getFullYear();
 
   return (
-    <>
+    <Suspense fallback={<h1>Loading</h1>}>
       <Header>
         <nav className="flex gap-4">
           <Button asChild className="btn-teal">
-            <Link to="/sign-in">Login</Link>
+            <Link to="/sign-in">{t('signInButton')}</Link>
           </Button>
 
           <Button asChild className="btn-teal-outline" variant="outline">
-            <Link to="/sign-up">Sign Up</Link>
+            <Link to="/sign-up">{t('signUpButton')}</Link>
           </Button>
         </nav>
       </Header>
@@ -38,17 +43,15 @@ function Index() {
         <Section className="grid bg-gradient-to-b from-teal-50 to-white dark:from-teal-950/20 dark:to-gray-950 dark:bg-none gap-6 lg:grid-cols-2 lg:gap-12">
           <div className="flex flex-col space-y-4 items-center lg:items-baseline">
             <h1 className="text-3xl font-bold tracking-tighter md:text-5xl lg:text-6xl/none dark:text-white">
-              Track your concert memories
+              {t('title')}
             </h1>
             <p className="max-w-xl text-gray-500 md:text-xl dark:text-gray-400">
-              Never forget a concert again. Keep track of all the shows
-              you&lsquo;ve attended and connect with friends who shared the
-              experience.
+              {t('subtitle')}
             </p>
             <div>
               <Button asChild className="btn-teal text-lg p-6" size="lg">
                 <Link to=".">
-                  Get Started
+                  {t('getStartedButton')}
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button>
@@ -56,7 +59,7 @@ function Index() {
           </div>
           <div className="flex items-center justify-center">
             <img
-              alt="Aerial view of a band playing in a stage for a live audience"
+              alt={t('heroImgAlt')}
               className="w-auto lg:w-full object-cover overflow-hidden rounded-lg shadow-xl"
               height={450}
               src={concertHeroUrl}
@@ -68,25 +71,23 @@ function Index() {
         <Section className="bg-teal-50 dark:border-gray-900">
           <div className="text-center mb-4 md:mb-8">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl dark:text-white">
-              Features
+              {t('features')}
             </h2>
             <p className="text-gray-500 dark:text-gray-400 md:text-xl/relaxed">
-              Everything you need to keep track of your concert experiences
+              {t('featuresSubtitle')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3">
-            <Feature icon={<Calendar size="2rem" />} title="Track Concerts">
-              Log every concert you attend with dates, venues, and artists.
+          <div className="grid md:grid-cols-2">
+            <Feature icon={<Calendar size="2rem" />} title={t('trackConcerts')}>
+              {t('trackConcertsSubtitle')}
             </Feature>
 
-            <Feature icon={<Users size="2rem" />} title="Connect With Friends">
-              Find friends who attended the same concerts and share memories.
-            </Feature>
-
-            <Feature icon={<MapPin size="2rem" />} title="Discover Events">
-              Find upcoming concerts based on your music preferences and
-              location.
+            <Feature
+              icon={<Users size="2rem" />}
+              title={t('connectWithFriends')}
+            >
+              {t('connectWithFriendsSubtitle')}
             </Feature>
           </div>
         </Section>
@@ -94,15 +95,14 @@ function Index() {
         <Section className="dark:bg-gray-950 text-center">
           <div className="space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter md:text-5xl lg:text-6xl/none dark:text-white">
-              Ready to Start?
+              {t('readyToStart')}
             </h2>
             <p className="text-gray-500 md:text-xl dark:text-gray-400">
-              Join thousands of music lovers who are documenting their concert
-              experiences.
+              {t('readyToStartSubtitle')}
             </p>
             <Button asChild className="btn-teal text-lg p-6" size="lg">
               <Link to=".">
-                Create Account
+                {t('createAccount')}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Link>
             </Button>
@@ -113,6 +113,6 @@ function Index() {
       <footer className="text-center border-t py-6 bg-teal-50 dark:border-gray-900">
         <span>© {currentYear} Concertraker. All rights reserved.</span>
       </footer>
-    </>
+    </Suspense>
   );
 }

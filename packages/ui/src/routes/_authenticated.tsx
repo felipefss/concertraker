@@ -26,7 +26,7 @@ function RouteComponent() {
                 userButtonBox: 'border-2 rounded-sm p-2 border-black',
               },
             }}
-            showName={isScreenSmall && true}
+            showName={!isScreenSmall && true}
           />
         </nav>
       </Header>

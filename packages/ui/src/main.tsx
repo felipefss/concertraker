@@ -6,6 +6,8 @@ import { createRoot } from 'react-dom/client';
 import { Toaster } from './components/ui/sonner.tsx';
 import { routeTree } from './routeTree.gen.ts';
 
+import './i18.ts';
+
 const router = createRouter({ context: { auth: undefined }, routeTree });
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
