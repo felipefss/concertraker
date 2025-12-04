@@ -2,7 +2,6 @@ import { UserButton } from '@clerk/clerk-react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { LanguagesIcon } from 'lucide-react';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Header } from '@/components/Header';
 import { LanguagesDialog } from './_authenticated/concerts/-components/LanguagesDialog';
 
