@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['dev', 'prod', 'test']).default('dev'),
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   CLERK_PUBLISHABLE_KEY: z.string(),
   CLERK_SECRET_KEY: z.string(),
   NEON_PROJECT_ID: z.string(),
