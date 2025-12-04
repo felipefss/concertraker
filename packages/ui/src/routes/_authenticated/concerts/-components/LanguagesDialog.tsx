@@ -1,4 +1,4 @@
-import { type ChangeEvent, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,8 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 interface Props {
   isOpen: boolean;
@@ -26,8 +26,7 @@ export function LanguagesDialog({ isOpen, onOpenChange }: Props) {
   const ptBRId = useId();
   const esId = useId();
 
-  const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const language = event.target.value;
+  const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
   };
 
@@ -46,40 +45,26 @@ export function LanguagesDialog({ isOpen, onOpenChange }: Props) {
             </DialogDescription>
           </DialogHeader>
 
-          <FieldGroup onChange={handleLanguageChange}>
-            <Field>
-              <FieldLabel htmlFor={enId}>English</FieldLabel>
-              <Input
-                defaultChecked={selectedLanguage === 'en'}
-                id={enId}
-                name="language"
-                type="radio"
-                value="en"
-              />
-            </Field>
+          <RadioGroup
+            className="justify-center"
+            defaultValue={selectedLanguage}
+            onValueChange={handleLanguageChange}
+          >
+            <div className="flex gap-2">
+              <RadioGroupItem id={enId} value="en" />
+              <Label htmlFor={enId}>English</Label>
+            </div>
 
-            <Field>
-              <FieldLabel htmlFor={ptBRId}>Português (Brasil)</FieldLabel>
-              <Input
-                defaultChecked={selectedLanguage === 'pt-BR'}
-                id={ptBRId}
-                name="language"
-                type="radio"
-                value="pt-BR"
-              />
-            </Field>
+            <div className="flex gap-2">
+              <RadioGroupItem id={ptBRId} value="pt-BR" />
+              <Label htmlFor={ptBRId}>Português (Brasil)</Label>
+            </div>
 
-            <Field>
-              <FieldLabel htmlFor={esId}>Español</FieldLabel>
-              <Input
-                defaultChecked={selectedLanguage === 'es'}
-                id={esId}
-                name="language"
-                type="radio"
-                value="es"
-              />
-            </Field>
-          </FieldGroup>
+            <div className="flex gap-2">
+              <RadioGroupItem id={esId} value="es" />
+              <Label htmlFor={esId}>Español</Label>
+            </div>
+          </RadioGroup>
 
           <DialogFooter>
             <DialogClose asChild>
