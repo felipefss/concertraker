@@ -4,13 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
+    "dev": "NODE_ENV='development' bun run --hot src/index.ts",
     "lint": "biome check",
     "neon:local": "docker compose -f src/db/docker-compose.yml --env-file .env up -d",
     "migration:gen": "drizzle-kit generate",
     "migration:apply": "drizzle-kit migrate",
     "dotenv:push": "bunx dotenv-vault@latest push",
-    "build": "bun build ./src/index.ts --target=bun --outdir ./dist && tsc-alias -o ./dist"
+    "build": "bun build ./src/index.ts --target=bun --outfile=./dist/index.js && tsc-alias"
   },
   "devDependencies": {
     "@types/bun": "latest",
