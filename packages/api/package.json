@@ -9,12 +9,14 @@
     "neon:local": "docker compose -f src/db/docker-compose.yml --env-file .env up -d",
     "migration:gen": "drizzle-kit generate",
     "migration:apply": "drizzle-kit migrate",
-    "dotenv:push": "bunx dotenv-vault@latest push"
+    "dotenv:push": "bunx dotenv-vault@latest push",
+    "build": "bun build ./src/index.ts --target=bun --outdir ./dist && tsc-alias -o ./dist"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "drizzle-kit": "^0.31.4",
     "globals": "^16.4.0",
+    "tsc-alias": "^1.8.16",
     "typescript-eslint": "^8.46.1"
   },
   "peerDependencies": {
