@@ -9,8 +9,7 @@
     "neon:local": "docker compose -f src/db/docker-compose.yml --env-file .env up -d",
     "migration:gen": "drizzle-kit generate",
     "migration:apply": "drizzle-kit migrate",
-    "dotenv:push": "bunx dotenv-vault@latest push",
-    "build": "bun build ./src/index.ts --target=bun --outfile=./dist/index.js && tsc-alias"
+    "dotenv:push": "bunx dotenv-vault@latest push"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -23,12 +22,12 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@hono/clerk-auth": "^3.0.3",
-    "@hono/zod-validator": "^0.7.4",
-    "@neondatabase/serverless": "^1.0.1",
-    "dotenv": "^17.2.3",
-    "drizzle-orm": "^0.44.5",
-    "hono": "^4.9.7",
-    "postgres": "^3.4.7"
+    "@hono/clerk-auth": "3.0.3",
+    "@hono/zod-validator": "0.7.4",
+    "@neondatabase/serverless": "1.0.1",
+    "dotenv": "17.2.3",
+    "drizzle-orm": "0.44.5",
+    "hono": "4.9.7",
+    "postgres": "3.4.7"
   }
 }

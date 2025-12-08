@@ -30,6 +30,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": ["bun"],
     "outDir": "./dist"
-  }
+  },
+  "exclude": ["node_modules"]
 }
