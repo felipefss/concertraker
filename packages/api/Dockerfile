@@ -12,4 +12,4 @@ ENV NODE_ENV=production
 RUN bun install
 
 USER bun
-ENTRYPOINT bun start
+CMD ["bun", "run", "start"]
