@@ -6,6 +6,7 @@ COPY package.json /app/
 RUN bun install
 
 COPY . .
+RUN rm .env*
 RUN bun run build
 
 FROM nginx:alpine AS release
