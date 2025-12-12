@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { db } from '@/db';
-import { user } from '@/db/schema';
-import type { User } from '@/db/schema/user.sql';
+import { db } from '../../../db';
+import { user } from '../../../db/schema';
+import type { User } from '../../../db/schema/user.sql';
 import type { UserCreateSchema } from '../users.schema';
 import type { UsersRepository } from './users.repository';
 

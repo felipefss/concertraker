@@ -1,6 +1,6 @@
 import { and, eq, isNull } from 'drizzle-orm';
-import { db } from '@/db';
-import { type Concert, concert } from '@/db/schema/concert.sql';
+import { db } from '../../../db';
+import { type Concert, concert } from '../../../db/schema/concert.sql';
 import type {
   ConcertCreateInput,
   ConcertsRepository,

@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator';
 import { createFactory } from 'hono/factory';
 import { HTTPException } from 'hono/http-exception';
-import authMiddleware from '@/middlewares/auth';
+import authMiddleware from '../../middlewares/auth';
 import { concertCreateSchema, concertUpdateSchema } from './concerts.schema';
 import type { ConcertsRepository } from './repository/concerts.repository';
 

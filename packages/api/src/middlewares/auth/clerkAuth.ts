@@ -1,7 +1,7 @@
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
 import { every } from 'hono/combine';
 import { createMiddleware } from 'hono/factory';
-import { UsersDrizzleRepository } from '@/features/users/repository/users.repository.drizzle';
+import { UsersDrizzleRepository } from '../../features/users/repository/users.repository.drizzle';
 
 const isAuthenticated = createMiddleware(async (c, next) => {
   const auth = getAuth(c);

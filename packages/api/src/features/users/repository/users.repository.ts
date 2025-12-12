@@ -1,4 +1,4 @@
-import type { User } from '@/db/schema/user.sql';
+import type { User } from '../../../db/schema/user.sql';
 import type { UserCreateSchema } from '../users.schema';
 
 export interface UsersRepository {

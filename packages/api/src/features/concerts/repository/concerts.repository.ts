@@ -1,4 +1,4 @@
-import type { Concert } from '@/db/schema/concert.sql';
+import type { Concert } from '../../../db/schema/concert.sql';
 
 export type ConcertCreateInput = Omit<
   Concert,
