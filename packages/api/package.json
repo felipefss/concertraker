@@ -9,7 +9,8 @@
     "neon:local": "docker compose -f src/db/docker-compose.yml --env-file .env up -d",
     "migration:gen": "drizzle-kit generate",
     "migration:apply": "drizzle-kit migrate",
-    "dotenv:push": "bunx dotenv-vault@latest push"
+    "dotenv:push": "bunx dotenv-vault@latest push",
+    "build": "bun build src/index.ts --outdir ./dist --target 'node'"
   },
   "devDependencies": {
     "@types/bun": "latest",
