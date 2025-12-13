@@ -10,7 +10,7 @@
     "migration:gen": "drizzle-kit generate",
     "migration:apply": "drizzle-kit migrate",
     "dotenv:push": "bunx dotenv-vault@latest push",
-    "build": "bun build src/index.ts --outdir ./dist --target 'node'"
+    "build": "bun build src/index.ts --outfile ./dist/index.js --target node"
   },
   "devDependencies": {
     "@types/bun": "latest",

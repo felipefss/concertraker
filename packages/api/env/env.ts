@@ -9,7 +9,7 @@ const envSchema = z.object({
   DATABASE_URL: z.url(),
 });
 
-const _env = envSchema.safeParse(Bun.env);
+const _env = envSchema.safeParse(process.env);
 
 if (!_env.success) {
   console.error(z.treeifyError(_env.error));

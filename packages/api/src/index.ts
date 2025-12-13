@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
+import { handle } from 'hono/vercel';
 import concerts from './features/concerts';
 import users from './features/users';
 import { timedLog } from './middlewares/logger';
@@ -10,4 +11,4 @@ app.use(logger(timedLog));
 app.route('/users', users);
 app.route('/concerts', concerts);
 
-export default app;
+export default handle(app);
