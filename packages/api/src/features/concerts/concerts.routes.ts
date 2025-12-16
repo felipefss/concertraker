@@ -1,22 +1,27 @@
+import { clerkMiddleware } from '@clerk/express';
+import express from 'express';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-
 import { ConcertsHandler } from './concerts.handler';
 import { ConcertsDrizzleRepository } from './repository/concerts.repository.drizzle';
 
-const app = new Hono();
+// const app = new Hono();
 
 const concertsRepository = new ConcertsDrizzleRepository();
 const concertsHandler = new ConcertsHandler(concertsRepository);
+const router = express.Router();
 
-app.use('/*', cors());
+router.use(clerkMiddleware());
 
-app.get('/:id?', ...concertsHandler.getConcerts());
+// app.use('/*', cors());
 
-app.post('/', ...concertsHandler.createConcert());
+// app.get('/:id?', ...concertsHandler.getConcerts());
+router.get('/:id?', concertsHandler.getConcerts);
 
-app.put('/', ...concertsHandler.updateConcert());
+// app.post('/', ...concertsHandler.createConcert());
 
-app.delete('/:id', ...concertsHandler.deleteConcert());
+// app.put('/', ...concertsHandler.updateConcert());
 
-export default app;
+// app.delete('/:id', ...concertsHandler.deleteConcert());
+
+export default router;

@@ -1,9 +1,9 @@
 import winston from 'winston';
 
-const { combine, timestamp, json, colorize } = winston.format;
+const { combine, timestamp, json } = winston.format;
 
 const logger = winston.createLogger({
-  format: combine(colorize({ all: true }), timestamp(), json()),
+  format: combine(timestamp(), json()),
   level: 'http',
   transports: [new winston.transports.Console()],
 });
