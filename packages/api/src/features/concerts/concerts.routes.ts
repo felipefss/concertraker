@@ -12,9 +12,6 @@ const router = express.Router();
 
 router.use(clerkMiddleware());
 
-// app.use('/*', cors());
-
-// app.get('/:id?', ...concertsHandler.getConcerts());
 router.get(
   '/{:id}',
   clerkAuth,
@@ -22,6 +19,11 @@ router.get(
 );
 
 // app.post('/', ...concertsHandler.createConcert());
+router.post(
+  '/',
+  clerkAuth,
+  concertsHandler.createConcert.bind(concertsHandler),
+);
 
 // app.put('/', ...concertsHandler.updateConcert());
 

@@ -1,79 +1,38 @@
-import { getAuth } from '@clerk/express';
-import { zValidator } from '@hono/zod-validator';
 import type { Request, Response } from 'express';
-import { createFactory } from 'hono/factory';
-import { HTTPException } from 'hono/http-exception';
+import z from 'zod';
 import logger from '@/lib/logger';
-import authMiddleware from '../../middlewares/auth';
 import { concertCreateSchema, concertUpdateSchema } from './concerts.schema';
+import type { CreateConcertPayload, EmptyObject } from './concerts.types';
 import type { ConcertsRepository } from './repository/concerts.repository';
 
-// type Env = {
-//   Variables: {
-//     userId: number;
-//   };
-// };
-
 export class ConcertsHandler {
-  // private readonly factory = createFactory<Env>();
-
   constructor(private readonly repository: ConcertsRepository) {}
 
-  createConcert(req: Request, res: Response) {}
-  // createConcert() {
-  //   return this.factory.createHandlers(
-  //     authMiddleware,
-  //     zValidator('json', concertCreateSchema),
-  //     async (c) => {
-  //       const data = c.req.valid('json');
-  //       const userId = c.get('userId');
+  async createConcert(
+    req: Request<EmptyObject, EmptyObject, CreateConcertPayload>,
+    res: Response,
+  ) {
+    const validator = concertCreateSchema.safeParse(req.body);
 
-  //       try {
-  //         const insertedId = await this.repository.createConcert({
-  //           ...data,
-  //           userId,
-  //         });
+    if (!validator.success) {
+      return res.status(400).json(z.treeifyError(validator.error));
+    }
 
-  //         return c.json({ id: insertedId }, 201);
-  //       } catch (cause) {
-  //         console.error(cause);
-  //         throw new HTTPException(500, { cause });
-  //       }
-  //     },
-  //   );
-  // }
+    const data = validator.data;
+    const userId = req.userId as number;
 
-  // getConcerts() {
-  //   return this.factory.createHandlers(authMiddleware, async (c) => {
-  //     const id = c.req.param('id');
-  //     const userId = c.get('userId');
+    try {
+      const insertedId = await this.repository.createConcert({
+        ...data,
+        userId,
+      });
 
-  //     try {
-  //       if (id) {
-  //         const parsedId = Number(id);
-
-  //         if (Number.isNaN(parsedId)) {
-  //           return c.json({ error: 'Invalid id' }, 400);
-  //         }
-
-  //         const concert = await this.repository.getConcert(userId, parsedId);
-
-  //         if (!concert) {
-  //           return c.notFound();
-  //         }
-
-  //         return c.json({ concert });
-  //       }
-
-  //       const concerts = await this.repository.getConcerts(userId);
-
-  //       return c.json({ concerts });
-  //     } catch (cause) {
-  //       console.error(cause);
-  //       throw new HTTPException(500, { cause });
-  //     }
-  //   });
-  // }
+      res.status(201).json({ id: insertedId });
+    } catch (cause) {
+      logger.error(cause);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 
   async getConcerts(req: Request<{ id: string }>, res: Response) {
     const { id } = req.params;
