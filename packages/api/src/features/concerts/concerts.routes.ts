@@ -1,7 +1,6 @@
 import { clerkMiddleware } from '@clerk/express';
 import express from 'express';
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
+import { clerkAuth } from '@/middlewares/auth/clerkAuth';
 import { ConcertsHandler } from './concerts.handler';
 import { ConcertsDrizzleRepository } from './repository/concerts.repository.drizzle';
 
@@ -16,7 +15,11 @@ router.use(clerkMiddleware());
 // app.use('/*', cors());
 
 // app.get('/:id?', ...concertsHandler.getConcerts());
-router.get('/:id?', concertsHandler.getConcerts);
+router.get(
+  '/{:id}',
+  clerkAuth,
+  concertsHandler.getConcerts.bind(concertsHandler),
+);
 
 // app.post('/', ...concertsHandler.createConcert());
 

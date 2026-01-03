@@ -1,29 +1,30 @@
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
-import { every } from 'hono/combine';
-import { createMiddleware } from 'hono/factory';
+import { clerkClient, getAuth } from '@clerk/express';
+import type { NextFunction, Request, Response } from 'express';
+import logger from '@/lib/logger';
 import { UsersDrizzleRepository } from '../../features/users/repository/users.repository.drizzle';
 
-const isAuthenticated = createMiddleware(async (c, next) => {
-  const auth = getAuth(c);
+export const isAuthenticated = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const auth = getAuth(req);
 
   if (!auth?.userId) {
-    return c.json({ error: 'Unauthorized' }, 401);
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  c.set('clerkUserId', auth.userId);
-  await next();
-});
+  req.clerkUserId = auth.userId;
 
-type Env = {
-  Variables: {
-    clerkUserId: string;
-    userId: number;
-  };
+  next();
 };
 
-const fetchUser = createMiddleware<Env>(async (c, next) => {
-  const clerkClient = c.get('clerk');
-  const clerkUserId = c.get('clerkUserId');
+export const fetchUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const clerkUserId = req.clerkUserId as string;
 
   try {
     const clerkUser = await clerkClient.users.getUser(clerkUserId);
@@ -34,16 +35,17 @@ const fetchUser = createMiddleware<Env>(async (c, next) => {
     const user = await usersRepository.getUserByEmail(primaryEmail);
 
     if (!user) {
-      throw new Error(`User ${clerkUserId} not found`);
+      logger.error(`User ${clerkUserId} not found`);
+      return res.sendStatus(500);
     }
 
-    c.set('userId', user.id);
+    req.userId = user.id;
   } catch (error) {
-    console.error(error);
-    return c.json({ error: 'Unauthorized' }, 401);
+    logger.error(error);
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  await next();
-});
+  next();
+};
 
-export const clerkAuth = every(clerkMiddleware(), isAuthenticated, fetchUser);
+export const clerkAuth = [isAuthenticated, fetchUser];

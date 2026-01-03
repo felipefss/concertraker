@@ -14,6 +14,7 @@
 // export default handle(app);
 
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import concerts from './features/concerts';
 import morgan from './middlewares/morgan';
@@ -23,6 +24,7 @@ const router = app.router;
 const port = 3000;
 
 app.use(morgan);
+app.use(cors());
 app.use(bodyParser.json());
 
 // Set the base path
