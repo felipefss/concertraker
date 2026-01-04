@@ -69,45 +69,43 @@ export class ConcertsHandler {
     }
   }
 
-  // updateConcert() {
-  //   return this.factory.createHandlers(
-  //     authMiddleware,
-  //     zValidator('json', concertUpdateSchema),
-  //     async (c) => {
-  //       const data = c.req.valid('json');
-  //       const userId = c.get('userId');
+  updateConcert(req: Request, res: Response) {
+    const validator = concertUpdateSchema.safeParse(req.body);
 
-  //       try {
-  //         await this.repository.updateConcert({ ...data, userId });
-  //       } catch (cause) {
-  //         console.error(cause);
-  //         throw new HTTPException(500, { cause });
-  //       }
+    if (!validator.success) {
+      return res.status(400).json(z.treeifyError(validator.error));
+    }
 
-  //       return c.json({}, 200);
-  //     },
-  //   );
-  // }
+    const data = validator.data;
+    const userId = req.userId as number;
 
-  // deleteConcert() {
-  //   return this.factory.createHandlers(authMiddleware, async (c) => {
-  //     const id = c.req.param('id');
-  //     const userId = c.get('userId');
+    try {
+      this.repository.updateConcert({ ...data, userId });
 
-  //     try {
-  //       const parsedId = Number(id);
+      return res.sendStatus(200);
+    } catch (cause) {
+      logger.error(cause);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 
-  //       if (Number.isNaN(parsedId)) {
-  //         return c.json({ error: 'Invalid id' }, 400);
-  //       }
+  deleteConcert(req: Request, res: Response) {
+    const { id } = req.params;
+    const userId = req.userId as number;
 
-  //       await this.repository.deleteConcert(userId, parsedId);
-  //     } catch (cause) {
-  //       console.error(cause);
-  //       throw new HTTPException(500, { cause });
-  //     }
+    try {
+      const parsedId = Number(id);
 
-  //     return c.json({}, 200);
-  //   });
-  // }
+      if (Number.isNaN(parsedId)) {
+        return res.status(400).json({ error: 'Invalid id' });
+      }
+
+      this.repository.deleteConcert(userId, parsedId);
+
+      return res.sendStatus(200);
+    } catch (cause) {
+      logger.error(cause);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 }

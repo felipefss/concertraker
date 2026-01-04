@@ -4,8 +4,6 @@ import { clerkAuth } from '@/middlewares/auth/clerkAuth';
 import { ConcertsHandler } from './concerts.handler';
 import { ConcertsDrizzleRepository } from './repository/concerts.repository.drizzle';
 
-// const app = new Hono();
-
 const concertsRepository = new ConcertsDrizzleRepository();
 const concertsHandler = new ConcertsHandler(concertsRepository);
 const router = express.Router();
@@ -18,15 +16,18 @@ router.get(
   concertsHandler.getConcerts.bind(concertsHandler),
 );
 
-// app.post('/', ...concertsHandler.createConcert());
 router.post(
   '/',
   clerkAuth,
   concertsHandler.createConcert.bind(concertsHandler),
 );
 
-// app.put('/', ...concertsHandler.updateConcert());
+router.put('/', clerkAuth, concertsHandler.updateConcert.bind(concertsHandler));
 
-// app.delete('/:id', ...concertsHandler.deleteConcert());
+router.delete(
+  '/{:id}',
+  clerkAuth,
+  concertsHandler.deleteConcert.bind(concertsHandler),
+);
 
 export default router;
