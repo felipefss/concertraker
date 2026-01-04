@@ -1,14 +1,14 @@
-import { Hono } from 'hono';
+import express from 'express';
 import { UsersDrizzleRepository } from './repository/users.repository.drizzle';
 import { UsersHandler } from './users.handler';
 
-const app = new Hono();
-
 const usersRepository = new UsersDrizzleRepository();
 const usersHandler = new UsersHandler(usersRepository);
+const router = express.Router();
 
-app.post('/', ...usersHandler.createUser());
+// app.post('/', ...usersHandler.createUser());
+router.post('/', usersHandler.createUser.bind(usersHandler));
 
 // TODO: Add a DELETE route - event triggered when clerk user is deleted
 
-export default app;
+export default router;
