@@ -9,12 +9,17 @@ const app = express();
 const router = app.router;
 const port = 3000;
 
+const corsOptions = {
+  origin: '*',
+};
+
 app.use(morgan);
-app.use(cors());
 app.use(bodyParser.json());
 
+app.options('/api', cors(corsOptions));
+
 // Set the base path
-app.use('/api', router);
+app.use('/api', cors(corsOptions), router);
 
 router.use('/users', users);
 router.use('/concerts', concerts);
