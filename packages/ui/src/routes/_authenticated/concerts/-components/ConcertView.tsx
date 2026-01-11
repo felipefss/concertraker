@@ -36,7 +36,7 @@ export function ConcertView({ concert }: Props) {
         <ConcertOptions concert={concert} onDelete={handleIsDeleting} />
       )}
 
-      <CardContent className="grid lg:grid-cols-[1.5fr_.3fr_1.2fr] gap-2 lg:*:even:col-start-3 lg:*:last:col-span-3">
+      <CardContent className="grid md:grid-cols-[1.5fr_.3fr_1.2fr] gap-2 md:*:even:col-start-3 md:*:last:col-span-3">
         <ConcertField label={t('artist')} value={artist} />
 
         <ConcertField label={t('venue')} value={venue} />

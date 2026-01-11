@@ -28,8 +28,8 @@ function RouteComponent() {
   });
 
   return (
-    <main className="p-4 grid lg:grid-cols-3">
-      <Card className="col-start-2 h-fit">
+    <main className="p-4 md:px-40 lg:px-52">
+      <Card className="mx-auto h-fit max-w-xl">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <h1>{t('title')}</h1>

@@ -27,3 +27,5 @@ dist-ssr
 mock-db.json
 .tanstack/*
 .env*
+.vercel
+.env*.local
