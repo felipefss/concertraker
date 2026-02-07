@@ -43,6 +43,7 @@
         "venue": "Arena",
         "location": "Localização",
         "date": "Data",
+        "dateTooltip": "Formatos aceitos: ex. 2010, 2010-04, ou 2010-04-25",
         "notes": "Notas",
         "cancelButton": "Cancelar",
         "saveButton": "Salvar",

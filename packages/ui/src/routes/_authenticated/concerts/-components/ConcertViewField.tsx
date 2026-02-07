@@ -3,7 +3,7 @@ interface Props {
   value: string | number;
 }
 
-export function ConcertField({ label, value }: Props) {
+export function ConcertViewField({ label, value }: Props) {
   return (
     <div>
       <span className="font-bold dark:text-white">{label}</span>

@@ -43,6 +43,7 @@
         "venue": "Lugar",
         "location": "Ubicación",
         "date": "Fecha",
+        "dateTooltip": "Formatos aceptados: ej. 2010, 2010-04, o 2010-04-25",
         "notes": "Notas",
         "cancelButton": "Cancelar",
         "saveButton": "Guardar",

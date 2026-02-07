@@ -4,6 +4,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Toaster } from './components/ui/sonner.tsx';
+import { TooltipProvider } from './components/ui/tooltip.tsx';
 import { routeTree } from './routeTree.gen.ts';
 
 import './i18.ts';
@@ -55,7 +56,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
         <QueryClientProvider client={queryClient}>
-          <InnerApp />
+          <TooltipProvider>
+            <InnerApp />
+          </TooltipProvider>
         </QueryClientProvider>
       </ClerkProvider>
       <Toaster />

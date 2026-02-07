@@ -3,8 +3,9 @@ import { format } from 'date-fns';
 const dateFormats = {
   full: 'yyyy-MM-dd HH:mm:ss',
   shortFull: 'yyyy-MM-dd',
-  shortMonth: 'yyyy-MM',
   shortYear: 'yyyy',
+  shortYearMonth: 'yyyy-MM',
+  shortYearShortMonth: 'MMM yyyy',
 };
 
 type DateFormat = keyof typeof dateFormats;

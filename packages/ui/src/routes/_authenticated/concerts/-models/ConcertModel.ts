@@ -10,20 +10,25 @@ export type Concert = {
 };
 
 export const formSchema = z.object({
-  artist: z.string().min(1, { error: 'Artist is required' }),
+  artist: z.string().min(1, { message: 'Artist is required' }),
   date: z
     .string()
-    .min(4, { error: 'Year format is YYYY' })
+    .refine((val) => /^\d{4}(-\d{2}(-\d{2})?)?$/.test(val), {
+      message: 'Invalid date format. Use YYYY, YYYY-MM, or YYYY-MM-DD',
+    })
     .refine(
-      (val) =>
-        !Number.isNaN(Number(val)) &&
-        Number(val) >= 1900 &&
-        Number(val) <= new Date().getFullYear(),
-      {
-        error: "Something doesn't seem right",
+      (val) => {
+        const date = new Date(val);
+        if (Number.isNaN(date.getTime())) return false;
+        const year = parseInt(val.split('-')[0], 10);
+        return year > 1950;
       },
-    ),
-  location: z.string().min(1, { error: 'Location is required' }),
+      { message: 'Date must be after 1950' },
+    )
+    .refine((val) => new Date(val) < new Date(), {
+      message: 'Date must be in the past',
+    }),
+  location: z.string().min(1, { message: 'Location is required' }),
   notes: z.string(),
   venue: z.string(),
 });

@@ -64,7 +64,7 @@ export function ConcertDialog({
     if (isEditing) {
       editMutation.mutate({
         ...data,
-        date: formatDate(data.date),
+        date: formatDate(new Date(data.date)),
         id: concert.id,
       });
       return;
@@ -72,7 +72,7 @@ export function ConcertDialog({
 
     // TODO: Add option to use AI to insert a concert (maybe a chat bot with n8n? Or have an AI button to fill out the
     // fields that are empty)
-    insertMutation.mutate({ ...data, date: formatDate(data.date) });
+    insertMutation.mutate({ ...data, date: formatDate(new Date(data.date)) });
     onOpenChange(false);
     reset();
   }
@@ -94,7 +94,12 @@ export function ConcertDialog({
               <Input {...register('artist')} label={t('artist')} />
               <Input {...register('location')} label={t('location')} />
               <Input {...register('venue')} label={t('venue')} />
-              <Input {...register('date')} label={t('date')} />
+              <Input
+                {...register('date')}
+                label={t('date')}
+                placeholder="e.g. 2010-04"
+                tooltipText={t('dateTooltip')}
+              />
               <Input
                 {...register('notes')}
                 isMultiline={true}
