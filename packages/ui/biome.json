@@ -4,6 +4,7 @@
     "files": {
         "includes": [
             "src/**/*.{ts,tsx}",
+            "!src/components/ui",
             "!**/*.gen.ts"
         ]
     }

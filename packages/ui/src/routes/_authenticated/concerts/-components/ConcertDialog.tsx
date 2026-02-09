@@ -1,9 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Loader2Icon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
+
 import {
   Dialog,
   DialogClose,
@@ -21,6 +23,7 @@ import {
   type ConcertFormValues,
   formSchema,
 } from '../-models/ConcertModel';
+import { ArtistSuggestInput } from './ArtistSuggestInput';
 import { Input } from './Input';
 
 interface Props {
@@ -91,7 +94,7 @@ export function ConcertDialog({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <FormProvider {...methods}>
-              <Input {...register('artist')} label={t('artist')} />
+              <ArtistSuggestInput {...register('artist')} label={t('artist')} />
               <Input {...register('location')} label={t('location')} />
               <Input {...register('venue')} label={t('venue')} />
               <Input
