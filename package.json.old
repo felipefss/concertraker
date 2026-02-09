@@ -1,0 +1,19 @@
+{
+  "name": "concertraker",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "bun --filter '*' dev",
+    "ui:dev": "bun --filter 'ui' dev",
+    "api:dev": "bun --filter 'api' dev",
+    "prepare": "husky || true"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
+    "@biomejs/biome": "2.2.6",
+    "zod": "^4.1.11"
+  }
+}
