@@ -1,0 +1,54 @@
+{
+  "no_auth": {
+    "landing": {
+      "signUpButton": "Cadastrar",
+      "signInButton": "Entrar",
+      "title": "Acompanhe suas memórias de shows",
+      "subtitle": "Nunca mais esqueça um show. Acompanhe todos os shows que você participou e conecte-se com amigos que compartilharam a experiência.",
+      "getStartedButton": "Começar",
+      "heroImgAlt": "Vista aérea de uma banda tocando em um palco para um público ao vivo",
+      "features": "Recursos",
+      "featuresSubtitle": "Tudo que você precisa para acompanhar suas experiências em shows",
+      "trackConcerts": "Acompanhar shows",
+      "trackConcertsSubtitle": "Registre todos os shows que você participa com datas, locais e artistas.",
+      "connectWithFriends": "Conectar com amigos (Próximo lançamento)",
+      "connectWithFriendsSubtitle": "Encontre amigos que participaram dos mesmos shows e compartilhe memórias.",
+      "readyToStart": "Pronto para começar?",
+      "readyToStartSubtitle": "Junte-se a milhares de amantes da música que estão documentando suas experiências em shows.",
+      "createAccount": "Criar Conta"
+    }
+  },
+  "restricted": {
+    "concertsList": {
+      "title": "Meu Histórico de Shows",
+      "addNewButton": "Adicionar novo",
+      "card": {
+        "artist": "Artista",
+        "venue": "Arena",
+        "location": "Localização",
+        "date": "Data",
+        "notes": "Notas"
+      },
+      "optionsMenu": {
+        "editButton": "Editar",
+        "deleteButton": "Excluir",
+        "confirmDeleteMessage": "Tem certeza de que deseja excluir este show?",
+        "cancelButton": "Cancelar",
+        "confirmButton": "Continuar"
+      },
+      "dialog": {
+        "titleInsert": "Adicionar novo show",
+        "titleEdit": "Editar show",
+        "artist": "Artista",
+        "venue": "Arena",
+        "location": "Localização",
+        "date": "Data",
+        "dateTooltip": "Formatos aceitos: ex. 2010, 2010-04, ou 2010-04-25",
+        "notes": "Notas",
+        "cancelButton": "Cancelar",
+        "saveButton": "Salvar",
+        "addButton": "Adicionar"
+      }
+    }
+  }
+}
