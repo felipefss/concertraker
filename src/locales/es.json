@@ -1,0 +1,50 @@
+{
+  "concertsList": {
+    "addNewButton": "Añadir nuevo",
+    "card": {
+      "artist": "Artista",
+      "date": "Fecha",
+      "location": "Ubicación",
+      "notes": "Notas",
+      "venue": "Lugar"
+    },
+    "dialog": {
+      "addButton": "Añadir",
+      "artist": "Artista",
+      "cancelButton": "Cancelar",
+      "date": "Fecha",
+      "dateTooltip": "Formatos aceptados: ej. 2010, 2010-04, o 2010-04-25",
+      "location": "Ubicación",
+      "notes": "Notas",
+      "saveButton": "Guardar",
+      "titleEdit": "Editar concierto",
+      "titleInsert": "Añadir nuevo concierto",
+      "venue": "Lugar"
+    },
+    "optionsMenu": {
+      "cancelButton": "Cancelar",
+      "confirmButton": "Continuar",
+      "confirmDeleteMessage": "¿Estás seguro de que quieres eliminar este concierto?",
+      "deleteButton": "Eliminar",
+      "editButton": "Editar"
+    },
+    "title": "Mi Historial de Conciertos"
+  },
+  "landing": {
+    "connectWithFriends": "Conectar con amigos (Próximo lanzamiento)",
+    "connectWithFriendsSubtitle": "Encuentra amigos que asistieron a los mismos conciertos y comparte recuerdos.",
+    "createAccount": "Crear Cuenta",
+    "features": "Características",
+    "featuresSubtitle": "Todo lo que necesitas para llevar un registro de tus experiencias en conciertos",
+    "getStartedButton": "Empezar",
+    "heroImgAlt": "Vista aérea de una banda tocando en un escenario para una audiencia en vivo",
+    "readyToStart": "¿Listo para empezar?",
+    "readyToStartSubtitle": "Únete a miles de amantes de la música que están documentando sus experiencias en conciertos.",
+    "signInButton": "Iniciar sesión",
+    "signUpButton": "Registrarse",
+    "subtitle": "Nunca olvides un concierto de nuevo. Mantén un registro de todos los espectáculos a los que has asistido y conecta con amigos que compartieron la experiencia.",
+    "title": "Sigue tus recuerdos de conciertos",
+    "trackConcerts": "Seguir conciertos",
+    "trackConcertsSubtitle": "Registra cada concierto al que asistes con fechas, lugares y artistas."
+  }
+}

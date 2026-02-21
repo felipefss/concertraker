@@ -9,8 +9,9 @@
   "files": {
     "ignoreUnknown": false,
     "includes": [
-      "src/app/**/*.{ts,tsx}",
-      "!src/app/components/ui",
+      "src/*.{ts,tsx}",
+      "src/**/*.{ts,tsx}",
+      "!src/components/ui",
       "!**/*.gen.ts",
       "!.next",
       "!out",

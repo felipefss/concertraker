@@ -1,0 +1,50 @@
+{
+  "concertsList": {
+    "addNewButton": "Add new",
+    "card": {
+      "artist": "Artist",
+      "date": "Date",
+      "location": "Location",
+      "notes": "Notes",
+      "venue": "Venue"
+    },
+    "dialog": {
+      "addButton": "Add",
+      "artist": "Artist",
+      "cancelButton": "Cancel",
+      "date": "Date",
+      "dateTooltip": "Accepted formats: e.g. 2010, 2010-04, or 2010-04-25",
+      "location": "Location",
+      "notes": "Notes",
+      "saveButton": "Save",
+      "titleEdit": "Edit concert",
+      "titleInsert": "Add new concert",
+      "venue": "Venue"
+    },
+    "optionsMenu": {
+      "cancelButton": "Cancel",
+      "confirmButton": "Continue",
+      "confirmDeleteMessage": "Are you sure you want to delete this concert?",
+      "deleteButton": "Delete",
+      "editButton": "Edit"
+    },
+    "title": "My Concerts History"
+  },
+  "landing": {
+    "connectWithFriends": "Connect with friends (Next release)",
+    "connectWithFriendsSubtitle": "Find friends who attended the same concerts and share memories.",
+    "createAccount": "Create Account",
+    "features": "Features",
+    "featuresSubtitle": "Everything you need to keep track of your concert experiences",
+    "getStartedButton": "Get started",
+    "heroImgAlt": "Aerial view of a band playing in a stage for a live audience",
+    "readyToStart": "Ready to start?",
+    "readyToStartSubtitle": "Join thousands of music lovers who are documenting their concert experiences.",
+    "signInButton": "Sign in",
+    "signUpButton": "Sign up",
+    "subtitle": "Never forget a concert again. Keep track of all the shows you've attended and connect with friends who shared the experience.",
+    "title": "Track your concert memories",
+    "trackConcerts": "Track concerts",
+    "trackConcertsSubtitle": "Log every concert you attend with dates, venues, and artists."
+  }
+}
