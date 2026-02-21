@@ -1,6 +1,8 @@
+import { auth } from '@clerk/nextjs/server';
 import { ArrowRight, Calendar, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { Feature } from '@/components/Feature';
 import { Header } from '@/components/Header';
 import { Section } from '@/components/Section';
@@ -10,6 +12,12 @@ import { getDictionary, type Locale } from './dictionaries';
 const concertHeroImg = '/concert-hero.jpg';
 
 export default async function Home({ params }: PageProps<'/[lang]'>) {
+  const { isAuthenticated } = await auth();
+
+  if (isAuthenticated) {
+    redirect('/concerts');
+  }
+
   const { lang } = await params;
 
   const dict = await getDictionary(lang as Locale);
