@@ -1,26 +1,18 @@
 import { ArrowRight, Calendar, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-// import { useTranslation } from 'react-i18next';
 import { Feature } from '@/components/Feature';
 import { Header } from '@/components/Header';
 import { Section } from '@/components/Section';
 import { Button } from '@/components/ui/button';
-import { getDictionary, hasLocale } from './dictionaries';
+import { getDictionary, type Locale } from './dictionaries';
 
 const concertHeroImg = '/concert-hero.jpg';
 
 export default async function Home({ params }: PageProps<'/[lang]'>) {
-  // const { t } = useTranslation('translation', {
-  //   keyPrefix: 'no_auth.landing',
-  // });
   const { lang } = await params;
 
-  if (!hasLocale(lang)) {
-    notFound();
-  }
-  const dict = await getDictionary(lang);
+  const dict = await getDictionary(lang as Locale);
   const currentYear = new Date().getFullYear();
 
   return (

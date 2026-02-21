@@ -2,6 +2,8 @@ import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { notFound } from 'next/navigation';
+import { getDictionaries, hasLocale } from './dictionaries';
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -18,14 +20,23 @@ export const metadata: Metadata = {
   title: 'Concertraker',
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return getDictionaries();
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: LayoutProps<'/[lang]'>) {
+  const { lang } = await params;
+
+  if (!hasLocale(lang)) {
+    notFound();
+  }
+
   return (
     <ClerkProvider>
-      <html lang={'en'}>
+      <html lang={lang}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
