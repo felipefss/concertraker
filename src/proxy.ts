@@ -8,7 +8,6 @@ const isProtectedRoute = createRouteMatcher(['/concerts(.*)']);
 const locales = ['en', 'pt-BR', 'es'];
 
 function getLocale(request: Request) {
-  // const headers = { 'accept-language': 'en-US,en;q=0.5' };
   const headers: Record<string, string> = {};
   for (const key of request.headers.keys()) {
     const value = request.headers.get(key);
@@ -18,7 +17,7 @@ function getLocale(request: Request) {
   }
 
   const languages = new Negotiator({ headers }).languages();
-  const defaultLocale = 'en-US';
+  const defaultLocale = 'en';
 
   return match(languages, locales, defaultLocale);
 }
@@ -32,9 +31,12 @@ function proxy(request: NextRequest) {
   if (pathnameHasLocale) {
     return;
   }
+  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
 
   // Redirect if there is no locale
-  const locale = getLocale(request);
+  const locale = locales.includes(cookieLocale || '')
+    ? cookieLocale
+    : getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
 }

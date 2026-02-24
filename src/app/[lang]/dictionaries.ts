@@ -14,5 +14,7 @@ export const hasLocale = (locale: string): locale is Locale =>
 
 export const getDictionary = async (locale: Locale) => dictionaries[locale]();
 
+export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+
 export const getDictionaries = () =>
   Object.keys(dictionaries).map((key) => ({ lang: key }));

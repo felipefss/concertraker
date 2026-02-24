@@ -1,14 +1,21 @@
 import { AuthenticatedHeader } from '@/components/AuthenticatedHeader';
+import { getDictionary, type Locale } from '../dictionaries';
+import { DictionaryProvider } from './contexts/dictionary-context';
 
-export default function AuthenticatedLayout({
+export default async function AuthenticatedLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  params,
+}: LayoutProps<'/[lang]'>) {
+  const { lang } = await params;
+
+  const dict = await getDictionary(lang as Locale);
+
   return (
     <div className="bg-teal-50 min-h-dvh">
-      <AuthenticatedHeader />
-      {children}
+      <DictionaryProvider dictionary={dict}>
+        <AuthenticatedHeader language={lang} />
+        {children}
+      </DictionaryProvider>
     </div>
   );
 }

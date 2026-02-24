@@ -4,10 +4,12 @@ import { UserButton } from '@clerk/nextjs';
 import { LanguagesIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Header } from './Header';
+import { LanguagesDialog } from './LanguagesDialog';
 
-export function AuthenticatedHeader() {
+export function AuthenticatedHeader({ language }: { language: string }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const isScreenSmall = window.innerWidth < 640;
+  const isScreenSmall =
+    typeof window !== 'undefined' && window.innerWidth < 640;
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -33,6 +35,11 @@ export function AuthenticatedHeader() {
           </UserButton.MenuItems>
         </UserButton>
       </nav>
+      <LanguagesDialog
+        isOpen={isDialogOpen}
+        language={language}
+        onOpenChange={setIsDialogOpen}
+      />
     </Header>
   );
 }
