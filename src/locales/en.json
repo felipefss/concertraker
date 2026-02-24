@@ -46,5 +46,14 @@
     "title": "Track your concert memories",
     "trackConcerts": "Track concerts",
     "trackConcertsSubtitle": "Log every concert you attend with dates, venues, and artists."
+  },
+  "languagesDialog": {
+    "title": "Select a language",
+    "description": "Select a language to use in the application.",
+    "cancelButton": "Cancel",
+    "saveButton": "Save"
+  },
+  "userMenu": {
+    "switchLanguage": "Switch language"
   }
 }

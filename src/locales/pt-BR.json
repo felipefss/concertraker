@@ -46,5 +46,14 @@
     "title": "Acompanhe suas memórias de shows",
     "trackConcerts": "Acompanhar shows",
     "trackConcertsSubtitle": "Registre todos os shows que você participa com datas, locais e artistas."
+  },
+  "languagesDialog": {
+    "title": "Selecionar um idioma",
+    "description": "Selecione um idioma para usar no aplicativo.",
+    "cancelButton": "Cancelar",
+    "saveButton": "Salvar"
+  },
+  "userMenu": {
+    "switchLanguage": "Trocar idioma"
   }
 }

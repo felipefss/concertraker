@@ -3,6 +3,7 @@
 import { UserButton } from '@clerk/nextjs';
 import { LanguagesIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useDictionary } from '@/app/[lang]/(authenticated)/contexts/dictionary-context';
 import { Header } from './Header';
 import { LanguagesDialog } from './LanguagesDialog';
 
@@ -10,6 +11,7 @@ export function AuthenticatedHeader({ language }: { language: string }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const isScreenSmall =
     typeof window !== 'undefined' && window.innerWidth < 640;
+  const dict = useDictionary();
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -28,7 +30,7 @@ export function AuthenticatedHeader({ language }: { language: string }) {
         >
           <UserButton.MenuItems>
             <UserButton.Action
-              label="Switch Language"
+              label={dict.userMenu.switchLanguage}
               labelIcon={<LanguagesIcon size={20} />}
               onClick={handleOpenDialog}
             />

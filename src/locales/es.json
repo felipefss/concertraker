@@ -46,5 +46,14 @@
     "title": "Sigue tus recuerdos de conciertos",
     "trackConcerts": "Seguir conciertos",
     "trackConcertsSubtitle": "Registra cada concierto al que asistes con fechas, lugares y artistas."
+  },
+  "languagesDialog": {
+    "title": "Seleccionar un idioma",
+    "description": "Selecciona un idioma para usar en la aplicación.",
+    "cancelButton": "Cancelar",
+    "saveButton": "Guardar"
+  },
+  "userMenu": {
+    "switchLanguage": "Cambiar idioma"
   }
 }

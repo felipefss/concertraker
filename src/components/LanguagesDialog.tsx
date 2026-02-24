@@ -27,7 +27,7 @@ export function LanguagesDialog({ isOpen, onOpenChange, language }: Props) {
   const [selectedLanguage, setSelectedLanguage] = useState(language);
   const pathname = usePathname();
   const router = useRouter();
-  const _dict = useDictionary();
+  const dict = useDictionary();
 
   const enId = useId();
   const ptBRId = useId();
@@ -56,9 +56,9 @@ export function LanguagesDialog({ isOpen, onOpenChange, language }: Props) {
       <form>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Select a language</DialogTitle>
+            <DialogTitle>{dict.languagesDialog.title}</DialogTitle>
             <DialogDescription>
-              Select a language to use in the application.
+              {dict.languagesDialog.description}
             </DialogDescription>
           </DialogHeader>
 
@@ -85,10 +85,12 @@ export function LanguagesDialog({ isOpen, onOpenChange, language }: Props) {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button>Cancel</Button>
+              <Button>{dict.languagesDialog.cancelButton}</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button onClick={handleApplyChange}>Save</Button>
+              <Button onClick={handleApplyChange}>
+                {dict.languagesDialog.saveButton}
+              </Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
