@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { notFound } from 'next/navigation';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { getClerkLocales } from '@/helpers/localization';
 import { getDictionaries, hasLocale, type Locale } from './dictionaries';
 
@@ -38,13 +39,15 @@ export default async function RootLayout({
 
   return (
     <ClerkProvider localization={clerkMappedLocale}>
-      <html lang={lang}>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
+      <TooltipProvider>
+        <html lang={lang}>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+          </body>
+        </html>
+      </TooltipProvider>
     </ClerkProvider>
   );
 }
