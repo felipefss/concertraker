@@ -5,6 +5,7 @@
 
 import { LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
+import { ContextAwareConfirmation } from 'react-confirm';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatDate } from '@/helpers/date';
 import { useDictionary } from '../../contexts/dictionary-context';
@@ -41,7 +42,10 @@ export function ConcertView({ concert }: Props) {
           size={20}
         />
       ) : (
-        <ConcertOptions concert={concert} onDelete={handleIsDeleting} />
+        <>
+          <ContextAwareConfirmation.ConfirmationRoot />
+          <ConcertOptions concert={concert} onDelete={handleIsDeleting} />
+        </>
       )}
 
       <CardContent className="grid md:grid-cols-[1.5fr_.3fr_1.2fr] gap-2 md:*:even:col-start-3 md:*:last:col-span-3">
