@@ -24,6 +24,12 @@ function getLocale(request: Request) {
 
 function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Skip Next.js internals
+  if (pathname.startsWith('/_next')) {
+    return;
+  }
+
   const pathnameHasLocale = locales.some(
     (loc) => pathname.startsWith(`/${loc}/`) || pathname === `/${loc}`,
   );
@@ -53,7 +59,8 @@ export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
+    // Don't run for API routes
+    '/((?!api|trpc).*)',
+    // '/(api|trpc)(.*)',
   ],
 };

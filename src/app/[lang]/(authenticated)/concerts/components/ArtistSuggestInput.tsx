@@ -1,5 +1,6 @@
+'use client';
+
 import { debounce } from '@tanstack/react-pacer';
-// import axios from 'axios';
 import { type ComponentProps, useMemo, useState } from 'react';
 import {
   Combobox,
@@ -43,9 +44,6 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
 
   const debouncedArtistSearch = debounce(
     async (searchTerm: string) => {
-      // const response = await axios.get<ArtistSearchResponse>(
-      //   `https://musicbrainz.org/ws/2/artist?query=${searchTerm}&fmt=json&limit=10`,
-      // );
       const response = await fetch(
         `https://musicbrainz.org/ws/2/artist?query=${searchTerm}&fmt=json&limit=10`,
       );
