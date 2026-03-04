@@ -82,6 +82,7 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
           className="col-span-3"
           placeholder={label}
           showClear
+          value={selectedArtist?.name}
           {...props}
         />
         <ComboboxContent>
