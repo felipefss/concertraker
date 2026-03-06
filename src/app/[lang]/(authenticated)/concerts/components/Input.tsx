@@ -1,5 +1,7 @@
+'use client';
+
 import { CircleQuestionMark } from 'lucide-react';
-import type { ComponentProps } from 'react';
+import { type ComponentProps, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Input as InputCn } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,9 +25,14 @@ export const Input = ({
   tooltipText,
   ...props
 }: Props) => {
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const {
     formState: { errors },
   } = useFormContext();
+
+  function handleTooltipClick() {
+    setIsTooltipOpen((prev) => !prev);
+  }
 
   // biome-ignore lint/style/noNonNullAssertion: <Props name should never be null>
   const errorMessage = errors[props.name!]?.message;
@@ -34,11 +41,10 @@ export const Input = ({
     <div className="grid grid-cols-4 items-center gap-4">
       <Label className="justify-end font-bold" htmlFor="artist">
         {label}{' '}
-        {/* TODO: think on mobile and make the tooltip trigger work with touch/click as well */}
         {tooltipText && (
-          <Tooltip>
+          <Tooltip onOpenChange={setIsTooltipOpen} open={isTooltipOpen}>
             <TooltipTrigger asChild>
-              <CircleQuestionMark size={14} />
+              <CircleQuestionMark onTouchEnd={handleTooltipClick} size={14} />
             </TooltipTrigger>
             <TooltipContent>
               <p>{tooltipText}</p>

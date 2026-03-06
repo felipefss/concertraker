@@ -30,6 +30,7 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
     [],
   );
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  console.log({ selectedArtist });
 
   const artists = useMemo(() => {
     if (
@@ -59,6 +60,7 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
         {label}
       </Label>
       <Combobox
+        inputValue={selectedArtist?.name}
         items={artists}
         itemToStringValue={(artist: Artist) => artist.name}
         onInputValueChange={(nextSearchValue: string) => {
@@ -82,7 +84,6 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
           className="col-span-3"
           placeholder={label}
           showClear
-          value={selectedArtist?.name}
           {...props}
         />
         <ComboboxContent>
