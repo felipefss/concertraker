@@ -3,7 +3,10 @@ import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 import { type NextRequest, NextResponse } from 'next/server';
 
-const isProtectedRoute = createRouteMatcher(['/concerts(.*)']);
+const isProtectedRoute = createRouteMatcher([
+  '/concerts(.*)',
+  '/:locale/concerts(.*)',
+]);
 
 const locales = ['en', 'pt-BR', 'es'];
 
