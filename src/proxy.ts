@@ -22,6 +22,13 @@ function getLocale(request: Request) {
   return match(languages, locales, defaultLocale);
 }
 
+function resolveLocale(req: NextRequest): string {
+  const cookieLocale = req.cookies.get('NEXT_LOCALE')?.value;
+  return locales.includes(cookieLocale || '')
+    ? (cookieLocale as string)
+    : getLocale(req);
+}
+
 function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -37,12 +44,8 @@ function proxy(request: NextRequest) {
   if (pathnameHasLocale) {
     return;
   }
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
-
   // Redirect if there is no locale
-  const locale = locales.includes(cookieLocale || '')
-    ? cookieLocale
-    : getLocale(request);
+  const locale = resolveLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
 }
@@ -50,6 +53,22 @@ function proxy(request: NextRequest) {
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
     await auth.protect();
+  }
+
+  // NEW: redirect authenticated users away from the landing page
+  const { userId } = await auth();
+  if (userId) {
+    const { pathname } = req.nextUrl;
+    const isRootPath =
+      pathname === '/' ||
+      locales.some((loc) => pathname === `/${loc}` || pathname === `/${loc}/`);
+
+    if (isRootPath) {
+      const locale = resolveLocale(req);
+      const url = req.nextUrl.clone();
+      url.pathname = `/${locale}/concerts`;
+      return NextResponse.redirect(url);
+    }
   }
 
   return proxy(req);
