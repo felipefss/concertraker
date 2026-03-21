@@ -55,7 +55,7 @@ export default clerkMiddleware(async (auth, req) => {
     await auth.protect();
   }
 
-  // NEW: redirect authenticated users away from the landing page
+  // Redirect authenticated users away from the landing page
   const { userId } = await auth();
   if (userId) {
     const { pathname } = req.nextUrl;
