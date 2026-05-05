@@ -11,7 +11,7 @@ import { user } from './user.sql';
 
 export const concert = pgTable('concerts', {
   artist: varchar().notNull(),
-  date: date(),
+  date: date().notNull(),
   id: serial().primaryKey(),
   location: varchar().notNull(),
   notes: text(),

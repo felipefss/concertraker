@@ -10,3 +10,4 @@ if (!process.env.DATABASE_URL) {
 
 const client = neon(process.env.DATABASE_URL);
 export const db = drizzle({ client, schema });
+export type DB = typeof db;

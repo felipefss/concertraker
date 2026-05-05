@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export type Concert = {
-  id: string;
+  id: number;
   artist: string;
-  venue: string;
+  venue: string | null;
   location: string;
   date: string;
-  notes: string;
+  notes: string | null;
 };
 
 export const formSchema = z.object({

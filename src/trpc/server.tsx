@@ -8,9 +8,9 @@ import {
 } from '@trpc/tanstack-react-query';
 import { headers } from 'next/headers';
 import { cache } from 'react';
+import { appRouter } from '@/trpc/root';
 import { createTRPCContext } from './init';
 import { makeQueryClient } from './query-client';
-import { appRouter } from './routers/_app';
 
 // IMPORTANT: Create a stable getter for the query client that
 //            will return the same client during the same request.

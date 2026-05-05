@@ -51,13 +51,13 @@ export function ConcertView({ concert }: Props) {
       <CardContent className="grid md:grid-cols-[1.5fr_.3fr_1.2fr] gap-2 md:*:even:col-start-3 md:*:last:col-span-3">
         <ConcertViewField label={cardDict.artist} value={artist} />
 
-        <ConcertViewField label={cardDict.venue} value={venue} />
+        <ConcertViewField label={cardDict.venue} value={venue ?? ''} />
 
         <ConcertViewField label={cardDict.location} value={location} />
 
         <ConcertViewField label={cardDict.date} value={formattedDate} />
 
-        <ConcertViewField label={cardDict.notes} value={notes} />
+        <ConcertViewField label={cardDict.notes} value={notes ?? ''} />
       </CardContent>
     </Card>
   );

@@ -1,0 +1,1 @@
+ALTER TABLE "concerts" ALTER COLUMN "date" SET NOT NULL;
