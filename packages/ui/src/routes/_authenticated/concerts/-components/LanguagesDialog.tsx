@@ -19,7 +19,9 @@ interface Props {
 }
 
 export function LanguagesDialog({ isOpen, onOpenChange }: Props) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation('translation', {
+    keyPrefix: 'restricted.languagesDialog',
+  });
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const enId = useId();
@@ -39,10 +41,8 @@ export function LanguagesDialog({ isOpen, onOpenChange }: Props) {
       <form>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Select a language</DialogTitle>
-            <DialogDescription>
-              Select a language to use in the application.
-            </DialogDescription>
+            <DialogTitle>{t('title')}</DialogTitle>
+            <DialogDescription>{t('description')}</DialogDescription>
           </DialogHeader>
 
           <RadioGroup
@@ -68,10 +68,10 @@ export function LanguagesDialog({ isOpen, onOpenChange }: Props) {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button>Cancel</Button>
+              <Button>{t('cancelButton')}</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button onClick={handleApplyChange}>Save</Button>
+              <Button onClick={handleApplyChange}>{t('saveButton')}</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

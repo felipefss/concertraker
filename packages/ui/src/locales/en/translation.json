@@ -22,6 +22,13 @@
     "concertsList": {
       "title": "My Concerts History",
       "addNewButton": "Add new",
+      "sortBy": "Sort by",
+      "sortOptions": {
+        "dateAsc": "Date (oldest first)",
+        "dateDesc": "Date (newest first)",
+        "artistAsc": "Artist (A-Z)",
+        "artistDesc": "Artist (Z-A)"
+      },
       "card": {
         "artist": "Artist",
         "venue": "Venue",
@@ -51,6 +58,15 @@
         "saveButton": "Save",
         "addButton": "Add"
       }
+    },
+    "languagesDialog": {
+      "title": "Select a language",
+      "description": "Select a language to use in the application.",
+      "cancelButton": "Cancel",
+      "saveButton": "Save"
+    },
+    "userMenu": {
+      "switchLanguage": "Switch language"
     }
   }
 }

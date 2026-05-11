@@ -1,30 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
+import { z } from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { queries } from '@/constants';
-import { useApi } from '@/hooks/useApi';
-import { ConcertDialog } from './-components/ConcertDialog';
 import { ConcertsList } from './-components/ConcertsList';
-import { LoadingSpinner } from './-components/LoadingSpinner';
-import { getConcerts } from './-queryFns/get-concerts';
+import { HeaderActions } from './-components/HeaderActions';
+
+const concertsSearchSchema = z.object({
+  order: z.enum(['asc', 'desc']).catch('asc'),
+  sortBy: z.enum(['artist', 'date']).catch('date'),
+  // TODO: Add filter schema or a search by artist (or both in one)
+});
 
 export const Route = createFileRoute('/_authenticated/concerts/')({
   component: RouteComponent,
+  validateSearch: (search) => concertsSearchSchema.parse(search),
 });
 
 function RouteComponent() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useTranslation('translation', {
     keyPrefix: 'restricted.concertsList',
-  });
-  const api = useApi();
-
-  const { data: concerts } = useQuery({
-    queryFn: () => getConcerts(api),
-    queryKey: [queries.GET_CONCERTS],
   });
 
   return (
@@ -33,16 +27,12 @@ function RouteComponent() {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <h1>{t('title')}</h1>
-            <ConcertDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <Button className="btn-teal-outline" variant="outline">
-                {t('addNewButton')}
-              </Button>
-            </ConcertDialog>
+            <HeaderActions />
           </CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {concerts ? <ConcertsList concerts={concerts} /> : <LoadingSpinner />}
+          <ConcertsList />
         </CardContent>
       </Card>
     </main>
