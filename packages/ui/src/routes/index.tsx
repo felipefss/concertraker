@@ -50,7 +50,7 @@ function Index() {
             </p>
             <div>
               <Button asChild className="btn-teal text-lg p-6" size="lg">
-                <Link to=".">
+                <Link to="/sign-in">
                   {t('getStartedButton')}
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
@@ -101,7 +101,7 @@ function Index() {
               {t('readyToStartSubtitle')}
             </p>
             <Button asChild className="btn-teal text-lg p-6" size="lg">
-              <Link to=".">
+              <Link to="/sign-up">
                 {t('createAccount')}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Link>
