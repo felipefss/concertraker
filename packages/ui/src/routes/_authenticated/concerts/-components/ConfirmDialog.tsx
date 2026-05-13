@@ -1,7 +1,7 @@
 import {
   type ConfirmDialogProps,
+  ContextAwareConfirmation,
   confirmable,
-  createConfirmation,
 } from 'react-confirm';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -45,4 +45,6 @@ function ConfirmDialog({
   );
 }
 
-export const confirm = createConfirmation(confirmable(ConfirmDialog));
+export const confirm = ContextAwareConfirmation.createConfirmation(
+  confirmable(ConfirmDialog),
+);
