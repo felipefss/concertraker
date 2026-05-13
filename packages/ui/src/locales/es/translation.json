@@ -22,6 +22,13 @@
     "concertsList": {
       "title": "Mi Historial de Conciertos",
       "addNewButton": "Añadir nuevo",
+      "sortBy": "Ordenar por",
+      "sortOptions": {
+        "dateAsc": "Fecha (más antigua)",
+        "dateDesc": "Fecha (más reciente)",
+        "artistAsc": "Artista (A-Z)",
+        "artistDesc": "Artista (Z-A)"
+      },
       "card": {
         "artist": "Artista",
         "venue": "Lugar",
@@ -49,6 +56,15 @@
         "saveButton": "Guardar",
         "addButton": "Añadir"
       }
+    },
+    "languagesDialog": {
+      "title": "Seleccionar un idioma",
+      "description": "Selecciona un idioma para usar en la aplicación.",
+      "cancelButton": "Cancelar",
+      "saveButton": "Guardar"
+    },
+    "userMenu": {
+      "switchLanguage": "Cambiar idioma"
     }
   }
 }

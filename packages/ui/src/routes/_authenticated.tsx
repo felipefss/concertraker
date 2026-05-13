@@ -2,6 +2,7 @@ import { UserButton } from '@clerk/clerk-react';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { LanguagesIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Header } from '@/components/Header';
 import { LanguagesDialog } from './_authenticated/concerts/-components/LanguagesDialog';
 
@@ -19,6 +20,10 @@ export const Route = createFileRoute('/_authenticated')({
 function RouteComponent() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const isScreenSmall = window.innerWidth < 640;
+
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'restricted.userMenu',
+  });
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -38,7 +43,7 @@ function RouteComponent() {
           >
             <UserButton.MenuItems>
               <UserButton.Action
-                label="Switch Language"
+                label={t('switchLanguage')}
                 labelIcon={<LanguagesIcon size={20} />}
                 onClick={handleOpenDialog}
               />
