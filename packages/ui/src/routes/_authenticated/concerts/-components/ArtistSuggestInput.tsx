@@ -57,11 +57,19 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
         {label}
       </Label>
       <Combobox
+        isItemEqualToValue={(itemValue: Artist, value: Artist) =>
+          itemValue.id === value.id
+        }
         items={artists}
+        itemToStringLabel={(artist: Artist) => artist.name}
         itemToStringValue={(artist: Artist) => artist.name}
-        onInputValueChange={(nextSearchValue: string) => {
+        onInputValueChange={(nextSearchValue: string, { reason }) => {
           if (nextSearchValue === '') {
             setArtistList([]);
+            return;
+          }
+
+          if (reason === 'item-press') {
             return;
           }
 
@@ -75,18 +83,20 @@ export function ArtistSuggestInput({ label, ...props }: Props) {
         onValueChange={(nextSelectedValue: Artist | null) => {
           setSelectedArtist(nextSelectedValue);
         }}
+        value={selectedArtist}
       >
         <ComboboxInput
           className="col-span-3"
           placeholder={label}
           showClear
+          value={selectedArtist?.name}
           {...props}
         />
         <ComboboxContent>
           <ComboboxEmpty>Nothing to be seen.</ComboboxEmpty>
           <ComboboxList className="z-[9999]">
             {(artist: Artist) => (
-              <ComboboxItem key={artist.id} value={artist.name}>
+              <ComboboxItem key={artist.id} value={artist}>
                 {artist.name}
               </ComboboxItem>
             )}
