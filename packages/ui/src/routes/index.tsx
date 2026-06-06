@@ -12,6 +12,10 @@ export const Route = createFileRoute('/')({
   beforeLoad: async ({ context }) => {
     if (context.auth?.isLoaded && context.auth.isSignedIn) {
       throw redirect({
+        search: {
+          order: 'asc',
+          sortBy: 'date',
+        },
         to: '/concerts',
       });
     }
