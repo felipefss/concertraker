@@ -38,6 +38,10 @@ export function ConcertsList() {
 
   return (
     <>
+      <h2>
+        <span className="font-medium">Total: </span>
+        {sortedConcerts.length}
+      </h2>
       {sortedConcerts.map((concert) => (
         <ConcertView concert={concert} key={concert.id} />
       ))}
